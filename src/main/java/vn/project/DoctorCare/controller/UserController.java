@@ -2,8 +2,10 @@ package vn.project.DoctorCare.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
 import vn.project.DoctorCare.domain.User;
 import vn.project.DoctorCare.service.UserService;
+import vn.project.DoctorCare.util.annotation.ApiMessage;
 
 import java.util.List;
 
@@ -29,6 +31,7 @@ public class UserController {
     }
 
     @GetMapping("/users")
+    @ApiMessage("get all user")
     public ResponseEntity<List<User>> getAllUser() {
 
         List<User> user = this.userService.fetchAllUser();
@@ -36,6 +39,7 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}")
+    @ApiMessage("get user by id")
     public ResponseEntity<User> getUserById(@PathVariable("id") long id) {
 
         User user = this.userService.fetchUserById(id);
@@ -43,13 +47,15 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<User> addUser(@RequestBody User user) {
+    @ApiMessage("add user")
+    public ResponseEntity<User> addUser(@Valid @RequestBody User user) {
 
         User currentUser = this.userService.handleAddUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(currentUser);
     }
 
     @PutMapping("/users")
+    @ApiMessage("update user")
     public ResponseEntity<User> updateUser(@RequestBody User user) {
 
         User currentUser = this.userService.handleUpdateUser(user);
@@ -57,6 +63,7 @@ public class UserController {
     }
 
     @DeleteMapping("/users/{id}")
+    @ApiMessage("delete user")
     public ResponseEntity<Void> deleteUser(@PathVariable("id") long id) {
 
         return ResponseEntity.status(HttpStatus.OK).body(null);
