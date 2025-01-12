@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,9 +26,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class UserController {
 
     private UserService userService;
+    private PasswordEncoder passwordEncoder;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/users")
@@ -48,10 +51,14 @@ public class UserController {
 
     @PostMapping("/users")
     @ApiMessage("add user")
-    public ResponseEntity<User> addUser(@Valid @RequestBody User user) {
+    public ResponseEntity<User> addUser(@Valid @RequestBody User reqUser) {
 
-        User currentUser = this.userService.handleAddUser(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(currentUser);
+        // hash password
+        String hashPassword = this.passwordEncoder.encode(reqUser.getPassword());
+        reqUser.setPassword(hashPassword);
+
+        User user = this.userService.handleAddUser(reqUser);
+        return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
     @PutMapping("/users")
