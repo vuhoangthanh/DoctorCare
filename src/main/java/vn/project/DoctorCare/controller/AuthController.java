@@ -3,7 +3,11 @@ package vn.project.DoctorCare.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
+import vn.project.DoctorCare.domain.User;
 import vn.project.DoctorCare.domain.dto.LoginDTO;
+import vn.project.DoctorCare.domain.dto.ResLoginDTO;
+import vn.project.DoctorCare.service.UserService;
+import vn.project.DoctorCare.util.SecurityUtil;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,14 +23,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/api/v1")
 public class AuthController {
 
-    private AuthenticationManagerBuilder authenticationManagerBuilder;
+    private final AuthenticationManagerBuilder authenticationManagerBuilder;
+    private final SecurityUtil securityUtil;
+    private final UserService userService;
 
-    public AuthController(AuthenticationManagerBuilder authenticationManagerBuilder) {
+    public AuthController(AuthenticationManagerBuilder authenticationManagerBuilder, SecurityUtil securityUtil,
+            UserService userService) {
         this.authenticationManagerBuilder = authenticationManagerBuilder;
+        this.securityUtil = securityUtil;
+        this.userService = userService;
     }
 
     @PostMapping("/auth/login")
-    public ResponseEntity<LoginDTO> postMethodName(@Valid @RequestBody LoginDTO loginDto) {
+    public ResponseEntity<ResLoginDTO> postMethodName(@Valid @RequestBody LoginDTO loginDto) {
 
         // Nạp input gồm user/password vào Security
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
@@ -39,6 +48,21 @@ public class AuthController {
         // set info to securityContext
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(loginDto);
+        // format form output
+        ResLoginDTO res = new ResLoginDTO();
+        User currentUserDB = this.userService.handleGetUserByUsername(authentication.getName());
+        if (currentUserDB != null) {
+            ResLoginDTO.UserLogin userLogin = new ResLoginDTO.UserLogin(
+                    currentUserDB.getId(),
+                    currentUserDB.getName(),
+                    currentUserDB.getEmail());
+            res.setUser(userLogin);
+        }
+
+        // createToken
+        String access_token = this.securityUtil.createAccessToken(authentication);
+        res.setAccessToken(access_token);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(res);
     }
 }
