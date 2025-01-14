@@ -2,13 +2,21 @@ package vn.project.DoctorCare.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.turkraft.springfilter.boot.Filter;
+
 import jakarta.validation.Valid;
 import vn.project.DoctorCare.domain.User;
+import vn.project.DoctorCare.domain.dto.ResultPaginationDTO;
 import vn.project.DoctorCare.service.UserService;
 import vn.project.DoctorCare.util.annotation.ApiMessage;
+import vn.project.DoctorCare.util.error.IdInvalidException;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -35,9 +43,18 @@ public class UserController {
 
     @GetMapping("/users")
     @ApiMessage("get all user")
-    public ResponseEntity<List<User>> getAllUser() {
+    public ResponseEntity<ResultPaginationDTO> getAllUser(
+            @Filter Specification<User> spec,
+            Pageable pageable) {
 
-        List<User> user = this.userService.fetchAllUser();
+        // String sPage = pageOptional.isPresent() ? pageOptional.get() : "";
+        // String sSize = sizeOptional.isPresent() ? sizeOptional.get() : "";
+        // int page = Integer.parseInt(sPage);
+        // int size = Integer.parseInt(sSize);
+
+        // Pageable pageable = PageRequest.of(page - 1, size);
+
+        ResultPaginationDTO user = this.userService.fetchAllUser(spec, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
@@ -51,7 +68,13 @@ public class UserController {
 
     @PostMapping("/users")
     @ApiMessage("add user")
-    public ResponseEntity<User> addUser(@Valid @RequestBody User reqUser) {
+    public ResponseEntity<User> addUser(@Valid @RequestBody User reqUser) throws IdInvalidException {
+
+        boolean isEmailExist = this.userService.isEmailExist(reqUser.getEmail());
+        if (isEmailExist) {
+            throw new IdInvalidException(
+                    "Email " + reqUser.getEmail() + " đã tồn tại, vui lòng sử dụng email khác");
+        }
 
         // hash password
         String hashPassword = this.passwordEncoder.encode(reqUser.getPassword());
@@ -63,7 +86,7 @@ public class UserController {
 
     @PutMapping("/users")
     @ApiMessage("update user")
-    public ResponseEntity<User> updateUser(@RequestBody User user) {
+    public ResponseEntity<User> updateUser(@Valid @RequestBody User user) {
 
         User currentUser = this.userService.handleUpdateUser(user);
         return ResponseEntity.status(HttpStatus.OK).body(currentUser);

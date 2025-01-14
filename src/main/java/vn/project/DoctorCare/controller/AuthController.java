@@ -8,6 +8,7 @@ import vn.project.DoctorCare.domain.dto.LoginDTO;
 import vn.project.DoctorCare.domain.dto.ResLoginDTO;
 import vn.project.DoctorCare.service.UserService;
 import vn.project.DoctorCare.util.SecurityUtil;
+import vn.project.DoctorCare.util.annotation.ApiMessage;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,7 @@ public class AuthController {
     }
 
     @PostMapping("/auth/login")
+    @ApiMessage("login")
     public ResponseEntity<ResLoginDTO> postMethodName(@Valid @RequestBody LoginDTO loginDto) {
 
         // Nạp input gồm user/password vào Security
