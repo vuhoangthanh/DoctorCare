@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import vn.project.DoctorCare.domain.User;
 import vn.project.DoctorCare.domain.dto.Meta;
+import vn.project.DoctorCare.domain.dto.ResCreateUserDTO;
+import vn.project.DoctorCare.domain.dto.ResUpdateUserDTO;
 import vn.project.DoctorCare.domain.dto.ResultPaginationDTO;
 import vn.project.DoctorCare.repository.UserRepository;
 
@@ -81,5 +83,53 @@ public class UserService {
 
     public boolean isEmailExist(String email) {
         return this.userRepository.existsByEmail(email);
+    }
+
+    public ResUpdateUserDTO convertToResUpdateUserDTO(User user) {
+        ResUpdateUserDTO res = new ResUpdateUserDTO();
+
+        res.setId(user.getId());
+        res.setAddress(user.getAddress());
+        res.setAvatar(user.getAvatar());
+        res.setGender(user.getGender());
+        res.setDescription(user.getDescription());
+        res.setName(user.getName());
+        res.setPhone(user.getPhone());
+        res.setRoleId(user.getRoleId());
+        res.setIsActive(user.getIsActive());
+        res.setUpdatedAt(user.getUpdatedAt());
+        res.setUpdatedBy(user.getUpdatedBy());
+
+        return res;
+    }
+
+    public ResCreateUserDTO convertToResCreateUserDTO(User user) {
+        ResCreateUserDTO res = new ResCreateUserDTO();
+
+        res.setId(user.getId());
+        res.setEmail(user.getEmail());
+        res.setAddress(user.getAddress());
+        res.setAvatar(user.getAvatar());
+        res.setGender(user.getGender());
+        res.setDescription(user.getDescription());
+        res.setName(user.getName());
+        res.setPhone(user.getPhone());
+        res.setRoleId(user.getRoleId());
+        res.setIsActive(user.getIsActive());
+        res.setCreatedAt(user.getCreatedAt());
+
+        return res;
+    }
+
+    public void updateUserToken(String token, String email) {
+        User currentUser = this.handleGetUserByUsername(email);
+        if (currentUser != null) {
+            currentUser.setRefreshToken(token);
+            this.userRepository.save(currentUser);
+        }
+    }
+
+    public User getUserByRefreshTokenAndEmail(String token, String email) {
+        return this.userRepository.findByRefreshTokenAndEmail(token, email);
     }
 }

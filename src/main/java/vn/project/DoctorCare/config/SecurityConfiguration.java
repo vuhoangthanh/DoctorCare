@@ -43,24 +43,24 @@ public class SecurityConfiguration {
         public SecurityFilterChain filterChain(HttpSecurity http,
                         CustomAuthenticationEntryPoint customAuthenticationEntryPoint) throws Exception {
                 http
-                                .csrf(csrf -> csrf.disable())
+                                .csrf(c -> c.disable())
+                                .cors(Customizer.withDefaults())
                                 .authorizeHttpRequests(
                                                 authz -> authz
-                                                                .requestMatchers("/", "/api/v1/auth/login").permitAll()
+                                                                .requestMatchers("/", "/api/v1/auth/login",
+                                                                                "/api/v1/auth/refresh", "/api/v1/users")
+                                                                .permitAll()
                                                                 .anyRequest().authenticated())
-                                // exception jwt
-                                .exceptionHandling(
-                                                exceptions -> exceptions
-                                                                .authenticationEntryPoint(
-                                                                                new BearerTokenAuthenticationEntryPoint()) // 401
-                                                                .accessDeniedHandler(
-                                                                                new BearerTokenAccessDeniedHandler())) // 403
-                                // config return body when exception jwt
                                 .oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults())
                                                 .authenticationEntryPoint(customAuthenticationEntryPoint))
+                                // .exceptionHandling(
+                                // exceptions -> exceptions
+                                // .authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint()) // 401
+                                // .accessDeniedHandler(new BearerTokenAccessDeniedHandler())) // 403
                                 .formLogin(f -> f.disable())
                                 .sessionManagement(session -> session
                                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
                 return http.build();
         }
 
@@ -99,5 +99,4 @@ public class SecurityConfiguration {
                 byte[] keyBytes = Base64.from(jwtKey).decode();
                 return new SecretKeySpec(keyBytes, 0, keyBytes.length, SecurityUtil.JWT_ALGORITHM.getName());
         }
-
 }

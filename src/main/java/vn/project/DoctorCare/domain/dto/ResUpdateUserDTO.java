@@ -1,68 +1,28 @@
-package vn.project.DoctorCare.domain;
+package vn.project.DoctorCare.domain.dto;
 
 import java.time.Instant;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
-import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import vn.project.DoctorCare.util.SecurityUtil;
 import vn.project.DoctorCare.util.constant.GenderEnum;
 
-@Entity
-@Table(name = "users")
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ResUpdateUserDTO {
     private long id;
-
-    @NotBlank(message = "Tên không được để trống")
     private String name;
-
-    @NotBlank(message = "email không được để trống!")
-    private String email;
-
-    // @NotBlank(message = "password không được để trống!")
-    private String password;
-
-    @Enumerated(EnumType.STRING)
     private GenderEnum gender;
-
-    // @NotBlank(message = "phone không được để trống!")
     private int phone;
     private String address;
-
     private String avatar;
-
-    @Column(columnDefinition = "MEDIUMTEXT")
     private String description;
-
-    @Column(columnDefinition = "TINYINT")
     private int isActive;
-
-    @Column(columnDefinition = "MEDIUMTEXT")
-    private String refreshToken;
-
     private long roleId;
-    private Instant createdAt;
     private Instant updatedAt;
-    private String createdBy;
     private String updatedBy;
-
-    @PrePersist
-    public void handleBeforeCreateAt() {
-        this.createdBy = SecurityUtil.getCurrentUserLogin().isPresent() == true
-                ? SecurityUtil.getCurrentUserLogin().get()
-                : "";
-        this.createdAt = Instant.now();
-    }
 
     @PreUpdate
     public void handleAfterUpdateAt() {
@@ -86,22 +46,6 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public GenderEnum getGender() {
@@ -144,12 +88,12 @@ public class User {
         this.description = description;
     }
 
-    public String getRefreshToken() {
-        return refreshToken;
+    public int getIsActive() {
+        return isActive;
     }
 
-    public void setRefreshToken(String refreshToken) {
-        this.refreshToken = refreshToken;
+    public void setIsActive(int isActive) {
+        this.isActive = isActive;
     }
 
     public long getRoleId() {
@@ -160,14 +104,6 @@ public class User {
         this.roleId = roleId;
     }
 
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
-    }
-
     public Instant getUpdatedAt() {
         return updatedAt;
     }
@@ -176,28 +112,12 @@ public class User {
         this.updatedAt = updatedAt;
     }
 
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
     public String getUpdatedBy() {
         return updatedBy;
     }
 
     public void setUpdatedBy(String updatedBy) {
         this.updatedBy = updatedBy;
-    }
-
-    public int getIsActive() {
-        return isActive;
-    }
-
-    public void setIsActive(int isActive) {
-        this.isActive = isActive;
     }
 
 }

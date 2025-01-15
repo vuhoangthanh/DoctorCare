@@ -1,4 +1,4 @@
-package vn.project.DoctorCare.domain.dto;
+package vn.project.DoctorCare.domain;
 
 public class RestResponse<T> {
     private int statusCode;
