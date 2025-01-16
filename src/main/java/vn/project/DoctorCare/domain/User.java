@@ -35,6 +35,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     private GenderEnum gender;
 
+    private String age;
+
     // @NotBlank(message = "phone không được để trống!")
     private int phone;
     private String address;
@@ -198,6 +200,14 @@ public class User {
 
     public void setIsActive(int isActive) {
         this.isActive = isActive;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
     }
 
 }

@@ -15,6 +15,7 @@ public class ResUpdateUserDTO {
     private long id;
     private String name;
     private GenderEnum gender;
+    private String age;
     private int phone;
     private String address;
     private String avatar;
@@ -118,6 +119,14 @@ public class ResUpdateUserDTO {
 
     public void setUpdatedBy(String updatedBy) {
         this.updatedBy = updatedBy;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
     }
 
 }

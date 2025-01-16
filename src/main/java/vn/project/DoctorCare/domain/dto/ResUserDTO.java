@@ -2,13 +2,12 @@ package vn.project.DoctorCare.domain.dto;
 
 import java.time.Instant;
 
-import jakarta.persistence.PrePersist;
 import vn.project.DoctorCare.util.constant.GenderEnum;
 
-public class ResCreateUserDTO {
+public class ResUserDTO {
     private long id;
-    private String email;
     private String name;
+    private String email;
     private GenderEnum gender;
     private String age;
     private int phone;
@@ -18,11 +17,8 @@ public class ResCreateUserDTO {
     private int isActive;
     private long roleId;
     private Instant createdAt;
-
-    @PrePersist
-    public void handleBeforeCreateAt() {
-        this.createdAt = Instant.now();
-    }
+    private Instant updatedAt;
+    private String updatedBy;
 
     public long getId() {
         return id;
@@ -32,20 +28,20 @@ public class ResCreateUserDTO {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public GenderEnum getGender() {
@@ -110,6 +106,22 @@ public class ResCreateUserDTO {
 
     public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Instant updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
     }
 
     public String getAge() {

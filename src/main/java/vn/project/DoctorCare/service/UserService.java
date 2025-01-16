@@ -13,6 +13,7 @@ import vn.project.DoctorCare.domain.User;
 import vn.project.DoctorCare.domain.dto.Meta;
 import vn.project.DoctorCare.domain.dto.ResCreateUserDTO;
 import vn.project.DoctorCare.domain.dto.ResUpdateUserDTO;
+import vn.project.DoctorCare.domain.dto.ResUserDTO;
 import vn.project.DoctorCare.domain.dto.ResultPaginationDTO;
 import vn.project.DoctorCare.repository.UserRepository;
 
@@ -38,7 +39,32 @@ public class UserService {
         meta.setTotal(pageUser.getTotalElements());
 
         resultPaginationDTO.setMeta(meta);
-        resultPaginationDTO.setResult(listUser);
+
+        // remove sensitive data
+        List<ResUserDTO> listResUserDTOs = new ArrayList<ResUserDTO>();
+
+        for (User user : listUser) {
+            ResUserDTO resUserDTO = new ResUserDTO();
+
+            resUserDTO.setId(user.getId());
+            resUserDTO.setName(user.getName());
+            resUserDTO.setName(user.getName());
+            resUserDTO.setAvatar(user.getAvatar());
+            resUserDTO.setGender(user.getGender());
+            resUserDTO.setAge(user.getAge());
+            resUserDTO.setAddress(user.getAddress());
+            resUserDTO.setDescription(user.getDescription());
+            resUserDTO.setPhone(user.getPhone());
+            resUserDTO.setIsActive(user.getIsActive());
+            resUserDTO.setRoleId(user.getRoleId());
+            resUserDTO.setCreatedAt(user.getCreatedAt());
+            resUserDTO.setUpdatedAt(user.getUpdatedAt());
+            resUserDTO.setUpdatedBy(user.getUpdatedBy());
+
+            listResUserDTOs.add(resUserDTO);
+        }
+
+        resultPaginationDTO.setResult(listResUserDTOs);
 
         return resultPaginationDTO;
     }
@@ -61,6 +87,7 @@ public class UserService {
             currentUser.setName(user.getName());
             currentUser.setEmail(user.getEmail());
             currentUser.setGender(user.getGender());
+            currentUser.setAge(user.getAge());
             currentUser.setPhone(user.getPhone());
             currentUser.setAddress(user.getAddress());
             currentUser.setAvatar(user.getAvatar());
@@ -92,6 +119,7 @@ public class UserService {
         res.setAddress(user.getAddress());
         res.setAvatar(user.getAvatar());
         res.setGender(user.getGender());
+        res.setAge(user.getAge());
         res.setDescription(user.getDescription());
         res.setName(user.getName());
         res.setPhone(user.getPhone());
@@ -110,6 +138,7 @@ public class UserService {
         res.setEmail(user.getEmail());
         res.setAddress(user.getAddress());
         res.setAvatar(user.getAvatar());
+        res.setAge(user.getAge());
         res.setGender(user.getGender());
         res.setDescription(user.getDescription());
         res.setName(user.getName());

@@ -43,6 +43,25 @@ public class ResLoginDTO {
         }
     }
 
+    public static class UserGetAccount {
+        private UserLogin user;
+
+        public UserGetAccount() {
+        }
+
+        public UserGetAccount(UserLogin user) {
+            this.user = user;
+        }
+
+        public UserLogin getUser() {
+            return user;
+        }
+
+        public void setUser(UserLogin user) {
+            this.user = user;
+        }
+    }
+
     public String getAccessToken() {
         return accessToken;
     }
