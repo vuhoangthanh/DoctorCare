@@ -47,7 +47,7 @@ public class UserService {
             ResUserDTO resUserDTO = new ResUserDTO();
 
             resUserDTO.setId(user.getId());
-            resUserDTO.setName(user.getName());
+            resUserDTO.setEmail(user.getEmail());
             resUserDTO.setName(user.getName());
             resUserDTO.setAvatar(user.getAvatar());
             resUserDTO.setGender(user.getGender());
