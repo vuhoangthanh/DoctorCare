@@ -8,13 +8,23 @@ const instance = axios.create({
 });
 
 
+// instance.interceptors.response.use(
+//     (response) => {
 
+//         const { data } = response;
+//         return response.data;
+//     })
+
+// Interceptor xử lý response
 instance.interceptors.response.use(
-    (response) => {
-
-        const { data } = response;
-        return response.data;
-    })
-
+    response => response.data, // Luôn trả về dữ liệu từ response
+    error => {
+        return error.response ? error.response.data : {
+            statusCode: 200,
+            message: 'Lỗi không xác định',
+            error: error.message
+        };
+    }
+);
 
 export default instance;
