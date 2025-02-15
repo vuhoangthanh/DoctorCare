@@ -83,7 +83,7 @@ public class UserController {
         reqUser.setPassword(hashPassword);
 
         User user = this.userService.handleAddUser(reqUser);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(this.userService.convertToResCreateUserDTO(user));
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.userService.convertToResCreateUserDTO(user));
     }
 
     @PutMapping("/users")
@@ -103,6 +103,7 @@ public class UserController {
         if (this.userService.fetchUserById(id) == null) {
             throw new IdInvalidException("User với id = " + id + " không tồn tại!");
         }
+        this.userService.handleDeleteUser(id);
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 }
