@@ -64,18 +64,37 @@
 
             .language-vi {
                 cursor: pointer;
+                opacity: 0.2;
 
                 &.active {
-                    color: orange;
+                    opacity: 1;
+
+                    span {
+                        color: red;
+                    }
+
+                }
+
+                &:hover {
+                    opacity: 0.8;
                 }
             }
 
             .language-en {
                 margin: 0 10px;
                 cursor: pointer;
+                opacity: 0.2;
 
                 &.active {
-                    color: blue;
+                    opacity: 1;
+
+                    span {
+                        color: blue;
+                    }
+                }
+
+                &:hover {
+                    opacity: 0.8;
                 }
             }
         }
@@ -94,7 +113,7 @@
     .content-up {
         padding-top: 40px;
         height: 65%;
-        background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(225, 225, 225, 0.1));
+        background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(238, 237, 237, 0.1));
 
         .title1 {
             text-align: center;
@@ -147,10 +166,11 @@
 
     .content-down {
         height: 35%;
+        padding-bottom: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
-        background: linear-gradient(rgba(255, 255, 255, 0.11), rgba(225, 225, 225, 0.9), rgba(225, 225, 225, 1));
+        background: linear-gradient(rgba(255, 255, 255, 0.11), rgba(238, 238, 238, 0.9), rgb(242, 241, 241));
 
         .options {
             text-align: center;

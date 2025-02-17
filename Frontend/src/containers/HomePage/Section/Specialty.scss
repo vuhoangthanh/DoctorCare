@@ -1,0 +1,119 @@
+.section-specialty {
+    height: 330px;
+    background-color: #f1f6ff;
+
+    .specialty-container {
+        margin: 0 170px;
+        display: flex;
+        flex-direction: column;
+
+        .specialty-header {
+            margin-bottom: 30px;
+            padding-top: 30px;
+
+            .title-section {
+                font-size: 30px;
+                font-weight: 700;
+                font-family: Mulish, sans-serif;
+
+                .highlight {
+                    color: #06adef;
+                }
+            }
+
+            .btn-section {
+                float: right;
+                padding: 10px 15px;
+                border: none;
+                outline: none;
+                display: block;
+                cursor: pointer;
+                background-color: #06adef;
+                border-radius: 50px;
+                font-family: Mulish, sans-serif;
+                outline: 0;
+                color: white;
+                min-height: 45px;
+                font-weight: 700;
+                width: 200px;
+
+                &:hover {
+                    background-color: #039edb;
+
+                }
+            }
+        }
+
+        .specialty-body {
+
+            .specialty-customize {
+                padding: 5px;
+                border: 1px solid green;
+
+                .bg-image {
+                    background: url('../../../assets/specialty/specialty.jpg');
+                    background-position: center center;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    height: 150px;
+                    width: 278px;
+                    border-radius: 16px;
+                    box-shadow: 0 0 2px 0.5px grey;
+                }
+            }
+
+            img {
+                size: cover;
+            }
+
+            .img-customize {
+                border: 1px solid black;
+            }
+
+            //reset slick-slider css
+
+            .slick-prev {
+                left: -30px !important;
+                z-index: 1000 !important;
+                height: 50px !important;
+                width: 50px !important;
+                background-color: #f1f6ff !important;
+                border-radius: 50% !important;
+
+                &:hover {
+                    background-color: #0b7ae1 !important;
+                }
+            }
+
+            .slick-prev::before,
+            .slick-next::before {
+                font-family: FontAwesome !important;
+                color: #039edb;
+
+                &:hover {
+                    color: white;
+                }
+            }
+
+            .slick-next {
+                right: -20px !important;
+                z-index: 1000 !important;
+                height: 50px !important;
+                width: 50px !important;
+                background-color: #f1f6ff !important;
+                border-radius: 50% !important;
+
+                &:hover {
+                    background-color: #0b7ae1 !important;
+                }
+            }
+        }
+    }
+
+
+
+    h3 {
+        border: 1px solid green;
+    }
+
+}
