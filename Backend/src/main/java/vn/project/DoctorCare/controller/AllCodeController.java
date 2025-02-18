@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import vn.project.DoctorCare.domain.AllCode;
 import vn.project.DoctorCare.service.AllCodeService;
 import vn.project.DoctorCare.util.annotation.ApiMessage;
+import vn.project.DoctorCare.util.error.IdInvalidException;
 
 import java.util.List;
 
@@ -27,7 +28,11 @@ public class AllCodeController {
 
     @GetMapping("/allcodes")
     @ApiMessage("fetch allCode by type")
-    public ResponseEntity<List<AllCode>> getAllCode(@Valid @RequestBody AllCode reqAllCode) {
+    public ResponseEntity<?> getAllCode(@RequestBody(required = false) AllCode reqAllCode) throws IdInvalidException {
+        // Kiểm tra nếu request body rỗng
+        if (reqAllCode == null || reqAllCode.getKeyCode() == null) {
+            throw new IdInvalidException("need type to fetch allcode");
+        }
 
         List<AllCode> allCode = this.allCodeService.fetchAllCodeByType(reqAllCode.getType());
         return ResponseEntity.status(HttpStatus.OK).body(allCode);
