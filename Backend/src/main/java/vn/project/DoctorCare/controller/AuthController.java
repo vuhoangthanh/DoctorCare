@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 import vn.project.DoctorCare.domain.User;
-import vn.project.DoctorCare.domain.dto.LoginDTO;
+import vn.project.DoctorCare.domain.dto.ReqLoginDTO;
 import vn.project.DoctorCare.domain.dto.ResLoginDTO;
 import vn.project.DoctorCare.domain.dto.test;
 import vn.project.DoctorCare.service.UserService;
@@ -48,7 +48,7 @@ public class AuthController {
         }
 
         @PostMapping("/auth/login")
-        public ResponseEntity<ResLoginDTO> login(@Valid @RequestBody LoginDTO loginDto) {
+        public ResponseEntity<ResLoginDTO> login(@Valid @RequestBody ReqLoginDTO loginDto) {
 
                 // Nạp input gồm user/password vào Security
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
