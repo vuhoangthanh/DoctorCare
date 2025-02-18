@@ -1,0 +1,213 @@
+.slick-prev {
+    left: -30px !important;
+    z-index: 1000 !important;
+    height: 50px !important;
+    width: 50px !important;
+    background-color: #f1f6ff !important;
+    border-radius: 50% !important;
+
+    &:hover {
+        background-color: #0b7ae1 !important;
+    }
+}
+
+.slick-prev::before,
+.slick-next::before {
+    font-family: FontAwesome !important;
+    color: #039edb;
+
+    &:hover {
+        color: white;
+    }
+}
+
+.slick-next {
+    right: -20px !important;
+    z-index: 1000 !important;
+    height: 50px !important;
+    width: 50px !important;
+    background-color: #f1f6ff !important;
+    border-radius: 50% !important;
+
+    &:hover {
+        background-color: #0b7ae1 !important;
+    }
+}
+
+.section-share {
+    &.section-specialty {
+        background: white;
+    }
+
+    &.section-medical-facility {
+        background: #f1f6ff;
+    }
+
+    &.section-outstanding-doctor {
+        background: white;
+    }
+
+    &.section-about {
+        height: 500px !important;
+        background: white;
+        border-top: 1px solid #f5f5f5;
+        border-bottom: 1px solid #f5f5f5;
+    }
+
+    background-color: #f1f6ff;
+
+    .section-body {
+
+        .section-customize {
+            padding: 5px;
+            // border: 1px solid green;
+
+            .bg-image {
+                background-position: center center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                height: 150px;
+                width: 278px;
+                border-radius: 16px;
+                box-shadow: 0 0 2px 0.5px grey;
+
+                &.section-specialty {
+                    background-image: url('../../assets/specialty/specialty.jpg');
+                }
+
+                &.section-medical-facility {
+                    background-image: url('../../assets/specialty/2.0d3ca705.png');
+                }
+
+                &.section-outstanding-doctor {
+                    background-image: url('../../assets/outstanding-doctor/doctor.webp');
+                    width: 110px;
+                    height: 110px;
+                    border-radius: 50%;
+                }
+
+                &.section-handbook {
+                    background-image: url('../../assets/handbook/handbook.webp');
+                }
+            }
+        }
+
+        img {
+            size: cover;
+        }
+
+        .img-customize {
+            border: 1px solid black;
+        }
+    }
+}
+
+.section-share {
+    height: 330px;
+
+
+    .section-container {
+        margin: 0 170px;
+        display: flex;
+        flex-direction: column;
+
+        .section-header {
+            margin-bottom: 30px;
+            padding-top: 30px;
+
+            .title-section {
+                font-size: 30px;
+                font-weight: 700;
+                font-family: Mulish, sans-serif;
+
+                .highlight {
+                    color: #06adef;
+                }
+            }
+
+            .btn-section {
+                float: right;
+                padding: 10px 15px;
+                border: none;
+                outline: none;
+                display: block;
+                cursor: pointer;
+                background-color: #06adef;
+                border-radius: 50px;
+                font-family: Mulish, sans-serif;
+                outline: 0;
+                color: white;
+                min-height: 45px;
+                font-weight: 700;
+                width: 200px;
+
+                &:hover {
+                    background-color: #039edb;
+
+                }
+            }
+        }
+    }
+
+
+    h3 {
+        border: 1px solid green;
+    }
+
+}
+
+.section-outstanding-doctor {
+    .section-customize {
+        padding: 5px;
+
+        .customize-border {
+            border: 1px solid grey;
+            padding: 10px;
+
+            .outer-bg {
+                display: flex;
+                justify-content: center;
+                margin-bottom: 10px;
+            }
+        }
+    }
+}
+
+.home-footer {
+    text-align: center;
+    padding-top: 8px;
+
+    a {
+        text-decoration: unset;
+    }
+}
+
+.section-about {
+    padding: 0 100px;
+
+    .section-about-content {
+        display: flex;
+        gap: 15px;
+        width: 100%;
+
+        .content-left {
+            width: 60%;
+        }
+
+        .content-right {
+            width: 40%;
+
+            p {
+                text-align: justify;
+                font-style: italic;
+                padding: 15px;
+            }
+        }
+    }
+
+    .section-about-header {
+        padding: 20px 10px;
+        font-size: 22px;
+        font-weight: 600
+    }
+}
