@@ -1,4 +1,4 @@
-package vn.project.DoctorCare.domain.dto;
+package vn.project.DoctorCare.domain.request;
 
 import jakarta.validation.constraints.NotBlank;
 

@@ -4,9 +4,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 import vn.project.DoctorCare.domain.User;
-import vn.project.DoctorCare.domain.dto.ReqLoginDTO;
 import vn.project.DoctorCare.domain.dto.ResLoginDTO;
 import vn.project.DoctorCare.domain.dto.test;
+import vn.project.DoctorCare.domain.request.ReqLoginDTO;
 import vn.project.DoctorCare.service.UserService;
 import vn.project.DoctorCare.util.SecurityUtil;
 import vn.project.DoctorCare.util.annotation.ApiMessage;
