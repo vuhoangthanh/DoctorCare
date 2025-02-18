@@ -6,7 +6,6 @@ import jakarta.validation.Valid;
 import vn.project.DoctorCare.domain.User;
 import vn.project.DoctorCare.domain.request.ReqLoginDTO;
 import vn.project.DoctorCare.domain.response.ResLoginDTO;
-import vn.project.DoctorCare.domain.response.test;
 import vn.project.DoctorCare.service.UserService;
 import vn.project.DoctorCare.util.SecurityUtil;
 import vn.project.DoctorCare.util.annotation.ApiMessage;
@@ -73,10 +72,7 @@ public class AuthController {
                                         currentUserDB.getEmail());
                         res.setUser(userLogin);
                 }
-                test te = new test(
-                                currentUserDB.getId(),
-                                currentUserDB.getName(),
-                                currentUserDB.getEmail());
+
                 // create access token
                 String access_token = this.securityUtil.createAccessToken(authentication.getName(), res.getUser());
                 res.setAccessToken(access_token);
