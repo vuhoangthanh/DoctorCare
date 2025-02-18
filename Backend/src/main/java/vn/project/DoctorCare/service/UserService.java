@@ -10,10 +10,10 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import vn.project.DoctorCare.domain.User;
-import vn.project.DoctorCare.domain.dto.ResCreateUserDTO;
-import vn.project.DoctorCare.domain.dto.ResUpdateUserDTO;
-import vn.project.DoctorCare.domain.dto.ResUserDTO;
-import vn.project.DoctorCare.domain.dto.ResultPaginationDTO;
+import vn.project.DoctorCare.domain.response.ResCreateUserDTO;
+import vn.project.DoctorCare.domain.response.ResUpdateUserDTO;
+import vn.project.DoctorCare.domain.response.ResUserDTO;
+import vn.project.DoctorCare.domain.response.ResultPaginationDTO;
 import vn.project.DoctorCare.repository.UserRepository;
 
 @Service

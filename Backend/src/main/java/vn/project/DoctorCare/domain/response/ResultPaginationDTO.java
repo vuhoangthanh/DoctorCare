@@ -1,4 +1,4 @@
-package vn.project.DoctorCare.domain.dto;
+package vn.project.DoctorCare.domain.response;
 
 public class ResultPaginationDTO {
     private Meta meta;
