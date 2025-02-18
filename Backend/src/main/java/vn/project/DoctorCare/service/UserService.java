@@ -10,7 +10,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import vn.project.DoctorCare.domain.User;
-import vn.project.DoctorCare.domain.dto.Meta;
 import vn.project.DoctorCare.domain.dto.ResCreateUserDTO;
 import vn.project.DoctorCare.domain.dto.ResUpdateUserDTO;
 import vn.project.DoctorCare.domain.dto.ResUserDTO;
@@ -31,7 +30,7 @@ public class UserService {
         List<User> listUser = pageUser.getContent();
 
         ResultPaginationDTO resultPaginationDTO = new ResultPaginationDTO();
-        Meta meta = new Meta();
+        ResultPaginationDTO.Meta meta = new ResultPaginationDTO.Meta();
 
         meta.setPage(pageable.getPageNumber());
         meta.setPageSize(pageable.getPageSize());
