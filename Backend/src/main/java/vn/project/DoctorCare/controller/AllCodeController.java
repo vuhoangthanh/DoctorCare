@@ -30,7 +30,7 @@ public class AllCodeController {
     @ApiMessage("fetch allCode by type")
     public ResponseEntity<?> getAllCode(@RequestBody(required = false) AllCode reqAllCode) throws IdInvalidException {
         // Kiểm tra nếu request body rỗng
-        if (reqAllCode == null || reqAllCode.getKeyCode() == null) {
+        if (reqAllCode == null || reqAllCode.getType() == null) {
             throw new IdInvalidException("need type to fetch allcode");
         }
 
