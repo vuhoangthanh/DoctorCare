@@ -46,7 +46,7 @@
         "position": "Position",
         "gender": "Gender",
         "role": "Role",
-        "avatar": "avatar",
+        "avatar": "Avatar",
         "save": "Save"
     }
 }

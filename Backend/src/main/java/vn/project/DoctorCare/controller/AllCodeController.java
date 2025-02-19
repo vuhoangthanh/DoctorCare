@@ -1,6 +1,7 @@
 package vn.project.DoctorCare.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
@@ -28,13 +29,13 @@ public class AllCodeController {
 
     @GetMapping("/allcodes")
     @ApiMessage("fetch allCode by type")
-    public ResponseEntity<?> getAllCode(@RequestBody(required = false) AllCode reqAllCode) throws IdInvalidException {
+    public ResponseEntity<?> getAllCode(@RequestParam(name = "type") String type) throws IdInvalidException {
         // Kiểm tra nếu request body rỗng
-        if (reqAllCode == null || reqAllCode.getType() == null) {
+        if (type == null || type.trim().isEmpty()) {
             throw new IdInvalidException("need type to fetch allcode");
         }
 
-        List<AllCode> allCode = this.allCodeService.fetchAllCodeByType(reqAllCode.getType());
+        List<AllCode> allCode = this.allCodeService.fetchAllCodeByType(type);
         return ResponseEntity.status(HttpStatus.OK).body(allCode);
     }
 }
