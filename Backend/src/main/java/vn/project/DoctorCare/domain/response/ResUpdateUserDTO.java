@@ -19,9 +19,9 @@ public class ResUpdateUserDTO {
     private int phone;
     private String address;
     private String avatar;
-    private String description;
     private int isActive;
-    private long roleId;
+    private String roleId;
+    private String positionId;
     private Instant updatedAt;
     private String updatedBy;
 
@@ -81,28 +81,12 @@ public class ResUpdateUserDTO {
         this.avatar = avatar;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public int getIsActive() {
         return isActive;
     }
 
     public void setIsActive(int isActive) {
         this.isActive = isActive;
-    }
-
-    public long getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(long roleId) {
-        this.roleId = roleId;
     }
 
     public Instant getUpdatedAt() {
@@ -127,6 +111,22 @@ public class ResUpdateUserDTO {
 
     public void setAge(String age) {
         this.age = age;
+    }
+
+    public String getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
+    }
+
+    public String getPositionId() {
+        return positionId;
+    }
+
+    public void setPositionId(String positionId) {
+        this.positionId = positionId;
     }
 
 }

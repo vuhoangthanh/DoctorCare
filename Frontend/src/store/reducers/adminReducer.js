@@ -16,13 +16,13 @@ const adminReducer = (state = initialState, action) => {
             }
         case actionTypes.FETCH_GENDER_SUCCESS:
             state.genders = action.data;
-            state.isLoadinGender = false;
+            state.isLoadingGender = false;
             return {
                 ...state,
             }
         case actionTypes.FETCH_GENDER_FAILED:
             state.genders = [];
-            state.isLoadinGender = false;
+            state.isLoadingGender = false;
 
             return {
                 ...state,

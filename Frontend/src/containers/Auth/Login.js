@@ -38,6 +38,8 @@ class Login extends Component {
         })
 
         try {
+            console.log('ccs', this.state.username)
+            console.log('asfd', this.state.password)
             let data = await handleLoginApi(this.state.username, this.state.password)
             if (data && data.statusCode > 200) {
                 this.setState({

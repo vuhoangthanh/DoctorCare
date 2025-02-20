@@ -41,10 +41,8 @@ public class User {
     private int phone;
     private String address;
 
-    private String avatar;
-
     @Column(columnDefinition = "MEDIUMTEXT")
-    private String description;
+    private String avatar;
 
     @Column(columnDefinition = "TINYINT")
     private int isActive;
@@ -52,7 +50,8 @@ public class User {
     @Column(columnDefinition = "MEDIUMTEXT")
     private String refreshToken;
 
-    private long roleId;
+    private String positionId;
+    private String roleId;
     private Instant createdAt;
     private Instant updatedAt;
     private String createdBy;
@@ -138,28 +137,12 @@ public class User {
         this.avatar = avatar;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getRefreshToken() {
         return refreshToken;
     }
 
     public void setRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
-    }
-
-    public long getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(long roleId) {
-        this.roleId = roleId;
     }
 
     public Instant getCreatedAt() {
@@ -208,6 +191,22 @@ public class User {
 
     public void setAge(String age) {
         this.age = age;
+    }
+
+    public String getPositionId() {
+        return positionId;
+    }
+
+    public void setPositionId(String positionId) {
+        this.positionId = positionId;
+    }
+
+    public String getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
     }
 
 }
