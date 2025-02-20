@@ -29,7 +29,7 @@ class UserManage extends Component {
     }
 
     getAllUsersFromReact = async () => {
-        let response = await getAllUsers('');
+        let response = await getAllUsers();
         if (response && response.error === null) {
             this.setState({
                 arrUsers: response.data.result
