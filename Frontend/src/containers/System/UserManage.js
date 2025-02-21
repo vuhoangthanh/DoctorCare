@@ -20,9 +20,6 @@ class UserManage extends Component {
         }
     }
 
-    state = {
-
-    }
 
     async componentDidMount() {
         await this.getAllUsersFromReact();
