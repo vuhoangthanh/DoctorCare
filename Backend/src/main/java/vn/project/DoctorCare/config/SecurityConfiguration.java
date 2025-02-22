@@ -51,7 +51,8 @@ public class SecurityConfiguration {
                                                                 .requestMatchers("/", "/api/v1/auth/login",
                                                                                 "/api/v1/auth/refresh",
                                                                                 "/api/v1/users", "/api/v1/users/**",
-                                                                                "/api/v1/allcodes")
+                                                                                "/api/v1/allcodes",
+                                                                                "/api/v1/top-doctors")
                                                                 // .requestMatchers(HttpMethod.GET, "/api/v1/**")
                                                                 // .permitAll()
                                                                 // .requestMatchers(HttpMethod.POST, "/api/v1/**")

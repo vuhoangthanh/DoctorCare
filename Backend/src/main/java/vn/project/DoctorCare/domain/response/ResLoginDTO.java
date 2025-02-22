@@ -6,15 +6,17 @@ public class ResLoginDTO {
 
     public static class UserLogin {
         private long id;
-        private String name;
+        private String firstName;
+        private String lastName;
         private String email;
 
         public UserLogin() {
         }
 
-        public UserLogin(long id, String name, String email) {
+        public UserLogin(long id, String firstName, String lastName, String email) {
             this.id = id;
-            this.name = name;
+            this.firstName = firstName;
+            this.lastName = lastName;
             this.email = email;
         }
 
@@ -26,12 +28,20 @@ public class ResLoginDTO {
             this.id = id;
         }
 
-        public String getName() {
-            return name;
+        public String getFirstName() {
+            return firstName;
         }
 
-        public void setName(String name) {
-            this.name = name;
+        public void setFirstName(String firstName) {
+            this.firstName = firstName;
+        }
+
+        public String getLastName() {
+            return lastName;
+        }
+
+        public void setLastName(String lastName) {
+            this.lastName = lastName;
         }
 
         public String getEmail() {

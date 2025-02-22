@@ -15,7 +15,8 @@ class ModalUser extends Component {
         this.state = {
             email: '',
             password: '',
-            name: '',
+            firstName: '',
+            lastName: '',
             address: ''
         }
         this.listenToEmitter();
@@ -26,7 +27,8 @@ class ModalUser extends Component {
             this.setState({
                 email: '',
                 password: '',
-                name: '',
+                firstName: '',
+                lastName: '',
                 address: ''
             })
         })
@@ -60,7 +62,7 @@ class ModalUser extends Component {
 
     checkValidateInput = () => {
         let isValid = true;
-        let arrInput = ['email', 'password', 'name', 'address'];
+        let arrInput = ['email', 'password', 'firstName', 'address'];
         for (let i = 0; i < arrInput.length; i++) {
             if (!this.state[arrInput[i]]) {
                 isValid = false;
@@ -106,11 +108,19 @@ class ModalUser extends Component {
                             />
                         </div>
                         <div className="input-container">
-                            <label>Name</label>
+                            <label>First name</label>
                             <input
                                 type="text"
-                                onChange={(event) => { this.handleOnchangeInput(event, "name") }}
-                                value={this.state.name}
+                                onChange={(event) => { this.handleOnchangeInput(event, "firstName") }}
+                                value={this.state.firstName}
+                            />
+                        </div>
+                        <div className="input-container">
+                            <label>Last name</label>
+                            <input
+                                type="text"
+                                onChange={(event) => { this.handleOnchangeInput(event, "lastName") }}
+                                value={this.state.lastName}
                             />
                         </div>
                         <div className="input-container">

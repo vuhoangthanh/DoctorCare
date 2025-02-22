@@ -44,7 +44,8 @@ class TableManageUser extends Component {
                 <tbody>
                     <tr>
                         <th>Email</th>
-                        <th>Name</th>
+                        <th>FirstName</th>
+                        <th>LastName</th>
                         <th>Gender</th>
                         <th>Address</th>
                         <th>Created At</th>
@@ -55,7 +56,8 @@ class TableManageUser extends Component {
                             return (
                                 <tr key={index}>
                                     <td>{item.email}</td>
-                                    <td>{item.name}</td>
+                                    <td>{item.firstName}</td>
+                                    <td>{item.lastName}</td>
                                     <td>{item.gender}</td>
                                     <td>{item.address}</td>
                                     <td>{item.createdAt}</td>

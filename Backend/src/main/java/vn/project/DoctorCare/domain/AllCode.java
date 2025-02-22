@@ -18,7 +18,7 @@ public class AllCode {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String keyCode;
+    private String keyMap;
     private String type;
     private String valueEn;
     private String valueVi;
@@ -108,11 +108,12 @@ public class AllCode {
         this.updatedBy = updatedBy;
     }
 
-    public String getKeyCode() {
-        return keyCode;
+    public String getKeyMap() {
+        return keyMap;
     }
 
-    public void setKeyCode(String keyCode) {
-        this.keyCode = keyCode;
+    public void setKeyMap(String keyMap) {
+        this.keyMap = keyMap;
     }
+
 }

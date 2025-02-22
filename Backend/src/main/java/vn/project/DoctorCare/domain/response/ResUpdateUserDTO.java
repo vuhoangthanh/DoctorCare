@@ -2,18 +2,14 @@ package vn.project.DoctorCare.domain.response;
 
 import java.time.Instant;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
-import jakarta.validation.constraints.NotBlank;
 import vn.project.DoctorCare.util.SecurityUtil;
 import vn.project.DoctorCare.util.constant.GenderEnum;
 
 public class ResUpdateUserDTO {
     private long id;
-    private String name;
+    private String firstName;
+    private String lastName;
     private GenderEnum gender;
     private String age;
     private int phone;
@@ -41,12 +37,20 @@ public class ResUpdateUserDTO {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public GenderEnum getGender() {

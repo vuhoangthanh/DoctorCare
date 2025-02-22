@@ -28,11 +28,16 @@ const deleteUserService = (userId) => {
 const getAllCodeService = (inputData) => {
     return axios.get(`/api/v1/allcodes?type=${inputData}`)
 }
+
+const getTopDoctorService = (limit) => {
+    return axios.get(`/api/v1/top-doctors?limit=${limit}`)
+}
 export {
     handleLoginApi,
     getAllUsers,
     createNewUserService,
     deleteUserService,
     editUserService,
-    getAllCodeService
+    getAllCodeService,
+    getTopDoctorService
 }

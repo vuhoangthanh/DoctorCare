@@ -47,13 +47,12 @@ public class UserService {
 
             resUserDTO.setId(user.getId());
             resUserDTO.setEmail(user.getEmail());
-            resUserDTO.setName(user.getName());
+            resUserDTO.setFirstName(user.getFirstName());
+            resUserDTO.setLastName(user.getLastName());
             resUserDTO.setAvatar(user.getAvatar());
             resUserDTO.setGender(user.getGender());
-            resUserDTO.setAge(user.getAge());
             resUserDTO.setAddress(user.getAddress());
             resUserDTO.setPhone(user.getPhone());
-            resUserDTO.setIsActive(user.getIsActive());
             resUserDTO.setRoleId(user.getRoleId());
             resUserDTO.setPositionId(user.getPositionId());
             resUserDTO.setCreatedAt(user.getCreatedAt());
@@ -83,16 +82,15 @@ public class UserService {
     public User handleUpdateUser(User user) {
         User currentUser = this.fetchUserById(user.getId());
         if (currentUser != null) {
-            currentUser.setName(user.getName());
+            currentUser.setFirstName(user.getFirstName());
+            currentUser.setLastName(user.getLastName());
             currentUser.setEmail(user.getEmail());
             currentUser.setGender(user.getGender());
-            currentUser.setAge(user.getAge());
             currentUser.setPhone(user.getPhone());
             currentUser.setAddress(user.getAddress());
             currentUser.setAvatar(user.getAvatar());
             currentUser.setRoleId(user.getRoleId());
             currentUser.setPositionId(user.getPositionId());
-            currentUser.setIsActive(user.getIsActive());
 
             this.userRepository.save(currentUser);
         }
@@ -118,12 +116,11 @@ public class UserService {
         res.setAddress(user.getAddress());
         res.setAvatar(user.getAvatar());
         res.setGender(user.getGender());
-        res.setAge(user.getAge());
-        res.setName(user.getName());
+        res.setFirstName(user.getFirstName());
+        res.setLastName(user.getLastName());
         res.setPhone(user.getPhone());
         res.setRoleId(user.getRoleId());
         res.setPositionId(user.getPositionId());
-        res.setIsActive(user.getIsActive());
         res.setUpdatedAt(user.getUpdatedAt());
         res.setUpdatedBy(user.getUpdatedBy());
 
@@ -137,13 +134,12 @@ public class UserService {
         res.setEmail(user.getEmail());
         res.setAddress(user.getAddress());
         res.setAvatar(user.getAvatar());
-        res.setAge(user.getAge());
         res.setGender(user.getGender());
-        res.setName(user.getName());
+        res.setFirstName(user.getFirstName());
+        res.setLastName(user.getLastName());
         res.setPhone(user.getPhone());
         res.setRoleId(user.getRoleId());
         res.setPositionId(user.getPositionId());
-        res.setIsActive(user.getIsActive());
         res.setCreatedAt(user.getCreatedAt());
 
         return res;

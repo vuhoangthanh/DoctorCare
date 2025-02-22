@@ -16,7 +16,8 @@ class ModalEditUser extends Component {
             id: '',
             email: '',
             password: '',
-            name: '',
+            firstName: '',
+            lastName: '',
             address: ''
         }
     }
@@ -27,7 +28,8 @@ class ModalEditUser extends Component {
             this.setState({
                 id: user.id,
                 email: user.email,
-                name: user.name,
+                firstName: user.firstName,
+                lastName: user.lastName,
                 address: user.address
             })
         }
@@ -49,7 +51,7 @@ class ModalEditUser extends Component {
 
     checkValidateInput = () => {
         let isValid = true;
-        let arrInput = ['name', 'address'];
+        let arrInput = ['firstName', 'address'];
         for (let i = 0; i < arrInput.length; i++) {
             if (!this.state[arrInput[i]]) {
                 isValid = false;
@@ -89,11 +91,19 @@ class ModalEditUser extends Component {
                         </div>
 
                         <div className="input-container">
-                            <label>Name</label>
+                            <label>First name</label>
                             <input
                                 type="text"
-                                onChange={(event) => { this.handleOnchangeInput(event, "name") }}
-                                value={this.state.name}
+                                onChange={(event) => { this.handleOnchangeInput(event, "firstName") }}
+                                value={this.state.firstName}
+                            />
+                        </div>
+                        <div className="input-container">
+                            <label>Last name</label>
+                            <input
+                                type="text"
+                                onChange={(event) => { this.handleOnchangeInput(event, "lastName") }}
+                                value={this.state.lastName}
                             />
                         </div>
                         <div className="input-container">

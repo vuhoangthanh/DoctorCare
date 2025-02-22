@@ -6,9 +6,12 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
@@ -24,7 +27,9 @@ public class User {
     private long id;
 
     @NotBlank(message = "Tên không được để trống")
-    private String name;
+    private String firstName;
+
+    private String lastName;
 
     @NotBlank(message = "email không được để trống!")
     private String email;
@@ -35,17 +40,12 @@ public class User {
     @Enumerated(EnumType.STRING)
     private GenderEnum gender;
 
-    private String age;
-
     // @NotBlank(message = "phone không được để trống!")
     private int phone;
     private String address;
 
-    @Column(columnDefinition = "MEDIUMTEXT")
+    @Column(columnDefinition = "LONGBLOB")
     private String avatar;
-
-    @Column(columnDefinition = "TINYINT")
-    private int isActive;
 
     @Column(columnDefinition = "MEDIUMTEXT")
     private String refreshToken;
@@ -56,6 +56,15 @@ public class User {
     private Instant updatedAt;
     private String createdBy;
     private String updatedBy;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "positionId", referencedColumnName = "keyMap", insertable = false, updatable = false)
+    private AllCode positionData;
+
+    // Quan hệ với bảng AllCode qua gender
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "gender", referencedColumnName = "keyMap", insertable = false, updatable = false)
+    private AllCode genderData;
 
     @PrePersist
     public void handleBeforeCreateAt() {
@@ -81,12 +90,20 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -107,6 +124,22 @@ public class User {
 
     public GenderEnum getGender() {
         return gender;
+    }
+
+    public AllCode getPositionData() {
+        return positionData;
+    }
+
+    public void setPositionData(AllCode positionData) {
+        this.positionData = positionData;
+    }
+
+    public AllCode getGenderData() {
+        return genderData;
+    }
+
+    public void setGenderData(AllCode genderData) {
+        this.genderData = genderData;
     }
 
     public void setGender(GenderEnum gender) {
@@ -175,22 +208,6 @@ public class User {
 
     public void setUpdatedBy(String updatedBy) {
         this.updatedBy = updatedBy;
-    }
-
-    public int getIsActive() {
-        return isActive;
-    }
-
-    public void setIsActive(int isActive) {
-        this.isActive = isActive;
-    }
-
-    public String getAge() {
-        return age;
-    }
-
-    public void setAge(String age) {
-        this.age = age;
     }
 
     public String getPositionId() {
