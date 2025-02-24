@@ -37,8 +37,7 @@ public class User {
     // @NotBlank(message = "password không được để trống!")
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    private GenderEnum gender;
+    private String gender;
 
     // @NotBlank(message = "phone không được để trống!")
     private int phone;
@@ -122,10 +121,6 @@ public class User {
         this.password = password;
     }
 
-    public GenderEnum getGender() {
-        return gender;
-    }
-
     public AllCode getPositionData() {
         return positionData;
     }
@@ -140,10 +135,6 @@ public class User {
 
     public void setGenderData(AllCode genderData) {
         this.genderData = genderData;
-    }
-
-    public void setGender(GenderEnum gender) {
-        this.gender = gender;
     }
 
     public int getPhone() {
@@ -224,6 +215,14 @@ public class User {
 
     public void setRoleId(String roleId) {
         this.roleId = roleId;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
 }

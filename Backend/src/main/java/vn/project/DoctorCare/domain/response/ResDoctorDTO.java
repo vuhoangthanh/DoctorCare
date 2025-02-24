@@ -4,7 +4,7 @@ import java.time.Instant;
 
 import vn.project.DoctorCare.util.constant.GenderEnum;
 
-public class ResUserDTO {
+public class ResDoctorDTO {
     private long id;
     private String firstName;
     private String lastName;
@@ -12,7 +12,6 @@ public class ResUserDTO {
     private String gender;
     private int phone;
     private String address;
-    private String avatar;
     private String roleId;
     private String positionId;
     private Instant createdAt;
@@ -67,14 +66,6 @@ public class ResUserDTO {
         this.address = address;
     }
 
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
     public Instant getCreatedAt() {
         return createdAt;
     }
@@ -122,5 +113,4 @@ public class ResUserDTO {
     public void setGender(String gender) {
         this.gender = gender;
     }
-
 }

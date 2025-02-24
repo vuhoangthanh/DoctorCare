@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import vn.project.DoctorCare.domain.User;
 import vn.project.DoctorCare.domain.response.ResTopDoctorsDTO;
+import vn.project.DoctorCare.domain.response.ResDoctorDTO;
 
 @Repository
 public interface DoctorRepository extends JpaRepository<User, Long> {
@@ -17,4 +18,6 @@ public interface DoctorRepository extends JpaRepository<User, Long> {
     // @Query("SELECT u FROM User u JOIN FETCH u.positionData JOIN FETCH
     // u.genderData WHERE u.roleId = 'R2' ORDER BY u.createdAt DESC")
     List<ResTopDoctorsDTO> findAllByRoleIdOrderByCreatedAtDesc(String roleId, Pageable pageable);
+
+    List<User> findAllByRoleId(String roleId);
 }

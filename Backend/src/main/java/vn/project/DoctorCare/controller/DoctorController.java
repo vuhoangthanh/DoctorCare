@@ -3,9 +3,12 @@ package vn.project.DoctorCare.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import vn.project.DoctorCare.domain.Markdown;
 import vn.project.DoctorCare.domain.User;
+import vn.project.DoctorCare.domain.response.ResDoctorDTO;
 import vn.project.DoctorCare.domain.response.ResTopDoctorsDTO;
 import vn.project.DoctorCare.service.DoctorService;
+import vn.project.DoctorCare.service.MarkdownService;
 import vn.project.DoctorCare.util.annotation.ApiMessage;
 
 import java.util.List;
@@ -16,15 +19,19 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/api/v1")
 public class DoctorController {
 
     private final DoctorService doctorService;
+    private final MarkdownService markdownService;
 
-    public DoctorController(DoctorService doctorService) {
+    public DoctorController(DoctorService doctorService, MarkdownService markdownService) {
         this.doctorService = doctorService;
+        this.markdownService = markdownService;
     }
 
     @GetMapping("/top-doctors")
@@ -34,6 +41,20 @@ public class DoctorController {
 
         List<ResTopDoctorsDTO> doctors = this.doctorService.fetchTopDoctors(limit);
         return ResponseEntity.status(HttpStatus.OK).body(doctors);
+    }
+
+    @GetMapping("/doctors")
+    public ResponseEntity<List<ResDoctorDTO>> getAllDoctors() {
+
+        List<ResDoctorDTO> doctors = this.doctorService.fetchAllDoctors();
+        return ResponseEntity.status(HttpStatus.OK).body(doctors);
+    }
+
+    @PostMapping("/doctors-infor")
+    public ResponseEntity<Markdown> addDoctorInfo(@RequestBody Markdown reqMarkdown) {
+
+        Markdown markdown = this.markdownService.handleAddMarkdown(reqMarkdown);
+        return ResponseEntity.status(HttpStatus.CREATED).body(markdown);
     }
 
 }

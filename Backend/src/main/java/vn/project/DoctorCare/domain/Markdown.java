@@ -24,9 +24,9 @@ public class Markdown {
     @Column(columnDefinition = "LONGTEXT")
     private String description;
 
-    private long doctorId;
-    private long specialtyId;
-    private long clinicId;
+    private Long doctorId;
+    private Long specialtyId;
+    private Long clinicId;
 
     public long getId() {
         return id;
@@ -60,27 +60,27 @@ public class Markdown {
         this.description = description;
     }
 
-    public long getDoctorId() {
+    public Long getDoctorId() {
         return doctorId;
     }
 
-    public void setDoctorId(long doctorId) {
+    public void setDoctorId(Long doctorId) {
         this.doctorId = doctorId;
     }
 
-    public long getSpecialtyId() {
+    public Long getSpecialtyId() {
         return specialtyId;
     }
 
-    public void setSpecialtyId(long specialtyId) {
+    public void setSpecialtyId(Long specialtyId) {
         this.specialtyId = specialtyId;
     }
 
-    public long getClinicId() {
+    public Long getClinicId() {
         return clinicId;
     }
 
-    public void setClinicId(long clinicId) {
+    public void setClinicId(Long clinicId) {
         this.clinicId = clinicId;
     }
 

@@ -10,7 +10,7 @@ public class ResUpdateUserDTO {
     private long id;
     private String firstName;
     private String lastName;
-    private GenderEnum gender;
+    private String gender;
     private String age;
     private int phone;
     private String address;
@@ -51,14 +51,6 @@ public class ResUpdateUserDTO {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public GenderEnum getGender() {
-        return gender;
-    }
-
-    public void setGender(GenderEnum gender) {
-        this.gender = gender;
     }
 
     public int getPhone() {
@@ -131,6 +123,14 @@ public class ResUpdateUserDTO {
 
     public void setPositionId(String positionId) {
         this.positionId = positionId;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
 }
