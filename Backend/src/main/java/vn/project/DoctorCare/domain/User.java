@@ -2,6 +2,7 @@ package vn.project.DoctorCare.domain;
 
 import java.time.Instant;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -12,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
@@ -64,6 +66,9 @@ public class User {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "gender", referencedColumnName = "keyMap", insertable = false, updatable = false)
     private AllCode genderData;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Markdown markdown;
 
     @PrePersist
     public void handleBeforeCreateAt() {
@@ -223,6 +228,14 @@ public class User {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public Markdown getMarkdown() {
+        return markdown;
+    }
+
+    public void setMarkdown(Markdown markdown) {
+        this.markdown = markdown;
     }
 
 }

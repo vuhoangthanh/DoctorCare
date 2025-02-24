@@ -2,6 +2,7 @@ package vn.project.DoctorCare.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import vn.project.DoctorCare.domain.User;
 import vn.project.DoctorCare.domain.response.ResDoctorDTO;
+import vn.project.DoctorCare.domain.response.ResDoctorDetailDTO;
 import vn.project.DoctorCare.domain.response.ResTopDoctorsDTO;
 import vn.project.DoctorCare.repository.DoctorRepository;
 
@@ -51,5 +53,36 @@ public class DoctorService {
             listResDoctorDTOs.add(resDoctorDTO);
         }
         return listResDoctorDTOs;
+    }
+
+    public ResDoctorDetailDTO fetchDetailDoctorById(long id) {
+        Optional<User> user = this.doctorRepository.findById(id);
+        // Optional<ResDoctorDetailDTO> user = this.doctorRepository.findById(id);
+        if (user.isPresent()) {
+
+            ResDoctorDetailDTO resDoctorDetailDTO = new ResDoctorDetailDTO();
+
+            resDoctorDetailDTO.setId(user.get().getId());
+            resDoctorDetailDTO.setFirstName(user.get().getFirstName());
+            resDoctorDetailDTO.setLastName(user.get().getLastName());
+            resDoctorDetailDTO.setEmail(user.get().getEmail());
+            resDoctorDetailDTO.setAddress(user.get().getAddress());
+            resDoctorDetailDTO.setAvatar(user.get().getAvatar());
+            resDoctorDetailDTO.setPhone(user.get().getPhone());
+            resDoctorDetailDTO.setGender(user.get().getGender());
+            resDoctorDetailDTO.setRoleId(user.get().getRoleId());
+            resDoctorDetailDTO.setPositionId(user.get().getPositionId());
+            resDoctorDetailDTO.setPositionData(user.get().getPositionData());
+            resDoctorDetailDTO.setGenderData(user.get().getGenderData());
+            resDoctorDetailDTO.setMarkdown(user.get().getMarkdown());
+            resDoctorDetailDTO.setMarkdown(user.get().getMarkdown());
+            resDoctorDetailDTO.setCreatedAt(user.get().getCreatedAt());
+            resDoctorDetailDTO.setUpdatedAt(user.get().getUpdatedAt());
+            resDoctorDetailDTO.setUpdatedBy(user.get().getUpdatedBy());
+
+            return resDoctorDetailDTO;
+        }
+
+        return null;
     }
 }

@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -27,6 +29,10 @@ public class Markdown {
     private Long doctorId;
     private Long specialtyId;
     private Long clinicId;
+
+    @OneToOne
+    @JoinColumn(name = "doctorId", referencedColumnName = "id", insertable = false, updatable = false)
+    private User user;
 
     public long getId() {
         return id;

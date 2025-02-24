@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import vn.project.DoctorCare.domain.Markdown;
 import vn.project.DoctorCare.domain.User;
 import vn.project.DoctorCare.domain.response.ResDoctorDTO;
+import vn.project.DoctorCare.domain.response.ResDoctorDetailDTO;
 import vn.project.DoctorCare.domain.response.ResTopDoctorsDTO;
 import vn.project.DoctorCare.service.DoctorService;
 import vn.project.DoctorCare.service.MarkdownService;
@@ -18,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -51,10 +53,19 @@ public class DoctorController {
     }
 
     @PostMapping("/doctors-infor")
+    @ApiMessage("add doctor information")
     public ResponseEntity<Markdown> addDoctorInfo(@RequestBody Markdown reqMarkdown) {
 
         Markdown markdown = this.markdownService.handleAddMarkdown(reqMarkdown);
         return ResponseEntity.status(HttpStatus.CREATED).body(markdown);
+    }
+
+    @GetMapping("/doctors-detail/{id}")
+    @ApiMessage("fetch doctor detail by id")
+    public ResponseEntity<ResDoctorDetailDTO> getDetailDoctorById(@PathVariable("id") long id) {
+
+        ResDoctorDetailDTO user = this.doctorService.fetchDetailDoctorById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
 }
