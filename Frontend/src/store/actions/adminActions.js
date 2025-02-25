@@ -1,5 +1,15 @@
 import actionTypes from './actionTypes';
-import { getAllCodeService, createNewUserService, getAllUsers, deleteUserService, editUserService, getTopDoctorService, getAllDoctorService, saveDetailDoctorService } from '../../services/userService';
+import {
+    getAllCodeService,
+    createNewUserService,
+    getAllUsers,
+    deleteUserService,
+    editUserService,
+    getTopDoctorService,
+    getAllDoctorService,
+    saveDetailDoctorService,
+    editDetailDoctorService
+} from '../../services/userService';
 import { toast } from "react-toastify";
 
 export const fetchGenderStart = () => {
@@ -266,4 +276,33 @@ export const saveDetailDoctorSuccess = () => ({
 
 export const saveDetailDoctorFailed = () => ({
     type: actionTypes.SAVE_DETAIL_DOCTOR_FAILED
+});
+export const editDetailDoctor = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let response = await editDetailDoctorService(data);
+
+            if (response && response.error === null) {
+                console.log('ff', response)
+                toast.success("edit detail doctors success");
+                dispatch(editDetailDoctorSuccess())
+            } else {
+                console.log("ttc")
+                toast.error("edit doctors error");
+                dispatch(editDetailDoctorFailed());
+            }
+        } catch (e) {
+            console.log("s")
+            dispatch(editDetailDoctorFailed());
+            console.log('edit detail doctors error', e)
+        }
+    }
+};
+
+export const editDetailDoctorSuccess = () => ({
+    type: actionTypes.EDIT_DETAIL_DOCTOR_SUCCESS,
+});
+
+export const editDetailDoctorFailed = () => ({
+    type: actionTypes.EDIT_DETAIL_DOCTOR_FAILED
 });

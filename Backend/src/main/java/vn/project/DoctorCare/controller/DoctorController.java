@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -58,6 +59,14 @@ public class DoctorController {
 
         Markdown markdown = this.markdownService.handleAddMarkdown(reqMarkdown);
         return ResponseEntity.status(HttpStatus.CREATED).body(markdown);
+    }
+
+    @PutMapping("/doctors-infor")
+    @ApiMessage("update doctor information")
+    public ResponseEntity<Markdown> editDoctorInfo(@RequestBody Markdown reqMarkdown) {
+
+        Markdown markdown = this.markdownService.handleUpdateMarkdown(reqMarkdown);
+        return ResponseEntity.status(HttpStatus.OK).body(markdown);
     }
 
     @GetMapping("/doctors-detail/{id}")

@@ -2,14 +2,13 @@ package vn.project.DoctorCare.domain.response;
 
 import java.time.Instant;
 
+import vn.project.DoctorCare.domain.Markdown;
 import vn.project.DoctorCare.util.constant.GenderEnum;
 
 public interface ResTopDoctorsDTO {
     Long getId();
 
     String getEmail();
-
-    String getPassword();
 
     String getFirstName();
 
@@ -19,7 +18,7 @@ public interface ResTopDoctorsDTO {
 
     String getAddress();
 
-    GenderEnum getGender();
+    String getGender();
 
     String getPositionId();
 
@@ -34,6 +33,8 @@ public interface ResTopDoctorsDTO {
     getValues getPositionData();
 
     getValues getGenderData();
+
+    Markdown getMarkdown();
 
     public interface getValues {
         String getValueVi();
