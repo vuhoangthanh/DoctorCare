@@ -28,7 +28,7 @@ class ManageDoctor extends Component {
         super(props);
         this.state = {
             contentMarkdown: '',
-            contentHTML: '',
+            contentHtml: '',
             selectedDoctor: '',
             description: '',
             listDoctors: [],
@@ -57,23 +57,29 @@ class ManageDoctor extends Component {
 
     handleEditorChange = ({ html, text }) => {
         this.setState({
-            contentHTML: html,
-            contentMarkdown: text
-        })
+            contentMarkdown: text,
+            contentHtml: html
+        }, () => {
+            console.log('html1', this.state.contentHtml)
+            console.log('markdown1', this.state.contentMarkdown)
+        }
+        )
     }
 
     handleSaveContentMarkdown = () => {
         let { hasOldData } = this.state
+        console.log('html', this.state.contentHtml)
+        console.log('markdown', this.state.contentMarkdown)
         if (hasOldData !== true) {
             this.props.saveDetailDoctorRedux({
-                contentHTML: this.state.contentHTML,
+                contentHtml: this.state.contentHtml,
                 contentMarkdown: this.state.contentMarkdown,
                 description: this.state.description,
                 doctorId: this.state.selectedDoctor.value,
             })
         } else {
             this.props.editDetailDoctorRedux({
-                contentHTML: this.state.contentHTML,
+                contentHtml: this.state.contentHtml,
                 contentMarkdown: this.state.contentMarkdown,
                 description: this.state.description,
                 doctorId: this.state.selectedDoctor.value,
@@ -89,21 +95,21 @@ class ManageDoctor extends Component {
         if (response && response.data && response.data.markdown) {
             let markdown = response.data.markdown;
             this.setState({
-                contentHTML: markdown.contentHtml,
+                contentHtml: markdown.contentHtml,
                 contentMarkdown: markdown.contentMarkdown,
                 description: markdown.description,
                 hasOldData: true
             })
         } else {
             this.setState({
-                contentHTML: '',
+                contentHtml: '',
                 contentMarkdown: '',
                 description: '',
                 hasOldData: false
             })
         }
-        console.log(`Option selected`, response)
-        console.log(`state`, this.state)
+        // console.log(`Option selected`, response)
+        // console.log(`state`, this.state)
     };
     handleOnChangeDesc = (event) => {
         this.setState({

@@ -9,15 +9,17 @@ public class ResLoginDTO {
         private String firstName;
         private String lastName;
         private String email;
+        private String roleId;
 
         public UserLogin() {
         }
 
-        public UserLogin(long id, String firstName, String lastName, String email) {
+        public UserLogin(long id, String firstName, String lastName, String email, String roleId) {
             this.id = id;
             this.firstName = firstName;
             this.lastName = lastName;
             this.email = email;
+            this.roleId = roleId;
         }
 
         public long getId() {
@@ -50,6 +52,14 @@ public class ResLoginDTO {
 
         public void setEmail(String email) {
             this.email = email;
+        }
+
+        public String getRoleId() {
+            return roleId;
+        }
+
+        public void setRoleId(String roleId) {
+            this.roleId = roleId;
         }
     }
 

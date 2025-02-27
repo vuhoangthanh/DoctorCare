@@ -34,7 +34,6 @@ class UserRedux extends Component {
         }
     }
 
-
     async componentDidMount() {
         this.props.getGenderStart();
         this.props.getPositionStart();

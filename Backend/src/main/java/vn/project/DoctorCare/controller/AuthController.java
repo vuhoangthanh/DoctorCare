@@ -70,7 +70,8 @@ public class AuthController {
                                         currentUserDB.getId(),
                                         currentUserDB.getFirstName(),
                                         currentUserDB.getLastName(),
-                                        currentUserDB.getEmail());
+                                        currentUserDB.getEmail(),
+                                        currentUserDB.getRoleId());
                         res.setUser(userLogin);
                 }
 
@@ -147,7 +148,8 @@ public class AuthController {
                                         currentUser.getId(),
                                         currentUser.getFirstName(),
                                         currentUser.getLastName(),
-                                        currentUser.getEmail());
+                                        currentUser.getEmail(),
+                                        currentUserDB.getRoleId());
                         res.setUser(userLogin);
                 }
 

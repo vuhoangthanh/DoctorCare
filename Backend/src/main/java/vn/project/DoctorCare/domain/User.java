@@ -19,7 +19,6 @@ import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import vn.project.DoctorCare.util.SecurityUtil;
-import vn.project.DoctorCare.util.constant.GenderEnum;
 
 @Entity
 @Table(name = "users")
@@ -28,7 +27,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotBlank(message = "Tên không được để trống")
+    @NotBlank(message = "first Name không được để trống")
     private String firstName;
 
     private String lastName;

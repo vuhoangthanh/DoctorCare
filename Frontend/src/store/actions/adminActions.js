@@ -258,12 +258,10 @@ export const saveDetailDoctor = (data) => {
                 toast.success("save detail doctors success");
                 dispatch(saveDetailDoctorSuccess())
             } else {
-                console.log("ttc")
                 toast.error("save doctors error");
                 dispatch(saveDetailDoctorFailed());
             }
         } catch (e) {
-            console.log("s")
             dispatch(saveDetailDoctorFailed());
             console.log('save detail doctors error', e)
         }
@@ -283,16 +281,13 @@ export const editDetailDoctor = (data) => {
             let response = await editDetailDoctorService(data);
 
             if (response && response.error === null) {
-                console.log('ff', response)
                 toast.success("edit detail doctors success");
                 dispatch(editDetailDoctorSuccess())
             } else {
-                console.log("ttc")
                 toast.error("edit doctors error");
                 dispatch(editDetailDoctorFailed());
             }
         } catch (e) {
-            console.log("s")
             dispatch(editDetailDoctorFailed());
             console.log('edit detail doctors error', e)
         }

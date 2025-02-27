@@ -10,7 +10,6 @@ class DetailDoctor extends Component {
         super(props);
         this.state = {
             detailDoctor: {}
-
         }
     }
     async componentDidMount() {
@@ -34,6 +33,7 @@ class DetailDoctor extends Component {
         let { language } = this.props;
 
         let { detailDoctor } = this.state
+        console.log(this.state)
         let nameVi = '', nameEn = '';
         if (detailDoctor && detailDoctor.positionData) {
             nameVi = `${detailDoctor.positionData.valueVi}, ${detailDoctor.lastName} ${detailDoctor.firstName} `;

@@ -40,6 +40,7 @@ public class MarkdownService {
             currentMarkdown.setClinicId(markdown.getClinicId());
             currentMarkdown.setDoctorId(markdown.getDoctorId());
             currentMarkdown.setSpecialtyId(markdown.getSpecialtyId());
+            currentMarkdown.setUpdatedAt(markdown.getUpdatedAt());
 
             System.out.println(currentMarkdown);
             this.markdownRepository.save(currentMarkdown);
