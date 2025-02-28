@@ -9,7 +9,7 @@ class Doctor extends Component {
         const { isLoggedIn } = this.props;
         return (
             <React.Fragment>
-                {this.props.isLoggedIn && <Header />}
+                {isLoggedIn && <Header />}
 
                 < div className="system-container" >
                     <div className="system-list">

@@ -144,7 +144,7 @@ class ManageDoctor extends Component {
                 <div className="more-info">
                     <div className="content-left">
 
-                        <label>Chọn bác sĩ</label>
+                        <label></label>
                         <Select
                             value={this.state.selectedDoctor}
                             onChange={this.HandleChangeSelect}
