@@ -21,12 +21,14 @@
         }
     }
 
+    .btn-schedule {
+        &.active {
+            background-color: orange;
+        }
+    }
+
     .btn-save-schedule {
         margin-top: 20px;
     }
 
-    .btn-save-schedule1 {
-        width     : 100px;
-        margin-top: 20px;
-    }
 }

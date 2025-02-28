@@ -49,7 +49,7 @@ class Header extends Component {
                 </div>
 
                 <div className="language">
-                    <span className="welcome"><FormattedMessage id="home-header.welcome" />{userInfo && userInfo.name ? userInfo.name : ''}!</span>
+                    <span className="welcome"><FormattedMessage id="home-header.welcome" />{userInfo && userInfo.firstName ? userInfo.firstName : ''}!</span>
                     <span className={language === LANGUAGES.VI ? "language-vi active" : "language-vi"} onClick={() => this.handleChangeLanguage(LANGUAGES.VI)}>VN</span>
                     <span className={language === LANGUAGES.EN ? "language-en active" : "language-en"} onClick={() => this.handleChangeLanguage(LANGUAGES.EN)}>EN</span>
 
