@@ -109,8 +109,9 @@ class ManageDoctor extends Component {
             toast.error("Invalid selected doctor!");
             return;
         }
-        // let formatedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER);
-        let formatedDate = new Date(currentDate).getTime();
+        let formatedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER);
+        // let formatedDate = new Date(currentDate).getTime();
+        // console.log(new Date(1743526800000).toISOString());
 
         if (rangeTime && rangeTime.length > 0) {
             let selectedTime = rangeTime.filter(item => item.isSelected === true)
@@ -131,7 +132,7 @@ class ManageDoctor extends Component {
         let response = await saveBulkScheduleDoctor({
             arrSchedule: result,
             doctorId: selectedDoctor.value,
-            formatedDate: formatedDate
+            date: formatedDate
         });
         console.log('check ', response)
     }

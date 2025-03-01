@@ -7,6 +7,8 @@ import vn.project.DoctorCare.domain.Schedule;
 import vn.project.DoctorCare.domain.response.ResScheduleDTO;
 import vn.project.DoctorCare.service.ScheduleService;
 
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -27,10 +29,15 @@ public class ScheduleController {
     @PostMapping("/schedules")
     public ResponseEntity<List<Schedule>> addSchedule(@RequestBody ResScheduleDTO resScheduleDTO) {
 
-        List<Schedule> listSchedule = this.scheduleService.handleAddSchedule(
-                resScheduleDTO.getSchedules(),
+        // long datedate = resScheduleDTO.getDate();
+
+        // Instant date = Instant.ofEpochMilli(dateTimeStamp);
+        // Date date = new Date(dateTimeStamp);
+
+        List<Schedule> listSchedules = this.scheduleService.handleAddSchedule(
+                resScheduleDTO.getArrSchedule(),
                 resScheduleDTO.getDoctorId(),
                 resScheduleDTO.getDate());
-        return ResponseEntity.status(HttpStatus.CREATED).body(listSchedule);
+        return ResponseEntity.status(HttpStatus.CREATED).body(listSchedules);
     }
 }

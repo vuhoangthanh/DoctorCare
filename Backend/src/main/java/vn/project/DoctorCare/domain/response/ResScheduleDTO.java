@@ -1,16 +1,23 @@
 package vn.project.DoctorCare.domain.response;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import vn.project.DoctorCare.domain.Schedule;
 
 public class ResScheduleDTO {
     private Long doctorId;
-    private Instant date;
-    private List<Schedule> schedules;
 
-    // Getters và Setters
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
+    private LocalDateTime date;
+
+    @JsonProperty("arrSchedule")
+    private List<Schedule> arrSchedule;
+
     public Long getDoctorId() {
         return doctorId;
     }
@@ -19,20 +26,65 @@ public class ResScheduleDTO {
         this.doctorId = doctorId;
     }
 
-    public Instant getDate() {
+    // public void setArrSchedule(List<Schedule> arrSchedule) {
+    // this.arrSchedule = arrSchedule;
+    // }
+
+    // public List<ScheduleDTO> getArrSchedule() {
+    // return arrSchedule;
+    // }
+
+    // public void setArrSchedule(List<ScheduleDTO> arrSchedule) {
+    // this.arrSchedule = arrSchedule;
+    // }
+    public static class ScheduleDTO {
+
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
+        private long date;
+
+        private String timeType;
+        private long doctorId;
+
+        public String getTimeType() {
+            return timeType;
+        }
+
+        public void setTimeType(String timeType) {
+            this.timeType = timeType;
+        }
+
+        public long getDoctorId() {
+            return doctorId;
+        }
+
+        public void setDoctorId(long doctorId) {
+            this.doctorId = doctorId;
+        }
+
+        public long getDate() {
+            return date;
+        }
+
+        public void setDate(long date) {
+            this.date = date;
+        }
+
+    }
+
+    public List<Schedule> getArrSchedule() {
+        return arrSchedule;
+    }
+
+    public void setArrSchedule(List<Schedule> arrSchedule) {
+        this.arrSchedule = arrSchedule;
+    }
+
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Long date) {
-        this.date = Instant.ofEpochMilli(date);
-    }
-
-    public List<Schedule> getSchedules() {
-        return schedules;
-    }
-
-    public void setSchedules(List<Schedule> schedules) {
-        this.schedules = schedules;
+    public void setDate(LocalDateTime date) {
+        this.date = date;
     }
 
 }

@@ -1,6 +1,9 @@
 package vn.project.DoctorCare.domain;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,7 +23,10 @@ public class Schedule {
     private long id;
 
     private int maxNumber;
-    private Instant date;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
+    private LocalDateTime date;
+
     private String timeType;
     private long doctorId;
 
@@ -59,14 +65,6 @@ public class Schedule {
 
     public void setMaxNumber(int maxNumber) {
         this.maxNumber = maxNumber;
-    }
-
-    public Instant getDate() {
-        return date;
-    }
-
-    public void setDate(Instant date) {
-        this.date = date;
     }
 
     public String getTimeType() {
@@ -115,6 +113,14 @@ public class Schedule {
 
     public void setUpdatedBy(String updatedBy) {
         this.updatedBy = updatedBy;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
     }
 
 }

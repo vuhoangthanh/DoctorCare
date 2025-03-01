@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import moment from 'moment';
 
 /** For valid format please see <a href="https://momentjs.com/docs/#/displaying/">Moment format options</a> */
-const dateFormat = 'DD/MM/YYYY';
+const dateFormat = 'DD/MM/YYYY HH:mm:ss';
 
 class FormattedDate extends Component {
 

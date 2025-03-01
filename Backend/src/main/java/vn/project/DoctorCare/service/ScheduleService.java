@@ -1,6 +1,6 @@
 package vn.project.DoctorCare.service;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import vn.project.DoctorCare.domain.Schedule;
 import vn.project.DoctorCare.repository.ScheduleRepository;
+import vn.project.DoctorCare.util.constant.Constant;
 
 @Service
 public class ScheduleService {
@@ -20,30 +21,33 @@ public class ScheduleService {
         this.scheduleRepository = scheduleRepository;
     }
 
-    public List<Schedule> handleAddSchedule(List<Schedule> schedules, long doctorId, Instant date) {
+    public List<Schedule> handleAddSchedule(List<Schedule> schedules, long doctorId, LocalDateTime date) {
 
         List<Schedule> listSchedule = new ArrayList<Schedule>();
+
         List<Schedule> existingSchedules = scheduleRepository.findByDateAndDoctorId(date, doctorId);
 
         for (Schedule schedule : schedules) {
+            if (existingSchedules.size() != 0) {
 
-            if (existingSchedules != null) {
                 // check timeType exist
                 Set<String> existingTimeTypes = existingSchedules.stream()
                         .map(Schedule::getTimeType)
                         .collect(Collectors.toSet());
 
                 if (!existingTimeTypes.contains(schedule.getTimeType())) {
+
+                    schedule.setMaxNumber(Constant.MAX_NUMBER);
                     this.scheduleRepository.save(schedule);
                     listSchedule.add(schedule);
                 }
             } else {
+
+                schedule.setMaxNumber(Constant.MAX_NUMBER);
                 this.scheduleRepository.save(schedule);
                 listSchedule.add(schedule);
             }
-
         }
-
         return listSchedule;
     }
 
