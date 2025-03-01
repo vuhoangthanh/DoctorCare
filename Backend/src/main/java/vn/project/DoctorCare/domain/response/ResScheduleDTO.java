@@ -12,8 +12,9 @@ import vn.project.DoctorCare.domain.Schedule;
 public class ResScheduleDTO {
     private Long doctorId;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
-    private LocalDateTime date;
+    // @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
+    // private LocalDateTime date;
+    private long date;
 
     @JsonProperty("arrSchedule")
     private List<Schedule> arrSchedule;
@@ -39,7 +40,9 @@ public class ResScheduleDTO {
     // }
     public static class ScheduleDTO {
 
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
+        // @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
+        // private long date;
+
         private long date;
 
         private String timeType;
@@ -79,11 +82,11 @@ public class ResScheduleDTO {
         this.arrSchedule = arrSchedule;
     }
 
-    public LocalDateTime getDate() {
+    public long getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(long date) {
         this.date = date;
     }
 

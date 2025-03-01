@@ -24,8 +24,9 @@ public class Schedule {
 
     private int maxNumber;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
-    private LocalDateTime date;
+    // @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
+    // private LocalDateTime date;
+    private String date;
 
     private String timeType;
     private long doctorId;
@@ -115,11 +116,11 @@ public class Schedule {
         this.updatedBy = updatedBy;
     }
 
-    public LocalDateTime getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

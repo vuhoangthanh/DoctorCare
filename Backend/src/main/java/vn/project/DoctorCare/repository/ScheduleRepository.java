@@ -12,5 +12,5 @@ import vn.project.DoctorCare.domain.Schedule;
 
 @Repository
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
-    List<Schedule> findByDateAndDoctorId(LocalDateTime date, long doctorId);
+    List<Schedule> findByDateAndDoctorId(String date, long doctorId);
 }

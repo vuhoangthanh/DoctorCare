@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import vn.project.DoctorCare.domain.Schedule;
 import vn.project.DoctorCare.domain.response.ResScheduleDTO;
 import vn.project.DoctorCare.service.ScheduleService;
+import vn.project.DoctorCare.util.annotation.ApiMessage;
 
 import java.time.Instant;
 import java.util.Date;
@@ -15,6 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -27,6 +30,7 @@ public class ScheduleController {
     }
 
     @PostMapping("/schedules")
+    @ApiMessage("add schedule")
     public ResponseEntity<List<Schedule>> addSchedule(@RequestBody ResScheduleDTO resScheduleDTO) {
 
         // long datedate = resScheduleDTO.getDate();
@@ -34,10 +38,23 @@ public class ScheduleController {
         // Instant date = Instant.ofEpochMilli(dateTimeStamp);
         // Date date = new Date(dateTimeStamp);
 
+        String date = "" + resScheduleDTO.getDate();
+
         List<Schedule> listSchedules = this.scheduleService.handleAddSchedule(
                 resScheduleDTO.getArrSchedule(),
                 resScheduleDTO.getDoctorId(),
-                resScheduleDTO.getDate());
+                date);
         return ResponseEntity.status(HttpStatus.CREATED).body(listSchedules);
     }
+
+    @GetMapping("/schedules")
+    @ApiMessage("fetch by doctorId and date")
+    public ResponseEntity<List<Schedule>> getScheduleByDoctorIdAndDate(
+            @RequestParam(name = "doctorId") long doctorId,
+            @RequestParam(name = "date") String date) {
+
+        List<Schedule> schedules = this.scheduleService.fetchByDoctorIdAndDate(doctorId, date);
+        return ResponseEntity.status(HttpStatus.OK).body(schedules);
+    }
+
 }

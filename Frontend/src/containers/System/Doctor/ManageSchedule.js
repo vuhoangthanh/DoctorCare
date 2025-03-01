@@ -109,8 +109,8 @@ class ManageDoctor extends Component {
             toast.error("Invalid selected doctor!");
             return;
         }
-        let formatedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER);
-        // let formatedDate = new Date(currentDate).getTime();
+        // let formatedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER);
+        let formatedDate = new Date(currentDate).getTime();
         // console.log(new Date(1743526800000).toISOString());
 
         if (rangeTime && rangeTime.length > 0) {

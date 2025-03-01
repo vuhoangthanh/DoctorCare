@@ -21,7 +21,13 @@ public class ScheduleService {
         this.scheduleRepository = scheduleRepository;
     }
 
-    public List<Schedule> handleAddSchedule(List<Schedule> schedules, long doctorId, LocalDateTime date) {
+    public List<Schedule> fetchByDoctorIdAndDate(long doctorId, String date) {
+
+        List<Schedule> schedules = scheduleRepository.findByDateAndDoctorId(date, doctorId);
+        return schedules;
+    }
+
+    public List<Schedule> handleAddSchedule(List<Schedule> schedules, long doctorId, String date) {
 
         List<Schedule> listSchedule = new ArrayList<Schedule>();
 

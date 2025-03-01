@@ -4,6 +4,8 @@ import HomeHeader from '../../HomePage/HomeHeader';
 import './DetailDoctor.scss'
 import { getDetailInfoDoctor } from '../../../services/userService'
 import { LANGUAGES } from "../../../utils"
+import DoctorSchedule from './DoctorSchedule';
+
 
 class DetailDoctor extends Component {
     constructor(props) {
@@ -29,11 +31,9 @@ class DetailDoctor extends Component {
     }
 
     render() {
-        console.log('than', this.state.detailDoctor)
         let { language } = this.props;
-
         let { detailDoctor } = this.state
-        console.log(this.state)
+
         let nameVi = '', nameEn = '';
         if (detailDoctor && detailDoctor.positionData) {
             nameVi = `${detailDoctor.positionData.valueVi}, ${detailDoctor.lastName} ${detailDoctor.firstName} `;
@@ -64,7 +64,14 @@ class DetailDoctor extends Component {
                         </div>
                     </div>
                     <div className="schedule-doctor">
+                        <div className="content-left">
+                            <DoctorSchedule
+                                doctorIdFromParent={detailDoctor && detailDoctor.id ? detailDoctor.id : -1}
+                            />
+                        </div>
+                        <div className="content-right">
 
+                        </div>
                     </div>
                     <div className="detail-infor-doctor">
                         {detailDoctor && detailDoctor.markdown && detailDoctor.markdown.contentHtml
