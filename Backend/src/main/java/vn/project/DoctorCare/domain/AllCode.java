@@ -38,6 +38,9 @@ public class AllCode {
     @OneToMany(mappedBy = "genderData")
     private List<User> usersByGender;
 
+    @OneToMany(mappedBy = "timeTypeData")
+    private List<Schedule> scheduleByTimeType;
+
     @PrePersist
     public void handleBeforeCreateAt() {
         this.createdBy = SecurityUtil.getCurrentUserLogin().isPresent() == true

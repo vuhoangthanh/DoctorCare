@@ -57,4 +57,9 @@ public class ScheduleController {
         return ResponseEntity.status(HttpStatus.OK).body(schedules);
     }
 
+    @GetMapping("/hhh")
+    public List<Schedule> hhh() {
+        return this.scheduleService.hh();
+    }
+
 }

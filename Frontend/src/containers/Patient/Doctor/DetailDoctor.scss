@@ -41,7 +41,6 @@
         margin : 0 100px;
         display: flex;
         height : 200px;
-        border : 1px solid red;
 
         .content-left {
             width: 50%;
@@ -49,10 +48,9 @@
     }
 
     .detail-infor-doctor {
-        border-top      : 1px solid #ddd;
-        border-bottom   : 1px solid #ddd;
-        background-color: #ccc;
+        background-color: #d8f4ff;
         padding         : 10px 100px;
+        border          : 0;
 
         h3 {
             font-size: 17px;

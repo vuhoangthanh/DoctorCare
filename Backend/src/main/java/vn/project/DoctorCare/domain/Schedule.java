@@ -6,9 +6,12 @@ import java.time.LocalDateTime;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
@@ -35,6 +38,10 @@ public class Schedule {
     private Instant updatedAt;
     private String createdBy;
     private String updatedBy;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "timeType", referencedColumnName = "keyMap", insertable = false, updatable = false)
+    private AllCode timeTypeData;
 
     @PrePersist
     public void handleBeforeCreateAt() {
@@ -122,6 +129,14 @@ public class Schedule {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public AllCode getTimeTypeData() {
+        return timeTypeData;
+    }
+
+    public void setTimeTypeData(AllCode timeTypeData) {
+        this.timeTypeData = timeTypeData;
     }
 
 }

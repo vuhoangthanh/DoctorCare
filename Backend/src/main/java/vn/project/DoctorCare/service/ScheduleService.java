@@ -57,4 +57,8 @@ public class ScheduleService {
         return listSchedule;
     }
 
+    public List<Schedule> hh() {
+        return this.scheduleRepository.findAll();
+    }
+
 }
