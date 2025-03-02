@@ -329,3 +329,40 @@ export const editDetailDoctorSuccess = () => ({
 export const editDetailDoctorFailed = () => ({
     type: actionTypes.EDIT_DETAIL_DOCTOR_FAILED
 });
+
+export const getRequiredDoctorInfo = () => {
+    return async (dispatch, getState) => {
+        try {
+            dispatch({ type: actionTypes.FETCH_REQUIRED_DOCTOR_INFO_START })
+            let responsePrice = await getAllCodeService("PRICE");
+            let responsePayment = await getAllCodeService("PAYMENT");
+            let responseProvince = await getAllCodeService("PROVINCE");
+
+            if (responsePrice && responsePrice.error === null
+                && responsePayment && responsePayment.error === null
+                && responseProvince && responseProvince.error === null
+            ) {
+                let data = {
+                    responsePrice: responsePrice.data,
+                    responsePayment: responsePayment.data,
+                    responseProvince: responseProvince.data
+                }
+                dispatch(fetchDoctorInfoSuccess(data))
+            } else {
+                dispatch(fetchDoctorInfoFailed());
+            }
+        } catch (e) {
+            dispatch(fetchDoctorInfoFailed());
+            console.log('fetchGenderStart error', e)
+        }
+    }
+};
+
+export const fetchDoctorInfoSuccess = (allRequiredData) => ({
+    type: actionTypes.FETCH_REQUIRED_DOCTOR_INFO_SUCCESS,
+    data: allRequiredData
+});
+
+export const fetchDoctorInfoFailed = () => ({
+    type: actionTypes.FETCH_REQUIRED_DOCTOR_INFO_FAILED
+});

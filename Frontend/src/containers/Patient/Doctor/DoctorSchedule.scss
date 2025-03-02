@@ -43,34 +43,45 @@
         }
 
         .time-content {
-            display: flex;
-            gap    : 15px;
+            .time-content-btns {
 
-            flex-wrap: wrap;
+                display: flex;
+                gap    : 15px;
 
-            button {
-                padding         : 8px 10px;
-                border          : none;
-                outline         : none;
-                background-color: #06adef;
-                min-width       : 120px;
-                border-radius   : 3px;
-                font-weight     : 600;
-                color           : white;
-                font-family     : Mulish, sans-serif;
+                flex-wrap: wrap;
 
-                &:hover {
-                    background-color: #039edb;
+                button {
+                    padding         : 8px 10px;
+                    border          : none;
+                    outline         : none;
+                    background-color: #06adef;
+                    border-radius   : 3px;
+                    font-weight     : 600;
+                    color           : white;
+                    font-family     : Mulish, sans-serif;
+
+                    &:hover {
+                        background-color: #039edb;
+                    }
                 }
-            }
 
-            .notification {
-                span {
+                .btn-vie {
+                    min-width: 130px;
+                }
+
+                .btn-en {
+                    min-width: 170px;
+                }
+
+                .no-schedule {
                     color      : #0b3052;
                     font-family: Mulish, sans-serif;
                     font-size  : 16px;
                 }
+            }
 
+            .book-free {
+                margin-top: 10px;
             }
         }
     }
