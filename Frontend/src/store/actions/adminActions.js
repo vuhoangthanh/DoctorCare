@@ -303,6 +303,7 @@ export const saveDetailDoctorSuccess = () => ({
 export const saveDetailDoctorFailed = () => ({
     type: actionTypes.SAVE_DETAIL_DOCTOR_FAILED
 });
+
 export const editDetailDoctor = (data) => {
     return async (dispatch, getState) => {
         try {
