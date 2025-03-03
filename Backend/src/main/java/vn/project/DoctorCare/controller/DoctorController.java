@@ -96,6 +96,14 @@ public class DoctorController {
         return ResponseEntity.status(HttpStatus.OK).body(markdown);
     }
 
+    @GetMapping("/doctors-extra-info")
+    @ApiMessage("fetch extra doctor info")
+    public ResponseEntity<DoctorInfo> getExtraDoctorInfo(@RequestParam("doctorId") long doctorId) {
+
+        DoctorInfo doctorInfo = this.markdownService.fetchDoctorInfoByDoctorId(doctorId);
+        return ResponseEntity.status(HttpStatus.OK).body(doctorInfo);
+    }
+
     @GetMapping("/doctors-detail/{id}")
     @ApiMessage("fetch doctor detail by id")
     public ResponseEntity<ResDoctorDetailDTO> getDetailDoctorById(@PathVariable("id") long id) {

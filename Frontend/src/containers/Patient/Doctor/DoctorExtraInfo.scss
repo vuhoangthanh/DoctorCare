@@ -1,0 +1,93 @@
+.doctor-extra-info-container {
+    padding-left: 15px;
+
+
+    .content-up {
+        margin-bottom: 10px;
+
+        .text-address {
+            text-transform: uppercase;
+            color         : #06adef;
+            font-size     : 16px;
+            font-weight   : 600;
+            font-family   : Mulish, sans-serif;
+        }
+
+        .name-clinic {
+            padding    : 5px 0;
+            font-weight: 600;
+            color      : #0b3052;
+            font-family: Mulish, sans-serif;
+        }
+
+        .detail-address {
+            font-weight: 600;
+            color      : #0b3052;
+            font-family: Mulish, sans-serif;
+        }
+    }
+
+    .content-down {
+        .short-info {
+            .detail {
+                cursor     : pointer;
+                font-family: Mulish, sans-serif;
+                color      : #06adef;
+            }
+
+            .currency {
+                margin: 0 5px;
+            }
+        }
+
+        .title-price {
+            margin-bottom: 10px;
+            font-family  : Mulish, sans-serif;
+            color        : #06adef;
+            font-weight  : 900;
+            font-size    : 16px;
+        }
+
+        .detail-info {
+            border                 : 1px solid #ddd;
+            padding                : 15px 15px;
+            background-color       : #d8f4ff;
+            border                 : none;
+            border-top-right-radius: 10px;
+            border-top-left-radius : 10px;
+
+
+            .price {
+                padding-bottom: 5px;
+
+                .right {
+                    float: right;
+                }
+            }
+
+            .note {}
+        }
+
+        .payment {
+            border                    : 1px solid #ddd;
+            padding                   : 15px 15px;
+            background-color          : #06adef;
+            border                    : none;
+            border-bottom-right-radius: 10px;
+            border-bottom-left-radius : 10px;
+            color                     : white;
+            font-family               : Mulish, sans-serif;
+            font-weight               : 400;
+        }
+
+        .hide-price {
+            margin-top: 10px;
+
+            span {
+                cursor     : pointer;
+                font-family: Mulish, sans-serif;
+                color      : #06adef;
+            }
+        }
+    }
+}

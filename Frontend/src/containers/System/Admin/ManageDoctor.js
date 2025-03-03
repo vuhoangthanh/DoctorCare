@@ -13,13 +13,7 @@ import 'react-markdown-editor-lite/lib/index.css';
 import { getDetailInfoDoctor, addDetailDoctorService } from "../../../services/userService"
 import { toast } from "react-toastify";
 import Select from 'react-select';
-// import {}
 
-// const options = [
-//     { value: 'chocolate', label: 'Chocolate' },
-//     { value: 'strawberry', label: 'Strawberry' },
-//     { value: 'vanilla', label: 'Vanilla' },
-// ];
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
 class ManageDoctor extends Component {
@@ -118,12 +112,15 @@ class ManageDoctor extends Component {
                     description: this.state.description,
                     doctorId: this.state.selectedDoctor.value,
 
-                    selectedPrice: this.state.selectedPrice.value,
-                    selectedPayment: this.state.selectedPayment.value,
-                    selectedProvince: this.state.selectedProvince.value,
+                    priceId: this.state.selectedPrice.value,
+                    paymentId: this.state.selectedPayment.value,
+                    provinceId: this.state.selectedProvince.value,
                     nameClinic: this.state.nameClinic,
                     addressClinic: this.state.addressClinic,
                     note: this.state.note
+                })
+                this.setState({
+                    hasOldData: true
                 })
             } else {
                 this.props.editDetailDoctorRedux({
@@ -132,39 +129,73 @@ class ManageDoctor extends Component {
                     description: this.state.description,
                     doctorId: this.state.selectedDoctor.value,
 
-                    selectedPrice: this.state.selectedPrice.value,
-                    selectedPayment: this.state.selectedPayment.value,
-                    selectedProvince: this.state.selectedProvince.value,
+                    priceId: this.state.selectedPrice.value,
+                    paymentId: this.state.selectedPayment.value,
+                    provinceId: this.state.selectedProvince.value,
                     nameClinic: this.state.nameClinic,
                     addressClinic: this.state.addressClinic,
                     note: this.state.note
                 });
             }
         }
-
-
-
-
     }
 
     handleChangeSelect = async (selectedDoctor) => {
         this.setState({ selectedDoctor });
+        let { listPayment, listPrice, listProvince } = this.state
 
         let response = await getDetailInfoDoctor(selectedDoctor.value);
         if (response && response.data && response.data.markdown) {
             let markdown = response.data.markdown;
+
+            let addressClinic = '', nameClinic = '', note = '',
+                paymentId = '', priceId = '', provinceId = '',
+                selectedPayment = '', selectedPrice = '', selectedProvince = '';
+
+            if (response.data.doctorInfo) {
+
+                addressClinic = response.data.doctorInfo.addressClinic;
+                nameClinic = response.data.doctorInfo.nameClinic;
+                note = response.data.doctorInfo.note;
+                paymentId = response.data.doctorInfo.paymentId;
+                priceId = response.data.doctorInfo.priceId;
+                provinceId = response.data.doctorInfo.provinceId;
+
+                selectedPayment = listPayment.find(item => {
+                    return item && item.value === paymentId
+                })
+                selectedPrice = listPrice.find(item => {
+                    return item && item.value === priceId
+                })
+                selectedProvince = listProvince.find(item => {
+                    return item && item.value === provinceId
+                })
+            }
+
+
+
             this.setState({
                 contentHtml: markdown.contentHtml,
                 contentMarkdown: markdown.contentMarkdown,
                 description: markdown.description,
-                hasOldData: true
+                hasOldData: true,
+                addressClinic: addressClinic,
+                nameClinic: nameClinic,
+                note: note,
+                selectedPayment: selectedPayment,
+                selectedPrice: selectedPrice,
+                selectedProvince: selectedProvince
             })
         } else {
             this.setState({
                 contentHtml: '',
                 contentMarkdown: '',
                 description: '',
-                hasOldData: false
+                hasOldData: false,
+                addressClinic: '',
+                nameClinic: '',
+                note: '',
+
             })
         }
     };
@@ -231,7 +262,6 @@ class ManageDoctor extends Component {
         return result;
     }
     render() {
-        let arrUsers = this.state.usersRedux
         let { hasOldData } = this.state
         console.log('state', this.state)
 

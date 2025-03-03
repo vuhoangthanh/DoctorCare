@@ -3,6 +3,7 @@ package vn.project.DoctorCare.domain.response;
 import java.time.Instant;
 
 import vn.project.DoctorCare.domain.AllCode;
+import vn.project.DoctorCare.domain.DoctorInfo;
 import vn.project.DoctorCare.domain.Markdown;
 import vn.project.DoctorCare.util.constant.GenderEnum;
 
@@ -24,6 +25,7 @@ public class ResDoctorDetailDTO {
     private AllCode positionData;
     private AllCode genderData;
     private Markdown markdown;
+    private DoctorInfo doctorInfo;
 
     public long getId() {
         return id;
@@ -151,6 +153,14 @@ public class ResDoctorDetailDTO {
 
     public void setMarkdown(Markdown markdown) {
         this.markdown = markdown;
+    }
+
+    public DoctorInfo getDoctorInfo() {
+        return doctorInfo;
+    }
+
+    public void setDoctorInfo(DoctorInfo doctorInfo) {
+        this.doctorInfo = doctorInfo;
     }
 
 }

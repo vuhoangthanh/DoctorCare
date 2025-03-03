@@ -92,14 +92,30 @@ class DoctorSchedule extends Component {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
+
     render() {
         let { allDays, allAvailableTime, } = this.state;
         let { language } = this.props;
-
+        let customStyles = {
+            option: (provided, state) => ({
+                ...provided,
+                backgroundColor: state.isFocused ? "#06adef" : "white",
+                color: state.isFocused ? "white" : "#0b3052",
+                cursor: "pointer"
+            }),
+            control: (provided) => ({
+                ...provided,
+                borderBottom: "1px solid #06adef",
+                padding: "5px",
+                fontWeight: 600,
+                color: "#0b3052",
+                fontSize: "16px"
+            })
+        };
         return (
             <div className="doctor-schedule-container">
                 <div className="all-schedule">
-                    <select onChange={(event) => this.handleOnChangeSelect(event)}>
+                    <select styles={{ customStyles }} onChange={(event) => this.handleOnChangeSelect(event)}>
                         {allDays && allDays.length > 0 &&
                             allDays.map((item, index) => {
                                 return (
@@ -134,7 +150,9 @@ class DoctorSchedule extends Component {
                                 <div className="book-free">
                                     <span>
                                         <FormattedMessage id="patient.detail-doctor.choose" />
-                                        <i class="fas fa-hand-point-up"></i>
+                                        <span>
+                                            <i class="fas fa-hand-point-up"></i>
+                                        </span>
                                         <FormattedMessage id="patient.detail-doctor.book-free" />
                                     </span>
                                 </div>

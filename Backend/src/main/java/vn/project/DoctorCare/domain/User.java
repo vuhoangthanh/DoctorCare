@@ -5,8 +5,6 @@ import java.time.Instant;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -68,6 +66,9 @@ public class User {
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Markdown markdown;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private DoctorInfo doctorInfo;
 
     @PrePersist
     public void handleBeforeCreateAt() {
@@ -235,6 +236,14 @@ public class User {
 
     public void setMarkdown(Markdown markdown) {
         this.markdown = markdown;
+    }
+
+    public DoctorInfo getDoctorInfo() {
+        return doctorInfo;
+    }
+
+    public void setDoctorInfo(DoctorInfo doctorInfo) {
+        this.doctorInfo = doctorInfo;
     }
 
 }

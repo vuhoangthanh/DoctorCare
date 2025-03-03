@@ -75,7 +75,7 @@ public class DoctorService {
             resDoctorDetailDTO.setPositionData(user.get().getPositionData());
             resDoctorDetailDTO.setGenderData(user.get().getGenderData());
             resDoctorDetailDTO.setMarkdown(user.get().getMarkdown());
-            resDoctorDetailDTO.setMarkdown(user.get().getMarkdown());
+            resDoctorDetailDTO.setDoctorInfo(user.get().getDoctorInfo());
             resDoctorDetailDTO.setCreatedAt(user.get().getCreatedAt());
             resDoctorDetailDTO.setUpdatedAt(user.get().getUpdatedAt());
             resDoctorDetailDTO.setUpdatedBy(user.get().getUpdatedBy());

@@ -41,6 +41,15 @@ public class AllCode {
     @OneToMany(mappedBy = "timeTypeData")
     private List<Schedule> scheduleByTimeType;
 
+    @OneToMany(mappedBy = "priceTypeData")
+    private List<DoctorInfo> doctorInfoByPrice;
+
+    @OneToMany(mappedBy = "paymentTypeData")
+    private List<DoctorInfo> doctorInfoByPayment;
+
+    @OneToMany(mappedBy = "provinceTypeData")
+    private List<DoctorInfo> doctorInfoByProvince;
+
     @PrePersist
     public void handleBeforeCreateAt() {
         this.createdBy = SecurityUtil.getCurrentUserLogin().isPresent() == true

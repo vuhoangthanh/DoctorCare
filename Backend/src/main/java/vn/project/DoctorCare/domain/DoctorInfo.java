@@ -4,9 +4,13 @@ import java.time.Instant;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
@@ -34,6 +38,22 @@ public class DoctorInfo {
     private Instant updatedAt;
     private String createdBy;
     private String updatedBy;
+
+    @OneToOne
+    @JoinColumn(name = "doctorId", referencedColumnName = "id", insertable = false, updatable = false)
+    private User user;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "paymentId", referencedColumnName = "keyMap", insertable = false, updatable = false)
+    private AllCode paymentTypeData;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "priceId", referencedColumnName = "keyMap", insertable = false, updatable = false)
+    private AllCode priceTypeData;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "provinceId", referencedColumnName = "keyMap", insertable = false, updatable = false)
+    private AllCode provinceTypeData;
 
     @PrePersist
     public void handleBeforeCreateAt() {
@@ -153,6 +173,30 @@ public class DoctorInfo {
 
     public void setUpdatedBy(String updatedBy) {
         this.updatedBy = updatedBy;
+    }
+
+    public AllCode getPaymentTypeData() {
+        return paymentTypeData;
+    }
+
+    public void setPaymentTypeData(AllCode paymentTypeData) {
+        this.paymentTypeData = paymentTypeData;
+    }
+
+    public AllCode getPriceTypeData() {
+        return priceTypeData;
+    }
+
+    public void setPriceTypeData(AllCode priceTypeData) {
+        this.priceTypeData = priceTypeData;
+    }
+
+    public AllCode getProvinceTypeData() {
+        return provinceTypeData;
+    }
+
+    public void setProvinceTypeData(AllCode provinceTypeData) {
+        this.provinceTypeData = provinceTypeData;
     }
 
 }
