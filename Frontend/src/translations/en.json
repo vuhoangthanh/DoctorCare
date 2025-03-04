@@ -77,6 +77,20 @@
             "detail": "See details",
             "payment": "Patients can pay the cost by:",
             "hide-price": "Hide price list"
+        },
+        "booking-modal": {
+            "title": "Appointment information",
+            "fullName": "Full name",
+            "phoneNumber": "Phone number",
+            "email": "Email",
+            "address": "Address",
+            "gender": "Gender",
+            "reason": "Reason for examination",
+            "birthday": "Date of birth",
+            "btn-confirm": "Confirm",
+            "btn-cancel": "Cancel",
+            "freeBooking": "Free appointment",
+            "price": "Examination price: "
         }
     },
     "admin": {
