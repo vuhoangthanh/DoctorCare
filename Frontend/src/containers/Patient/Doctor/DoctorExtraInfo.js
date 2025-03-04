@@ -130,11 +130,6 @@ class DoctorExtraInfo extends Component {
                             </div>
                         </>
                     }
-
-
-
-
-
                 </div>
             </div>
         );

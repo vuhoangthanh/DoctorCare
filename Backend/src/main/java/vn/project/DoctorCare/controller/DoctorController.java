@@ -104,12 +104,22 @@ public class DoctorController {
         return ResponseEntity.status(HttpStatus.OK).body(doctorInfo);
     }
 
+    @GetMapping("/doctors-profile")
+    @ApiMessage("fetch profile doctor by doctorId")
+    public ResponseEntity<ResDoctorDetailDTO> getProfileDoctorByDoctorId(
+            @RequestParam("doctorId") long doctorId) {
+
+        ResDoctorDetailDTO doctorInfo = this.doctorService.fetchDetailDoctorById(doctorId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(doctorInfo);
+    }
+
     @GetMapping("/doctors-detail/{id}")
     @ApiMessage("fetch doctor detail by id")
     public ResponseEntity<ResDoctorDetailDTO> getDetailDoctorById(@PathVariable("id") long id) {
 
-        ResDoctorDetailDTO user = this.doctorService.fetchDetailDoctorById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(user);
+        ResDoctorDetailDTO doctorDetail = this.doctorService.fetchDetailDoctorById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(doctorDetail);
     }
 
 }
