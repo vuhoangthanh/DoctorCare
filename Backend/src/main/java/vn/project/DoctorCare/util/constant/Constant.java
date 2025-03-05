@@ -9,5 +9,7 @@ public class Constant {
     public static final String FIRST_NAME_DEFAULT = "patient";
 
     public static final String STATUS_NEW = "S1";
+    public static final String STATUS_CONFIRMED = "S2";
 
+    public static final String URL_FRONTEND = "http://localhost:3000";
 }

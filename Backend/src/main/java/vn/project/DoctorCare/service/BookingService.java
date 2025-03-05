@@ -30,10 +30,25 @@ public class BookingService {
         reqBooking.setDoctorId(reqPatientBookingDTO.getDoctorId());
         reqBooking.setPatientId(reqPatientBookingDTO.getPatientId());
         reqBooking.setDate(reqPatientBookingDTO.getDate());
-        reqBooking.setTimeType(reqPatientBookingDTO.getTimeType());
+        reqBooking.setTimeType(reqPatientBookingDTO.getTimeString());
+        reqBooking.setToken(reqPatientBookingDTO.getToken());
 
         Booking booking = this.bookingRepository.save(reqBooking);
 
         return booking;
+    }
+
+    public Booking handleVerifyBooking(String token, long doctorId) {
+
+        Optional<Booking> booking = this.bookingRepository.findByDoctorIdAndTokenAndStatusId(doctorId, token,
+                Constant.STATUS_NEW);
+
+        if (booking.isPresent()) {
+            booking.get().setStatusId(Constant.STATUS_CONFIRMED);
+            Booking resBooking = booking.get();
+            return this.bookingRepository.save(resBooking);
+        }
+
+        return null;
     }
 }

@@ -1,7 +1,9 @@
 package vn.project.DoctorCare.service;
 
 import java.util.Optional;
+import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import vn.project.DoctorCare.domain.User;
@@ -23,6 +25,12 @@ public class PatientService {
         this.emailService = emailService;
     }
 
+    public String buildUrlEmail(long doctorId, String token) {
+
+        String result = Constant.URL_FRONTEND + "/verify-booking?token=" + token + "&doctorId=" + doctorId;
+
+        return result;
+    }
     // public User fetchPatientById(long id) {
     // Optional<User> currentPatient = this.patientRepository.findById(id);
     // if (currentPatient.isPresent()) {
@@ -34,15 +42,18 @@ public class PatientService {
     public User handleFindOrAddPatient(User reqPatient, ReqPatientBookingDTO reqPatientBookingDTO) {
         Optional<User> currentPatient = this.patientRepository.findByEmail(reqPatient.getEmail());
 
-        String name = "ThanhTjd";
-        String time = "9:00 - 10:00";
-        String doctorName = "Tề Tĩnh Xuân";
-        String address = "Ly Châu Động Thiên";
-        String redirectLink = "#";
+        String name = reqPatientBookingDTO.getFullName();
+        String time = reqPatientBookingDTO.getTimeString();
+        String doctorName = reqPatientBookingDTO.getDoctorName();
+        String address = reqPatientBookingDTO.getAddress();
+        String language = reqPatientBookingDTO.getLanguage();
+
+        String token = UUID.randomUUID().toString();
+        String redirectLink = buildUrlEmail(reqPatientBookingDTO.getDoctorId(), token);
         if (currentPatient.isPresent()) {
             try {
                 emailService.sendSimpleMessage(currentPatient.get().getEmail(), name, time, doctorName, address,
-                        redirectLink);
+                        redirectLink, language);
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -58,10 +69,12 @@ public class PatientService {
 
         // handle add booking
         reqPatientBookingDTO.setPatientId(patient.getId());
+        reqPatientBookingDTO.setToken(token);
         this.bookingService.handleAddBooking(reqPatientBookingDTO);
 
         try {
-            emailService.sendSimpleMessage(reqPatient.getEmail(), name, time, doctorName, address, redirectLink);
+            emailService.sendSimpleMessage(reqPatient.getEmail(), name, time, doctorName, address, redirectLink,
+                    language);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -69,4 +82,5 @@ public class PatientService {
 
         return patient;
     }
+
 }

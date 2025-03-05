@@ -43,6 +43,10 @@ public class Schedule {
     @JoinColumn(name = "timeType", referencedColumnName = "keyMap", insertable = false, updatable = false)
     private AllCode timeTypeData;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "doctorId", referencedColumnName = "id", insertable = false, updatable = false)
+    private User doctorData;
+
     @PrePersist
     public void handleBeforeCreateAt() {
         this.createdBy = SecurityUtil.getCurrentUserLogin().isPresent() == true
@@ -137,6 +141,14 @@ public class Schedule {
 
     public void setTimeTypeData(AllCode timeTypeData) {
         this.timeTypeData = timeTypeData;
+    }
+
+    public User getDoctorData() {
+        return doctorData;
+    }
+
+    public void setDoctorData(User doctorData) {
+        this.doctorData = doctorData;
     }
 
 }

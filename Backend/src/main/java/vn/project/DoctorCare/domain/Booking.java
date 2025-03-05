@@ -23,6 +23,7 @@ public class Booking {
     private long patientId;
     private String date;
     private String timeType;
+    private String token;
 
     private Instant createdAt;
     private Instant updatedAt;
@@ -123,6 +124,14 @@ public class Booking {
 
     public void setUpdatedBy(String updatedBy) {
         this.updatedBy = updatedBy;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
 }

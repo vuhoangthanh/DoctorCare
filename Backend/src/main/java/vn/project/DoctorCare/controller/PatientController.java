@@ -6,10 +6,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import vn.project.DoctorCare.domain.Booking;
 import vn.project.DoctorCare.domain.DoctorInfo;
 import vn.project.DoctorCare.domain.Markdown;
 import vn.project.DoctorCare.domain.User;
 import vn.project.DoctorCare.domain.request.ReqPatientBookingDTO;
+import vn.project.DoctorCare.service.BookingService;
 import vn.project.DoctorCare.service.PatientService;
 
 import java.util.Map;
@@ -17,6 +19,7 @@ import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
@@ -24,9 +27,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class PatientController {
 
     private final PatientService patientService;
+    private final BookingService bookingService;
 
-    public PatientController(PatientService patientService) {
+    public PatientController(PatientService patientService, BookingService bookingService) {
         this.patientService = patientService;
+        this.bookingService = bookingService;
     }
 
     @PostMapping("/patient-book-appointment")
@@ -42,6 +47,16 @@ public class PatientController {
         User resPatient = this.patientService.handleFindOrAddPatient(patient, reqPatientBookingDTO);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(resPatient);
+    }
+
+    @PutMapping("/patient-verify-appointment")
+    public ResponseEntity<Booking> verifyAppointment(@RequestBody Booking reqBooking) {
+
+        Booking booking = this.bookingService.handleVerifyBooking(reqBooking.getToken(), reqBooking.getDoctorId());
+        if (booking == null) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(booking);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(booking);
     }
 
 }
