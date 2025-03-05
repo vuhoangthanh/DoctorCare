@@ -56,7 +56,10 @@
     },
     "home-page": {
         "outstanding-doctor": "Last week's featured doctor",
-        "more-information": "See more"
+        "more-information": "See more",
+        "specialty-popular": "Chuyên khoa phổ biến",
+        "specialty": "Specialty ",
+        "popular": "popular"
     },
     "manage-schedule": {
         "title": "Manage doctor's examination plan",
@@ -105,7 +108,9 @@
             "province": "Province",
             "nameClinic": "Clinic name",
             "addressClinic": "Clinic address",
-            "note": "Note"
+            "note": "Note",
+            "specialty": "Specialty",
+            "clinic": "Clinic"
         }
     }
 }

@@ -30,6 +30,8 @@ public class DoctorInfo {
     private String addressClinic;
     private String nameClinic;
     private String note;
+    private long specialtyId;
+    private long ClinicId;
 
     @Column(nullable = false, columnDefinition = "INT DEFAULT 0")
     private int count;
@@ -69,6 +71,22 @@ public class DoctorInfo {
                 ? SecurityUtil.getCurrentUserLogin().get()
                 : "";
         this.updatedAt = Instant.now();
+    }
+
+    public long getSpecialtyId() {
+        return specialtyId;
+    }
+
+    public void setSpecialtyId(long specialtyId) {
+        this.specialtyId = specialtyId;
+    }
+
+    public long getClinicId() {
+        return ClinicId;
+    }
+
+    public void setClinicId(long clinicId) {
+        ClinicId = clinicId;
     }
 
     public long getId() {

@@ -37,6 +37,8 @@ public class MarkdownService {
             currentDoctorInfo.setNameClinic(doctorInfo.getNameClinic());
             currentDoctorInfo.setAddressClinic(doctorInfo.getAddressClinic());
             currentDoctorInfo.setNote(doctorInfo.getNote());
+            // currentDoctorInfo.setClinicId(doctorInfo.getClinicId());
+            currentDoctorInfo.setSpecialtyId(doctorInfo.getSpecialtyId());
 
             this.doctorInfoRepository.save(currentDoctorInfo);
 
@@ -58,7 +60,7 @@ public class MarkdownService {
         if (this.doctorInfoRepository.existsByDoctorId(doctorInfo.getDoctorId())) {
             return this.handleUpdateDoctorInfo(doctorInfo);
         } else {
-            return this.handleUpdateDoctorInfo(doctorInfo);
+            return this.handleAddDoctorInfo(doctorInfo);
         }
     }
 

@@ -59,7 +59,9 @@ public class SecurityConfiguration {
                                                                                 "/api/v1/schedules",
                                                                                 "/api/v1/doctors-extra-info",
                                                                                 "/api/v1/doctors-profile",
-                                                                                "/api/v1/patient-book-appointment")
+                                                                                "/api/v1/patient-book-appointment",
+                                                                                "/api/v1/verify-book-appointment",
+                                                                                "/api/v1/specialties")
                                                                 // .requestMatchers(HttpMethod.GET, "/api/v1/**")
                                                                 // .permitAll()
                                                                 // .requestMatchers(HttpMethod.POST, "/api/v1/**")

@@ -49,7 +49,7 @@ public class PatientController {
         return ResponseEntity.status(HttpStatus.CREATED).body(resPatient);
     }
 
-    @PutMapping("/patient-verify-appointment")
+    @PutMapping("/verify-book-appointment")
     public ResponseEntity<Booking> verifyAppointment(@RequestBody Booking reqBooking) {
 
         Booking booking = this.bookingService.handleVerifyBooking(reqBooking.getToken(), reqBooking.getDoctorId());
