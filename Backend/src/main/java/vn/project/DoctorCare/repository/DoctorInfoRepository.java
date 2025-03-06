@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import vn.project.DoctorCare.domain.DoctorInfo;
+import vn.project.DoctorCare.domain.response.ResDoctorInfoByClinicDTO;
 
 @Repository
 public interface DoctorInfoRepository extends JpaRepository<DoctorInfo, Long> {
@@ -17,4 +18,6 @@ public interface DoctorInfoRepository extends JpaRepository<DoctorInfo, Long> {
     List<DoctorInfo> findBySpecialtyId(long id);
 
     List<DoctorInfo> findBySpecialtyIdAndProvinceId(long specialtyId, String provinceId);
+
+    List<ResDoctorInfoByClinicDTO> findByClinicId(long clinicId);
 }

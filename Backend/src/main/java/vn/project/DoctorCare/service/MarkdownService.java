@@ -37,7 +37,7 @@ public class MarkdownService {
             currentDoctorInfo.setNameClinic(doctorInfo.getNameClinic());
             currentDoctorInfo.setAddressClinic(doctorInfo.getAddressClinic());
             currentDoctorInfo.setNote(doctorInfo.getNote());
-            // currentDoctorInfo.setClinicId(doctorInfo.getClinicId());
+            currentDoctorInfo.setClinicId(doctorInfo.getClinicId());
             currentDoctorInfo.setSpecialtyId(doctorInfo.getSpecialtyId());
 
             this.doctorInfoRepository.save(currentDoctorInfo);

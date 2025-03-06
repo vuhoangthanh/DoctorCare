@@ -65,17 +65,19 @@ class ManageDoctor extends Component {
         }
 
         if (prevProps.allRequiredDoctorInfo !== this.props.allRequiredDoctorInfo) {
-            let { responsePayment, responsePrice, responseProvince, responseSpecialty } = this.props.allRequiredDoctorInfo;
+            let { responsePayment, responsePrice, responseProvince, responseSpecialty, responseClinic } = this.props.allRequiredDoctorInfo;
             let dataSelectPrice = this.buildDataInputSelect(responsePrice, 'PRICE')
             let dataSelectPayment = this.buildDataInputSelect(responsePayment, 'PAYMENT')
             let dataSelectProvince = this.buildDataInputSelect(responseProvince, 'PROVINCE')
             let dataSelectSpecialty = this.buildDataInputSelect(responseSpecialty, 'SPECIALTY')
+            let dataSelectClinic = this.buildDataInputSelect(responseClinic, 'CLINIC')
 
             this.setState({
                 listPrice: dataSelectPrice,
                 listPayment: dataSelectPayment,
                 listProvince: dataSelectProvince,
-                listSpecialty: dataSelectSpecialty
+                listSpecialty: dataSelectSpecialty,
+                listClinic: dataSelectClinic,
             })
         }
 
@@ -154,6 +156,7 @@ class ManageDoctor extends Component {
         let { listPayment, listPrice, listProvince, listSpecialty, listClinic } = this.state
 
         let response = await getDetailInfoDoctor(selectedDoctor.value);
+        console.log("fdsa", this.state)
         if (response && response.data && response.data.markdown) {
             let markdown = response.data.markdown;
 
@@ -173,6 +176,7 @@ class ManageDoctor extends Component {
                 clinicId = response.data.doctorInfo.clinicId;
 
                 selectedPayment = listPayment.find(item => {
+                    console.log("payment", item.value)
                     return item && item.value === paymentId
                 })
                 selectedPrice = listPrice.find(item => {
@@ -228,6 +232,7 @@ class ManageDoctor extends Component {
     }
 
     handleOnChangeText = (event, id) => {
+        console.log("text", event, id)
         let stateCopy = { ...this.state };
         stateCopy[id] = event.target.value;
         this.setState({
@@ -281,8 +286,18 @@ class ManageDoctor extends Component {
                     result.push(object)
                 })
             }
+            if (type === 'CLINIC') {
+                data.map((item, index) => {
+                    let object = {}
+
+                    object.label = item.name;
+                    object.value = item.id;
+                    result.push(object)
+                })
+            }
 
         }
+
         return result;
     }
     render() {

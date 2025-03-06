@@ -2,6 +2,9 @@ package vn.project.DoctorCare.domain;
 
 import java.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -18,6 +21,7 @@ import vn.project.DoctorCare.util.SecurityUtil;
 
 @Entity
 @Table(name = "doctor_info")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class DoctorInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +35,7 @@ public class DoctorInfo {
     private String nameClinic;
     private String note;
     private long specialtyId;
-    private long ClinicId;
+    private long clinicId;
 
     @Column(nullable = false, columnDefinition = "INT DEFAULT 0")
     private int count;
@@ -82,11 +86,19 @@ public class DoctorInfo {
     }
 
     public long getClinicId() {
-        return ClinicId;
+        return clinicId;
     }
 
     public void setClinicId(long clinicId) {
-        ClinicId = clinicId;
+        this.clinicId = clinicId;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public long getId() {

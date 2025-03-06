@@ -3,6 +3,10 @@ package vn.project.DoctorCare.domain;
 import java.time.Instant;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,6 +26,7 @@ import vn.project.DoctorCare.util.SecurityUtil;
 
 @Entity
 @Table(name = "users")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -70,6 +75,7 @@ public class User {
     private Markdown markdown;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    // @JsonIgnore
     private DoctorInfo doctorInfo;
 
     @OneToMany(mappedBy = "doctorData")

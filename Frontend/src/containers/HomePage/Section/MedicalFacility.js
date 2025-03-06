@@ -1,10 +1,33 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
+import { getAllClinic } from '../../../services/userService';
 import Slider from "react-slick";
-class MedicalFacility extends Component {
+import { withRouter } from 'react-router';
+import './clinic.scss'
 
+class MedicalFacility extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            dataClinics: []
+        }
+    }
+    async componentDidMount() {
+        let response = await getAllClinic();
+        if (response && response.error === null) {
+            this.setState({
+                dataClinics: response.data ? response.data : []
+            })
+        }
+
+    }
+    handleViewDetailClinic = (clinic) => {
+        if (this.props.history) {
+            this.props.history.push(`/detail-clinic/${clinic.id}`)
+        }
+    }
     render() {
+        let { dataClinics } = this.state;
         return (
             <div className="section-share section-medical-facility">
                 <div className="section-container">
@@ -14,30 +37,20 @@ class MedicalFacility extends Component {
                     </div>
                     <div className="section-body">
                         <Slider {...this.props.settings}>
-                            <div className="section-customize">
-                                <div className="bg-image section-medical-facility"></div>
-                                <div>Hệ thống thu cúc 1</div>
-                            </div>
-                            <div className="section-customize">
-                                <div className="bg-image section-medical-facility"></div>
-                                <div>Hệ thống thu cúc 2</div>
-                            </div>
-                            <div className="section-customize">
-                                <div className="bg-image section-medical-facility"></div>
-                                <div>Hệ thống thu cúc 3</div>
-                            </div>
-                            <div className="section-customize">
-                                <div className="bg-image section-medical-facility"></div>
-                                <div>Hệ thống thu cúc 4</div>
-                            </div>
-                            <div className="section-customize">
-                                <div className="bg-image section-medical-facility"></div>
-                                <div>Hệ thống thu cúc 5</div>
-                            </div>
-                            <div className="section-customize">
-                                <div className="bg-image section-medical-facility"></div>
-                                <div>Hệ thống thu cúc 6</div>
-                            </div>
+                            {dataClinics && dataClinics.length > 0 &&
+                                dataClinics.map((item, index) => {
+                                    return (
+                                        <div className="section-customize clinic-child"
+                                            key={index}
+                                            onClick={() => this.handleViewDetailClinic(item)}>
+                                            <div
+                                                className="bg-image section-medical-facility"
+                                                style={{ backgroundImage: `url(${item.image})` }}>
+                                            </div>
+                                            <div className="clinic-name">{item.name}</div>
+                                        </div>
+                                    )
+                                })}
                         </Slider>
                     </div>
                 </div>
@@ -57,4 +70,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MedicalFacility);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MedicalFacility));
