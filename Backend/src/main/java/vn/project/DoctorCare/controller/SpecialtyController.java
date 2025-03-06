@@ -4,11 +4,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import vn.project.DoctorCare.domain.Specialty;
+import vn.project.DoctorCare.domain.response.ResSpecialtiesByIdDTO;
 import vn.project.DoctorCare.service.SpecialtyService;
 
 import java.util.List;
 
-import org.springframework.boot.autoconfigure.rsocket.RSocketProperties.Server.Spec;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,6 +38,15 @@ public class SpecialtyController {
         Specialty specialty = this.specialtyService.handleAddSpecialty(reqSpecialty);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(specialty);
+    }
+
+    @GetMapping("/get-specialties-by-id")
+    public ResponseEntity<ResSpecialtiesByIdDTO> findSpecialtyById(
+            @RequestParam("id") long id,
+            @RequestParam("location") String location) {
+
+        ResSpecialtiesByIdDTO resSpecialtiesByIdDTO = this.specialtyService.fetchSpecialtyById(id, location);
+        return ResponseEntity.status(HttpStatus.OK).body(resSpecialtiesByIdDTO);
     }
 
 }

@@ -103,22 +103,21 @@ class ProfileDoctor extends Component {
                 </div>
                 <div className="price">
                     <FormattedMessage id="patient.booking-modal.price" />
-                    {dataProfile && dataProfile.doctorInfo && language === LANGUAGES.VI ?
+                    {dataProfile && dataProfile.doctorInfo && language === LANGUAGES.VI &&
                         <NumberFormat
                             className="currency"
                             value={dataProfile.doctorInfo.priceTypeData.valueVi}
                             displayType={'text'}
                             thousandSeparator={true}
                             suffix={' VND'} />
-                        : ''
                     }
-                    {dataProfile && dataProfile.doctorInfo && language === LANGUAGES.EN ?
+                    {dataProfile && dataProfile.doctorInfo && language === LANGUAGES.EN &&
                         <NumberFormat
                             className="currency"
                             value={dataProfile.doctorInfo.priceTypeData.valueEn}
                             displayType={'text'}
                             thousandSeparator={true}
-                            suffix={' $'} /> : ''
+                            suffix={' $'} />
                     }
                 </div>
             </div>
