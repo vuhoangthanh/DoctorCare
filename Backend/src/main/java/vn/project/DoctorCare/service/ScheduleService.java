@@ -1,5 +1,6 @@
 package vn.project.DoctorCare.service;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +9,11 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import vn.project.DoctorCare.domain.AllCode;
 import vn.project.DoctorCare.domain.Schedule;
+import vn.project.DoctorCare.domain.User;
+import vn.project.DoctorCare.domain.response.ResScheduleByDocIdAndDateDTO;
+import vn.project.DoctorCare.domain.response.ResScheduleByDocIdAndDateDTO.DoctorDataDTO;
 import vn.project.DoctorCare.repository.ScheduleRepository;
 import vn.project.DoctorCare.util.constant.Constant;
 
@@ -21,11 +26,49 @@ public class ScheduleService {
         this.scheduleRepository = scheduleRepository;
     }
 
-    public List<Schedule> fetchByDoctorIdAndDate(long doctorId, String date) {
+    public List<ResScheduleByDocIdAndDateDTO> fetchByDoctorIdAndDate(long doctorId, String date) {
 
         List<Schedule> schedules = scheduleRepository.findByDateAndDoctorId(date, doctorId);
-        return schedules;
+
+        List<ResScheduleByDocIdAndDateDTO> result = new ArrayList<ResScheduleByDocIdAndDateDTO>();
+
+        for (Schedule schedule : schedules) {
+            ResScheduleByDocIdAndDateDTO resScheduleByDocIdAndDateDTO = new ResScheduleByDocIdAndDateDTO();
+            resScheduleByDocIdAndDateDTO.setId(schedule.getId());
+            resScheduleByDocIdAndDateDTO.setMaxNumber(schedule.getMaxNumber());
+            resScheduleByDocIdAndDateDTO.setDate(schedule.getDate());
+            resScheduleByDocIdAndDateDTO.setTimeType(schedule.getTimeType());
+            resScheduleByDocIdAndDateDTO.setDoctorId(schedule.getDoctorId());
+            resScheduleByDocIdAndDateDTO.setCreatedAt(schedule.getCreatedAt());
+            resScheduleByDocIdAndDateDTO.setTimeTypeData(schedule.getTimeTypeData());
+
+            User doctorData = schedule.getDoctorData();
+            ResScheduleByDocIdAndDateDTO.DoctorDataDTO doctorDataDTO = new ResScheduleByDocIdAndDateDTO.DoctorDataDTO(
+                    doctorData.getFirstName(), doctorData.getLastName());
+            resScheduleByDocIdAndDateDTO.setDoctorData(doctorDataDTO);
+
+            result.add(resScheduleByDocIdAndDateDTO);
+        }
+        return result;
     }
+
+    // private long id;
+
+    // private int maxNumber;
+
+    // private String date;
+
+    // private String timeType;
+    // private long doctorId;
+
+    // private Instant createdAt;
+    // private Instant updatedAt;
+    // private String createdBy;
+    // private String updatedBy;
+
+    // private AllCode timeTypeData;
+
+    // private DoctorDataDTO doctorData;
 
     public List<Schedule> handleAddSchedule(List<Schedule> schedules, long doctorId, String date) {
 
@@ -60,5 +103,4 @@ public class ScheduleService {
     public List<Schedule> hh() {
         return this.scheduleRepository.findAll();
     }
-
 }

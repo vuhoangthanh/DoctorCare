@@ -1,6 +1,7 @@
 package vn.project.DoctorCare.domain;
 
 import java.time.Instant;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -9,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
@@ -36,6 +38,10 @@ public class Booking {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "patientId", referencedColumnName = "id", insertable = false, updatable = false)
     private User patientData;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "timeType", referencedColumnName = "keyMap", insertable = false, updatable = false)
+    private AllCode timeTypeDataPatient;
 
     @PrePersist
     public void handleBeforeCreateAt() {
@@ -147,6 +153,14 @@ public class Booking {
 
     public void setPatientData(User patientData) {
         this.patientData = patientData;
+    }
+
+    public AllCode getTimeTypeDataPatient() {
+        return timeTypeDataPatient;
+    }
+
+    public void setTimeTypeDataPatient(AllCode timeTypeDataPatient) {
+        this.timeTypeDataPatient = timeTypeDataPatient;
     }
 
 }

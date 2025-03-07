@@ -50,14 +50,24 @@ public class PatientService {
 
         String token = UUID.randomUUID().toString();
         String redirectLink = buildUrlEmail(reqPatientBookingDTO.getDoctorId(), token);
+
         if (currentPatient.isPresent()) {
-            try {
-                emailService.sendSimpleMessage(currentPatient.get().getEmail(), name, time, doctorName, address,
-                        redirectLink, language);
-            } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+            if (this.bookingService.findBookingByPatientIdAndDateAndTimeType(currentPatient.get().getId(),
+                    reqPatientBookingDTO.getDate(), reqPatientBookingDTO.getTimeType()) == null) {
+
+                // handle add booking
+                reqPatientBookingDTO.setPatientId(currentPatient.get().getId());
+                reqPatientBookingDTO.setToken(token);
+                this.bookingService.handleAddBooking(reqPatientBookingDTO);
+                try {
+                    emailService.sendSimpleMessage(currentPatient.get().getEmail(), name, time, doctorName, address,
+                            redirectLink, language);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return currentPatient.get();
             }
+
             return currentPatient.get();
         }
 
@@ -76,7 +86,6 @@ public class PatientService {
             emailService.sendSimpleMessage(reqPatient.getEmail(), name, time, doctorName, address, redirectLink,
                     language);
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

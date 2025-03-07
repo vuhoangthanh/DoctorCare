@@ -50,6 +50,9 @@ public class AllCode {
     @OneToMany(mappedBy = "provinceTypeData")
     private List<DoctorInfo> doctorInfoByProvince;
 
+    @OneToMany(mappedBy = "timeTypeDataPatient")
+    private List<Booking> bookingByTimeType;
+
     @PrePersist
     public void handleBeforeCreateAt() {
         this.createdBy = SecurityUtil.getCurrentUserLogin().isPresent() == true

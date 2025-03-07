@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import vn.project.DoctorCare.domain.Schedule;
+import vn.project.DoctorCare.domain.response.ResScheduleByDocIdAndDateDTO;
 import vn.project.DoctorCare.domain.response.ResScheduleDTO;
 import vn.project.DoctorCare.service.ScheduleService;
 import vn.project.DoctorCare.util.annotation.ApiMessage;
@@ -49,11 +50,11 @@ public class ScheduleController {
 
     @GetMapping("/schedules")
     @ApiMessage("fetch by doctorId and date")
-    public ResponseEntity<List<Schedule>> getScheduleByDoctorIdAndDate(
+    public ResponseEntity<List<ResScheduleByDocIdAndDateDTO>> getScheduleByDoctorIdAndDate(
             @RequestParam(name = "doctorId") long doctorId,
             @RequestParam(name = "date") String date) {
 
-        List<Schedule> schedules = this.scheduleService.fetchByDoctorIdAndDate(doctorId, date);
+        List<ResScheduleByDocIdAndDateDTO> schedules = this.scheduleService.fetchByDoctorIdAndDate(doctorId, date);
         return ResponseEntity.status(HttpStatus.OK).body(schedules);
     }
 

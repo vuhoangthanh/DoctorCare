@@ -7,6 +7,8 @@ import vn.project.DoctorCare.domain.Booking;
 import vn.project.DoctorCare.domain.response.ResBookingByDoctorDTO;
 import vn.project.DoctorCare.service.BookingService;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,14 +24,14 @@ public class BookingController {
     }
 
     @GetMapping("/bookings")
-    public ResponseEntity<ResBookingByDoctorDTO> findBookingByDoctorIdAndDateAndStatusId(
+    public ResponseEntity<List<ResBookingByDoctorDTO>> findBookingByDoctorIdAndDateAndStatusId(
             @RequestParam("doctorId") long doctorId,
             @RequestParam("date") String date) {
 
-        ResBookingByDoctorDTO resBookingByDoctorDTO = this.bookingService
+        List<ResBookingByDoctorDTO> resBookingByDoctorDTOs = this.bookingService
                 .fetchBookingByDoctorAndDateAndStatusId(doctorId, date);
 
-        return ResponseEntity.status(HttpStatus.OK).body(resBookingByDoctorDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(resBookingByDoctorDTOs);
     }
 
 }

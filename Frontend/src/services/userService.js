@@ -89,6 +89,9 @@ const getAllClinic = () => {
 const getClinicById = (data) => {
     return axios.get(`/api/v1/clinic-by-id?id=${data.id}`)
 }
+const getAllPatientForDoctor = (data) => {
+    return axios.get(`/api/v1/bookings?doctorId=${data.doctorId}&date=${data.date}`)
+}
 export {
     handleLoginApi,
     getAllUsers,
@@ -112,5 +115,6 @@ export {
     getDetailSpecialty,
     createNewClinic,
     getAllClinic,
-    getClinicById
+    getClinicById,
+    getAllPatientForDoctor
 }

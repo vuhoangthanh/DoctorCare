@@ -27,7 +27,7 @@ public class ResBookingByDoctorDTO {
     private String date;
     private String timeType;
     private String token;
-
+    private AllCode timeTypeDataPatient;
     private UserDTO patient;
 
     public static class UserDTO {
@@ -186,6 +186,14 @@ public class ResBookingByDoctorDTO {
 
     public void setTimeType(String timeType) {
         this.timeType = timeType;
+    }
+
+    public AllCode getTimeTypeDataPatient() {
+        return timeTypeDataPatient;
+    }
+
+    public void setTimeTypeDataPatient(AllCode timeTypeDataPatient) {
+        this.timeTypeDataPatient = timeTypeDataPatient;
     }
 
 }

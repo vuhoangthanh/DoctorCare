@@ -1,5 +1,6 @@
 package vn.project.DoctorCare.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,5 +12,7 @@ import vn.project.DoctorCare.domain.Booking;
 public interface BookingRepository extends JpaRepository<Booking, Long> {
     Optional<Booking> findByDoctorIdAndTokenAndStatusId(long doctorId, String token, String statusId);
 
-    Optional<Booking> findByDoctorIdAndDateAndStatusId(long doctorId, String date, String statusId);
+    List<Optional<Booking>> findByDoctorIdAndDateAndStatusId(long doctorId, String date, String statusId);
+
+    Optional<Booking> findByPatientIdAndDateAndTimeType(long patientId, String date, String timeType);
 }
