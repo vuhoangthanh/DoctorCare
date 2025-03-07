@@ -81,6 +81,9 @@ public class User {
     @OneToMany(mappedBy = "doctorData")
     private List<Schedule> schedulesByDoctor;
 
+    @OneToMany(mappedBy = "patientData")
+    private List<Booking> bookingByDoctor;
+
     @PrePersist
     public void handleBeforeCreateAt() {
         this.createdBy = SecurityUtil.getCurrentUserLogin().isPresent() == true

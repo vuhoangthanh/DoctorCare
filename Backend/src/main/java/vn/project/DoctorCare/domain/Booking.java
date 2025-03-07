@@ -3,9 +3,12 @@ package vn.project.DoctorCare.domain;
 import java.time.Instant;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
@@ -29,6 +32,10 @@ public class Booking {
     private Instant updatedAt;
     private String createdBy;
     private String updatedBy;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "patientId", referencedColumnName = "id", insertable = false, updatable = false)
+    private User patientData;
 
     @PrePersist
     public void handleBeforeCreateAt() {
@@ -132,6 +139,14 @@ public class Booking {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public User getPatientData() {
+        return patientData;
+    }
+
+    public void setPatientData(User patientData) {
+        this.patientData = patientData;
     }
 
 }

@@ -4,8 +4,11 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import vn.project.DoctorCare.domain.AllCode;
 import vn.project.DoctorCare.domain.Booking;
+import vn.project.DoctorCare.domain.User;
 import vn.project.DoctorCare.domain.request.ReqPatientBookingDTO;
+import vn.project.DoctorCare.domain.response.ResBookingByDoctorDTO;
 import vn.project.DoctorCare.repository.BookingRepository;
 import vn.project.DoctorCare.util.constant.Constant;
 
@@ -30,7 +33,7 @@ public class BookingService {
         reqBooking.setDoctorId(reqPatientBookingDTO.getDoctorId());
         reqBooking.setPatientId(reqPatientBookingDTO.getPatientId());
         reqBooking.setDate(reqPatientBookingDTO.getDate());
-        reqBooking.setTimeType(reqPatientBookingDTO.getTimeString());
+        reqBooking.setTimeType(reqPatientBookingDTO.getTimeType());
         reqBooking.setToken(reqPatientBookingDTO.getToken());
 
         Booking booking = this.bookingRepository.save(reqBooking);
@@ -49,6 +52,39 @@ public class BookingService {
             return this.bookingRepository.save(resBooking);
         }
 
+        return null;
+    }
+
+    public ResBookingByDoctorDTO fetchBookingByDoctorAndDateAndStatusId(long doctorId, String date) {
+
+        Optional<Booking> booking = this.bookingRepository.findByDoctorIdAndDateAndStatusId(doctorId, date,
+                Constant.STATUS_CONFIRMED);
+
+        if (booking.isPresent()) {
+            ResBookingByDoctorDTO resPatientFromBookingDTO = new ResBookingByDoctorDTO();
+
+            resPatientFromBookingDTO.setId(booking.get().getId());
+            resPatientFromBookingDTO.setStatusId(booking.get().getStatusId());
+            resPatientFromBookingDTO.setDoctorId(booking.get().getDoctorId());
+            resPatientFromBookingDTO.setPatientId(booking.get().getPatientId());
+            resPatientFromBookingDTO.setDate(booking.get().getDate());
+            resPatientFromBookingDTO.setTimeType(booking.get().getTimeType());
+            resPatientFromBookingDTO.setToken(booking.get().getToken());
+
+            if (booking.get().getPatientData() != null) {
+                User currentPatient = booking.get().getPatientData();
+                ResBookingByDoctorDTO.UserDTO patient = new ResBookingByDoctorDTO.UserDTO(currentPatient.getFirstName(),
+                        currentPatient.getLastName(),
+                        currentPatient.getEmail(),
+                        currentPatient.getGender(),
+                        currentPatient.getAddress(),
+                        currentPatient.getPositionId(),
+                        currentPatient.getPositionData(),
+                        currentPatient.getGenderData());
+                resPatientFromBookingDTO.setPatient(patient);
+            }
+            return resPatientFromBookingDTO;
+        }
         return null;
     }
 }

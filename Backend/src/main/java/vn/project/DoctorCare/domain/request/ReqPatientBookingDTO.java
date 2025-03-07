@@ -11,6 +11,7 @@ public class ReqPatientBookingDTO {
     private String doctorName;
     private String language;
     private String token;
+    private String timeType;
 
     private long patientId;
 
@@ -84,6 +85,14 @@ public class ReqPatientBookingDTO {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getTimeType() {
+        return timeType;
+    }
+
+    public void setTimeType(String timeType) {
+        this.timeType = timeType;
     }
 
 }
