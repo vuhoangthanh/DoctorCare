@@ -1,5 +1,6 @@
 package vn.project.DoctorCare.service;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -9,8 +10,11 @@ import org.springframework.stereotype.Service;
 import vn.project.DoctorCare.domain.AllCode;
 import vn.project.DoctorCare.domain.Booking;
 import vn.project.DoctorCare.domain.User;
+import vn.project.DoctorCare.domain.request.ReqBookingRemedyDTO;
+import vn.project.DoctorCare.domain.request.ReqEmailRemedyDTO;
 import vn.project.DoctorCare.domain.request.ReqPatientBookingDTO;
 import vn.project.DoctorCare.domain.response.ResBookingByDoctorDTO;
+import vn.project.DoctorCare.domain.response.ResBookingDTO;
 import vn.project.DoctorCare.repository.BookingRepository;
 import vn.project.DoctorCare.util.constant.Constant;
 
@@ -18,9 +22,11 @@ import vn.project.DoctorCare.util.constant.Constant;
 public class BookingService {
 
     private final BookingRepository bookingRepository;
+    private final EmailService emailService;
 
-    public BookingService(BookingRepository bookingRepository) {
+    public BookingService(BookingRepository bookingRepository, EmailService emailService) {
         this.bookingRepository = bookingRepository;
+        this.emailService = emailService;
     }
 
     public Booking handleAddBooking(ReqPatientBookingDTO reqPatientBookingDTO) {
@@ -127,5 +133,42 @@ public class BookingService {
             }
         }
         return result;
+    }
+
+    public Booking fetchBookingForRemedy(long doctorId, long patientId, String timeType) {
+        Optional<Booking> booking = this.bookingRepository.findByDoctorIdAndPatientIdAndTimeTypeAndStatusId(doctorId,
+                patientId, timeType, Constant.STATUS_CONFIRMED);
+        if (booking.isPresent()) {
+
+            return booking.get();
+        }
+        return null;
+    }
+
+    public ResBookingDTO handleUpdateDoneBooking(ReqBookingRemedyDTO reqBookingRemedyDTO,
+            ReqEmailRemedyDTO reqEmailRemedyDTO) {
+        Booking booking = this.fetchBookingForRemedy(reqBookingRemedyDTO.getDoctorId(),
+                reqBookingRemedyDTO.getPatientId(), reqBookingRemedyDTO.getTimeType());
+
+        if (booking != null) {
+
+            booking.setStatusId(Constant.STATUS_DONE);
+            Booking currentBooking = this.bookingRepository.save(booking);
+
+            ResBookingDTO resBookingDTO = new ResBookingDTO(currentBooking.getId(), currentBooking.getStatusId(),
+                    currentBooking.getDoctorId(), currentBooking.getPatientId(), currentBooking.getDate(),
+                    currentBooking.getTimeType(),
+                    currentBooking.getToken(), currentBooking.getCreatedAt(), currentBooking.getUpdatedAt(),
+                    currentBooking.getCreatedBy(), currentBooking.getUpdatedBy());
+
+            try {
+                this.emailService.sendRemedyMessage(reqEmailRemedyDTO.getEmail(), reqEmailRemedyDTO.getImgBase64(),
+                        reqEmailRemedyDTO.getLanguage());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return resBookingDTO;
+        }
+        return null;
     }
 }

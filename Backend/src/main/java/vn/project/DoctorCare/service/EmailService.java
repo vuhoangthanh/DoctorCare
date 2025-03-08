@@ -1,6 +1,12 @@
 package vn.project.DoctorCare.service;
 
+import java.util.Base64;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -97,4 +103,63 @@ public class EmailService {
         return result;
     }
 
+    public void sendRemedyMessage(String email, String imageBase64, String language) throws Exception {
+        MimeMessage message = emailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+
+        // Nội dung email
+        String htmlContent = getBodyHTMLEmailRemedy(language);
+        helper.setFrom(userName);
+        helper.setTo(email);
+        helper.setSubject("Xác nhận lịch hẹn khám bệnh của bạn");
+        helper.setText(htmlContent, true);
+
+        if (imageBase64 != null && !imageBase64.isEmpty()) {
+            try {
+                // Regex để lấy tiền tố (MIME type)
+                Pattern pattern = Pattern.compile("^data:(image/\\w+);base64,");
+                Matcher matcher = pattern.matcher(imageBase64);
+
+                String mimeType = "image/png"; // Mặc định là PNG nếu không tìm thấy
+                if (matcher.find()) {
+                    mimeType = matcher.group(1); // Lấy MIME type từ chuỗi Base64
+                }
+
+                // Lấy phần mở rộng từ MIME type
+                String extension = mimeType.split("/")[1];
+                String fileName = "Remedy_Attachment." + extension;
+
+                // Loại bỏ phần tiền tố Base64
+                String imageData = imageBase64.replaceFirst("^data:image/\\w+;base64,", "");
+
+                // Giải mã Base64 thành byte array
+                byte[] imageBytes = Base64.getDecoder().decode(imageData);
+
+                // Gửi file đính kèm với định dạng phù hợp
+                helper.addAttachment(fileName, new ByteArrayResource(imageBytes));
+
+            } catch (IllegalArgumentException e) {
+                throw new Exception("Lỗi giải mã Base64: " + e.getMessage());
+            }
+        }
+
+        emailSender.send(message);
+    }
+
+    public String getBodyHTMLEmailRemedy(String language) {
+        String result = "";
+        if ("vi".equals(language)) {
+            result = "<div>Cảm ơn bạn đã ghé thăm Doctorscare</div>"
+                    + "</div>Thông tin đơn thuốc/hóa đơn được gửi trong file đính kèm</div>"
+                    + "</div>Chúng tôi xin chần thành cảm ơn</div>";
+        }
+        if ("en".equals(language)) {
+            result = "<div>Thank you for visiting Doctorscare</div>"
+                    + "<div>The prescription/invoice details are sent in the attached file. </div>"
+                    + "<div>We sincerely appreciate your trust.</div>";
+
+        }
+
+        return result;
+    }
 }
