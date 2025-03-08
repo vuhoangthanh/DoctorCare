@@ -49,7 +49,6 @@ class VerifyEmail extends Component {
     render() {
         let { language } = this.props;
         let { statusVerify, status } = this.state;
-        console.log("f", this.state);
         return (
             <>
                 <HomeHeader />

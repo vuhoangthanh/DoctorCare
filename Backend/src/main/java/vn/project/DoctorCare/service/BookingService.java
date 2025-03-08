@@ -163,7 +163,8 @@ public class BookingService {
 
             try {
                 this.emailService.sendRemedyMessage(reqEmailRemedyDTO.getEmail(), reqEmailRemedyDTO.getImgBase64(),
-                        reqEmailRemedyDTO.getLanguage());
+                        reqEmailRemedyDTO.getLanguage(),
+                        reqEmailRemedyDTO.getPatientId());
             } catch (Exception e) {
                 e.printStackTrace();
             }

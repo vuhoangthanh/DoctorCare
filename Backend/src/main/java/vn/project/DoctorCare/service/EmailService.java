@@ -1,6 +1,7 @@
 package vn.project.DoctorCare.service;
 
 import java.util.Base64;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -103,7 +104,8 @@ public class EmailService {
         return result;
     }
 
-    public void sendRemedyMessage(String email, String imageBase64, String language) throws Exception {
+    public void sendRemedyMessage(String email, String imageBase64, String language, long patientId)
+            throws Exception {
         MimeMessage message = emailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
@@ -111,7 +113,7 @@ public class EmailService {
         String htmlContent = getBodyHTMLEmailRemedy(language);
         helper.setFrom(userName);
         helper.setTo(email);
-        helper.setSubject("Xác nhận lịch hẹn khám bệnh của bạn");
+        helper.setSubject("Thông báo đơn thuốc - hóa đơn của bạn");
         helper.setText(htmlContent, true);
 
         if (imageBase64 != null && !imageBase64.isEmpty()) {
@@ -127,7 +129,7 @@ public class EmailService {
 
                 // Lấy phần mở rộng từ MIME type
                 String extension = mimeType.split("/")[1];
-                String fileName = "Remedy_Attachment." + extension;
+                String fileName = "remedy-" + patientId + "-" + new Date().getTime() + "." + extension;
 
                 // Loại bỏ phần tiền tố Base64
                 String imageData = imageBase64.replaceFirst("^data:image/\\w+;base64,", "");

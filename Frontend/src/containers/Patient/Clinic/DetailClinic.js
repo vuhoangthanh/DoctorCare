@@ -33,7 +33,6 @@ class DetailClinic extends Component {
             if (response && response.error === null) {
                 let data = response.data
                 let arrDoctorId = [];
-                console.log(data)
                 if (data && !_.isEmpty(response.data)) {
                     let arr = data.doctorInfos;
                     if (arr && arr.length > 0) {
@@ -75,7 +74,6 @@ class DetailClinic extends Component {
                     </div>
                     {arrDoctorId && arrDoctorId.length > 0 &&
                         arrDoctorId.map((item, index) => {
-                            console.log("item", item)
                             return (
                                 <div className="each-doctor" key={index}>
                                     <div className="dt-content-left">
