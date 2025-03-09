@@ -22,6 +22,7 @@ import { CustomToastCloseButton } from '../components/CustomToast';
 import CustomScrollbars from '../components/CustomScrollbars';
 import Doctor from '../routes/Doctor';
 import VerifyEmail from './Patient/VerifyEmail';
+import { setAuthToken } from '../axios'
 
 class App extends Component {
 
@@ -38,6 +39,8 @@ class App extends Component {
             }
         }
     };
+
+
 
     componentDidMount() {
         this.handlePersistorState();
@@ -94,7 +97,7 @@ class App extends Component {
 const mapStateToProps = state => {
     return {
         started: state.app.started,
-        isLoggedIn: state.user.isLoggedIn
+        isLoggedIn: state.user.isLoggedIn,
     };
 };
 

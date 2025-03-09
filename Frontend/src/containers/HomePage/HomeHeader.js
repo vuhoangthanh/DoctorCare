@@ -20,6 +20,9 @@ class HomeHeader extends Component {
     }
     render() {
         let language = this.props.language;
+        // console.log("hto", JSON.parse(JSON.parse(JSON.parse(localStorage.getItem("persist:user")).token).accessToken))
+        console.log("hto", JSON.parse(JSON.parse(localStorage.getItem("persist:user")).token).accessToken)
+
         return (
             <React.Fragment>
                 <div className="home-header-container">

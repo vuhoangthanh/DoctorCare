@@ -215,6 +215,8 @@ class UserRedux extends Component {
         let roles = this.state.roleArr;
         let language = this.props.language;
         let isLoadingGender = this.props.isLoadingGender;
+        // let { token } = this.props
+        // console.log("hello", token)
 
         let { email, password, firstName, lastName, address, gender, phoneNumber, position, role, avatar, pageCount } = this.state;
         return (
@@ -366,6 +368,7 @@ const mapStateToProps = state => {
         positionRedux: state.admin.positions,
         roleRedux: state.admin.roles,
         users: state.admin.users,
+        // token: state.user.token,
 
     };
 };

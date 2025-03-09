@@ -1,6 +1,9 @@
 import axios from 'axios';
 import _ from 'lodash';
+import { connect } from 'react-redux';
+import './store/reducers/userReducer'
 // import config from './config';
+import storage from 'redux-persist/lib/storage';
 
 const instance = axios.create({
     baseURL: process.env.REACT_APP_BACKEND_URL,
@@ -26,5 +29,8 @@ instance.interceptors.response.use(
         };
     }
 );
+
+instance.defaults.headers.common["Authorization"] = `Bearer ${JSON.parse(JSON.parse(localStorage.getItem("persist:user")).token).accessToken}`;
+
 
 export default instance;
