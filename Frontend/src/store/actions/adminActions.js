@@ -96,7 +96,10 @@ export const addNewUser = (data) => {
             if (response && response.error === null) {
                 toast.success("Create a new user succeed");
                 dispatch(saveUserSuccess())
-                dispatch(fetchAllUsersStart());
+                dispatch(fetchAllUsersStart({
+                    page: data.page,
+                    size: data.size
+                }));
             } else {
                 dispatch(saveUserFailed());
             }
@@ -115,13 +118,16 @@ export const saveUserFailed = () => ({
     type: actionTypes.SAVE_USER_FAILED
 });
 
-export const fetchAllUsersStart = () => {
+export const fetchAllUsersStart = (data) => {
     return async (dispatch, getState) => {
         try {
-            let response = await getAllUsers();
+            let response = await getAllUsers({
+                page: data.page,
+                size: data.size
+            });
             if (response && response.error === null) {
 
-                dispatch(fetchAllUsersSuccess(response.data.result.reverse()))
+                dispatch(fetchAllUsersSuccess(response.data))
             } else {
                 toast.error("Fetch All user error!");
                 dispatch(fetchAllUsersFailed());
@@ -135,7 +141,8 @@ export const fetchAllUsersStart = () => {
 };
 export const fetchAllUsersSuccess = (data) => ({
     type: actionTypes.FETCH_All_USERS_SUCCESS,
-    users: data
+    users: data.result.reverse(),
+    meta: data.meta
 });
 
 export const fetchAllUsersFailed = () => ({
@@ -177,7 +184,11 @@ export const editAUser = (user) => {
             if (response && response.error === null) {
                 toast.success("Edit the user succeed");
                 dispatch(editUserSuccess())
-                dispatch(fetchAllUsersStart());
+                dispatch(fetchAllUsersStart({
+                    page: user.page,
+                    size: user.size
+                })
+                );
             } else {
                 toast.error("Edit the user error");
                 dispatch(editUserFailed());

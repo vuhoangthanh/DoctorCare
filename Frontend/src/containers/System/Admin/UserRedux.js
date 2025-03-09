@@ -8,6 +8,7 @@ import './UserRedux.scss'
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 import TableManageUser from './TableManageUser';
+import Pagination from '../Pagination/Pagination';
 
 class UserRedux extends Component {
     constructor(props) {
@@ -30,7 +31,14 @@ class UserRedux extends Component {
             role: '',
             avatar: '',
             action: '',
-            userEditId: ''
+            userEditId: '',
+
+            page: 1,
+            size: 10,
+
+
+
+
         }
     }
 
@@ -126,7 +134,10 @@ class UserRedux extends Component {
                 gender: this.state.gender,
                 roleId: this.state.role,
                 positionId: this.state.position,
-                avatar: this.state.avatar
+                avatar: this.state.avatar,
+
+                page: this.state.page,
+                size: this.state.size
             })
         }
         if (action === CRUD_ACTIONS.EDIT) {
@@ -144,6 +155,8 @@ class UserRedux extends Component {
                 positionId: this.state.position,
                 avatar: this.state.avatar,
 
+                page: this.state.page,
+                size: this.state.size
             })
         }
 
@@ -188,6 +201,14 @@ class UserRedux extends Component {
             previewAvatarURL: user.avatar,
         })
     }
+    handleCurrentPage = (page) => {
+        this.setState({
+            page: page
+        }, () => {
+            console.log('page', this.state.page)
+        })
+    }
+
     render() {
         let genders = this.state.genderArr;
         let positions = this.state.positionArr;
@@ -195,51 +216,49 @@ class UserRedux extends Component {
         let language = this.props.language;
         let isLoadingGender = this.props.isLoadingGender;
 
-        let { email, password, firstName, lastName, address, gender, phoneNumber, position, role, avatar } = this.state;
+        let { email, password, firstName, lastName, address, gender, phoneNumber, position, role, avatar, pageCount } = this.state;
         return (
             <div className="user-redux-container">
-                <div className="title" >ThanhTjd with ReactJs</div>
+                <div className="title" ><FormattedMessage id="manage-user.add" /></div>
                 <div className="user-redux-body" >
-
 
                     <div className="container">
                         <div className="row">
-                            <div className="col-12 my-3"><FormattedMessage id="manage-user.add" /></div>
                             <div className="col-12">{isLoadingGender === true ? 'Loading Gender...' : ''}</div>
 
-                            <div className="col-6">
+                            <div className="col-4">
                                 <label><FormattedMessage id="manage-user.email" /></label>
                                 <input className="form-control" type="email"
                                     value={email}
                                     onChange={(event) => { this.onChangeInput(event, 'email') }}
                                     disabled={this.state.action === CRUD_ACTIONS.EDIT ? true : false} />
                             </div>
-                            <div className="col-6">
+                            <div className="col-4">
                                 <label><FormattedMessage id="manage-user.password" /></label>
                                 <input className="form-control" type="password"
                                     value={password}
                                     onChange={(event) => { this.onChangeInput(event, 'password') }}
                                     disabled={this.state.action === CRUD_ACTIONS.EDIT ? true : false} />
                             </div>
-                            <div className="col-6">
+                            <div className="col-4">
                                 <label><FormattedMessage id="manage-user.first-name" /></label>
                                 <input className="form-control" type="text"
                                     value={firstName}
                                     onChange={(event) => { this.onChangeInput(event, 'firstName') }} />
                             </div>
-                            <div className="col-6">
+                            <div className="col-4">
                                 <label><FormattedMessage id="manage-user.last-name" /></label>
                                 <input className="form-control" type="text"
                                     value={lastName}
                                     onChange={(event) => { this.onChangeInput(event, 'lastName') }} />
                             </div>
-                            <div className="col-6">
+                            <div className="col-4">
                                 <label><FormattedMessage id="manage-user.phone-number" /></label>
                                 <input className="form-control" type="text"
                                     value={phoneNumber}
                                     onChange={(event) => { this.onChangeInput(event, 'phoneNumber') }} />
                             </div>
-                            <div className="col-6">
+                            <div className="col-4">
                                 <label><FormattedMessage id="manage-user.address" /></label>
                                 <input className="form-control" type="text"
                                     value={address}
@@ -322,8 +341,10 @@ class UserRedux extends Component {
                             <div className="col-12 mb-5">
                                 <TableManageUser
                                     handleEditUserFromParent={this.handleEditUserFromParent}
-                                    action={this.state.action} />
+                                    action={this.state.action}
+                                    currentPageChange={this.handleCurrentPage} />
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -344,7 +365,8 @@ const mapStateToProps = state => {
         isLoadingGender: state.admin.isLoadingGender,
         positionRedux: state.admin.positions,
         roleRedux: state.admin.roles,
-        users: state.admin.users
+        users: state.admin.users,
+
     };
 };
 
@@ -354,7 +376,7 @@ const mapDispatchToProps = dispatch => {
         getPositionStart: () => dispatch(actions.fetchPositionStart()),
         getRoleStart: () => dispatch(actions.fetchRoleStart()),
         addNewUser: (data) => dispatch(actions.addNewUser(data)),
-        fetchUserRedux: () => dispatch(actions.fetchAllUsersStart()),
+        fetchUserRedux: (data) => dispatch(actions.fetchAllUsersStart(data)),
         editAUserRedux: (data) => dispatch(actions.editAUser(data))
         // processLogout: () => dispatch(actions.processLogout()),
         // changeLanguageAppRedux: (language) => dispatch(actions.changeLanguageApp(language))

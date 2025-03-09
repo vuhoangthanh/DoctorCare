@@ -41,7 +41,7 @@
         }
     },
     "manage-user": {
-        "add": "Thêm mới người dùng",
+        "add": "Quản lý người dùng",
         "email": "Email",
         "password": "Mật khẩu",
         "first-name": "Tên",

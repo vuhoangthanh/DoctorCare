@@ -11,6 +11,8 @@ const initialState = {
     allScheduleTime: [],
 
     allRequiredDoctorInfo: [],
+
+    meta: []
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -57,6 +59,7 @@ const adminReducer = (state = initialState, action) => {
             }
         case actionTypes.FETCH_All_USERS_SUCCESS:
             state.users = action.users;
+            state.meta = action.meta;
             return {
                 ...state,
             }

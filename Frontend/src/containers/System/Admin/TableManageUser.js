@@ -11,6 +11,7 @@ import MdEditor from 'react-markdown-editor-lite';
 // import style manually
 import 'react-markdown-editor-lite/lib/index.css';
 
+import Pagination from '../Pagination/Pagination';
 // Register plugins if required
 // MdEditor.use(YOUR_PLUGINS_HERE);
 
@@ -28,12 +29,22 @@ class TableManageUser extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            usersRedux: []
+            usersRedux: [],
+            page: 1,
+            size: 10,
+            pageCount: '',
+            total: 0
         }
     }
 
     componentDidMount() {
-        this.props.fetchUserRedux();
+        this.props.fetchUserRedux({
+            page: this.state.page,
+            size: this.state.size
+        });
+        this.setState({
+            pageCount: this.props.meta.pages
+        })
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -41,7 +52,11 @@ class TableManageUser extends Component {
             this.setState({
                 usersRedux: this.props.users
             })
-
+        }
+        if (prevProps.meta !== this.props.meta) {
+            this.setState({
+                pageCount: this.props.meta.pages
+            })
         }
     }
 
@@ -54,8 +69,22 @@ class TableManageUser extends Component {
         this.props.handleEditUserFromParent(user)
     }
 
+    handlePageClick = async (event) => {
+        this.setState({
+            page: +event.selected + 1
+        })
+        this.props.currentPageChange(+event.selected + 1)
+        this.props.fetchUserRedux({
+            page: +event.selected + 1 ? +event.selected + 1 : this.state.page,
+            size: this.state.size
+        });
+    };
+
+
+
     render() {
         let arrUsers = this.state.usersRedux
+        let { pageCount } = this.state
         return (
             <React.Fragment>
                 <table id="tableManageUser">
@@ -94,7 +123,12 @@ class TableManageUser extends Component {
 
                     </tbody>
                 </table>
-                <MdEditor style={{ height: '500px' }} renderHTML={text => mdParser.render(text)} onChange={handleEditorChange} />
+                <div>
+                    <Pagination
+                        pageCount={pageCount}
+                        handlePageClick={this.handlePageClick} // Không cần arrow function
+                    />
+                </div>
             </React.Fragment>
         );
     }
@@ -102,13 +136,14 @@ class TableManageUser extends Component {
 
 const mapStateToProps = state => {
     return {
-        users: state.admin.users
+        users: state.admin.users,
+        meta: state.admin.meta,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchUserRedux: () => dispatch(actions.fetchAllUsersStart()),
+        fetchUserRedux: (data) => dispatch(actions.fetchAllUsersStart(data)),
         deleteAUserRedux: (id) => dispatch(actions.deleteAUser(id))
     };
 };

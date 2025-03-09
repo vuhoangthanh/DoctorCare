@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './UserManage.scss';
-import { getAllUsers, createNewUserService, deleteUserService, editUserService } from '../../services/userService';
+import { getAllUsers, createNewUserService, deleteUserService, editUserService, getAllUsersPage } from '../../services/userService';
 import ModalUser from './ModalUser';
 import ModalEditUser from './ModalEditUser';
 import { emitter } from '../../utils/emitter';
-
+import ReactPaginate from 'react-paginate';
+import Pagination from './Pagination/Pagination';
 
 class UserManage extends Component {
 
@@ -16,7 +17,12 @@ class UserManage extends Component {
             arrUsers: [],
             isOpenModalUser: false,
             isOpenModalEditUser: false,
-            userEdit: {}
+            userEdit: {},
+
+            page: 1,
+            size: 5,
+            pageCount: '',
+            total: 0
         }
     }
 
@@ -25,11 +31,16 @@ class UserManage extends Component {
         await this.getAllUsersFromReact();
     }
 
-    getAllUsersFromReact = async () => {
-        let response = await getAllUsers();
+    getAllUsersFromReact = async (page1) => {
+        let response = await getAllUsersPage({
+            page: page1 ? page1 : this.state.page,
+            size: this.state.size
+        });
         if (response && response.error === null) {
             this.setState({
-                arrUsers: response.data.result
+                arrUsers: response.data.result,
+                pageCount: response.data.meta.pages,
+                total: response.data.meta.total
             })
         }
     }
@@ -109,8 +120,16 @@ class UserManage extends Component {
     // 2. Did MouseEvent(set state)
     // 3. Render (re-render)
 
+    handlePageClick = async (event) => {
+        this.setState({
+            page: +event.selected + 1
+        })
+        await this.getAllUsersFromReact(+event.selected + 1)
+    };
+
     render() {
-        let arrUsers = this.state.arrUsers
+        let arrUsers = this.state.arrUsers;
+        let { pageCount, total } = this.state;
         return (
             <div className="user-container">
                 <ModalUser
@@ -165,6 +184,12 @@ class UserManage extends Component {
                         </tbody>
                     </table>
                 </div>
+                {pageCount > 0 &&
+                    <Pagination
+                        pageCount={pageCount}
+                        handlePageClick={this.handlePageClick} // Không cần arrow function
+                    />
+                }
             </div >
         );
     }
