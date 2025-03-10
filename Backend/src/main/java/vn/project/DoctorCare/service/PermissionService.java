@@ -53,8 +53,8 @@ public class PermissionService {
         return this.permissionRepository.save(permission);
     }
 
-    public Permission findPermissionById(Permission reqPermission) {
-        Optional<Permission> currentPermission = this.permissionRepository.findById(reqPermission.getId());
+    public Permission findPermissionById(long id) {
+        Optional<Permission> currentPermission = this.permissionRepository.findById(id);
 
         if (currentPermission.isPresent()) {
             return currentPermission.get();
@@ -63,7 +63,7 @@ public class PermissionService {
     }
 
     public Permission handleUpdatePermission(Permission reqPermission) {
-        Permission currentPermission = findPermissionById(reqPermission);
+        Permission currentPermission = findPermissionById(reqPermission.getId());
         if (currentPermission != null) {
             currentPermission.setApiPath(reqPermission.getApiPath());
             currentPermission.setId(reqPermission.getId());
@@ -75,5 +75,15 @@ public class PermissionService {
         }
 
         return currentPermission;
+    }
+
+    public void handleDeletePermission(long id) {
+
+        // delete permission_role
+        Optional<Permission> permissionOptional = this.permissionRepository.findById(id);
+        Permission currentPermission = permissionOptional.get();
+        currentPermission.getRoles().forEach(role -> role.getPermissions().remove(currentPermission));
+
+        this.permissionRepository.deleteById(id);
     }
 }

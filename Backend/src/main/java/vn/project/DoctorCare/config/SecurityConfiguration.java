@@ -43,39 +43,20 @@ public class SecurityConfiguration {
         @Bean
         public SecurityFilterChain filterChain(HttpSecurity http,
                         CustomAuthenticationEntryPoint customAuthenticationEntryPoint) throws Exception {
+
+                String[] whiteList = {
+                                "/", "/api/v1/auth/login",
+                                "/api/v1/auth/refresh",
+                                "/api/v1/users", "/api/v1/users/**"
+                };
                 http
                                 .csrf(c -> c.disable())
                                 .cors(Customizer.withDefaults())
                                 .authorizeHttpRequests(
                                                 authz -> authz
-                                                                .requestMatchers("/", "/api/v1/auth/login",
-                                                                                "/api/v1/auth/refresh",
-                                                                                "/api/v1/users", "/api/v1/users/**"
-                                                                // "/api/v1/allcodes",
-                                                                // "/api/v1/top-doctors",
-                                                                // "/api/v1/doctors",
-                                                                // "/api/v1/doctors-infor",
-                                                                // "/api/v1/doctors-detail/**",
-                                                                // "/api/v1/schedules",
-                                                                // "/api/v1/doctors-extra-info",
-                                                                // "/api/v1/doctors-profile",
-                                                                // "/api/v1/patient-book-appointment",
-                                                                // "/api/v1/verify-book-appointment",
-                                                                // "/api/v1/specialties",
-                                                                // "/api/v1/get-specialties-by-id",
-                                                                // // "/api/v1/clinics",
-                                                                // // "/api/v1/clinic-by-id",
-                                                                // "/api/v1/bookings",
-                                                                // "/api/v1/remedies"
-                                                                )
-                                                                // .requestMatchers(HttpMethod.GET, "/api/v1/**")
+                                                                .requestMatchers(whiteList).permitAll()
+                                                                // .requestMatchers(HttpMethod.GET, "/api/v1/users")
                                                                 // .permitAll()
-                                                                // .requestMatchers(HttpMethod.POST, "/api/v1/**")
-                                                                // .permitAll()
-                                                                // .requestMatchers(HttpMethod.PUT, "/api/v1/**")
-                                                                // .permitAll()
-                                                                // .requestMatchers(HttpMethod.DELETE, "/api/v1/**")
-                                                                .permitAll()
                                                                 .anyRequest().authenticated())
                                 .oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults())
                                                 .authenticationEntryPoint(customAuthenticationEntryPoint))

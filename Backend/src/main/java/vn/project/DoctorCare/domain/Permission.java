@@ -128,4 +128,12 @@ public class Permission {
         this.updatedBy = updatedBy;
     }
 
+    public List<AllCode> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<AllCode> roles) {
+        this.roles = roles;
+    }
+
 }

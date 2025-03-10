@@ -69,9 +69,9 @@ public class SecurityUtil {
         Instant validity = now.plus(this.accessTokenExpiration, ChronoUnit.SECONDS);
 
         // hardcode Permission
-        List<String> listAuthority = new ArrayList<String>();
-        listAuthority.add("ROLE_USER_CREATE");
-        listAuthority.add("ROLE_USER_UPDATE");
+        // List<String> listAuthority = new ArrayList<String>();
+        // listAuthority.add("ROLE_USER_CREATE");
+        // listAuthority.add("ROLE_USER_UPDATE");
 
         // payload
         JwtClaimsSet claims = JwtClaimsSet.builder()
@@ -79,7 +79,7 @@ public class SecurityUtil {
                 .expiresAt(validity)
                 .subject(email)
                 .claim("user", dto)
-                .claim("permission", listAuthority)
+                // .claim("permission", listAuthority)
                 .build();
 
         // header

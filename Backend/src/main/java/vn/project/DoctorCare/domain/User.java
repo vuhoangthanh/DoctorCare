@@ -84,6 +84,10 @@ public class User {
     @OneToMany(mappedBy = "patientData")
     private List<Booking> bookingByDoctor;
 
+    @ManyToOne
+    @JoinColumn(name = "roleId", referencedColumnName = "keyMap", insertable = false, updatable = false)
+    private AllCode role;
+
     @PrePersist
     public void handleBeforeCreateAt() {
         this.createdBy = SecurityUtil.getCurrentUserLogin().isPresent() == true

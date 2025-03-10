@@ -15,6 +15,7 @@ import vn.project.DoctorCare.util.annotation.ApiMessage;
 import vn.project.DoctorCare.util.error.IdInvalidException;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -48,11 +49,28 @@ public class PermissionController {
 
     @PutMapping("/permissions")
     public ResponseEntity<Permission> editPermission(@RequestBody Permission reqPermission) throws IdInvalidException {
-        if (this.permissionService.findPermissionById(reqPermission) == null) {
+        if (this.permissionService.findPermissionById(reqPermission.getId()) == null) {
             throw new IdInvalidException("Permission id = " + reqPermission.getId() + " not found");
+        }
+
+        if (this.permissionService.isPermissionExist(reqPermission)) {
+            throw new IdInvalidException(
+                    "Permission is exist");
         }
 
         Permission permission = this.permissionService.handleUpdatePermission(reqPermission);
         return ResponseEntity.status(HttpStatus.OK).body(permission);
     }
+
+    @DeleteMapping("/permissions")
+    @ApiMessage("delete permission")
+    public ResponseEntity<Void> deletePermission(@RequestParam("id") long id) throws IdInvalidException {
+
+        if (this.permissionService.findPermissionById(id) == null) {
+            throw new IdInvalidException("Permission id = " + id + " not found");
+        }
+        this.permissionService.handleDeletePermission(id);
+        return ResponseEntity.ok().body(null);
+    }
+
 }
