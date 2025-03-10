@@ -54,6 +54,7 @@ public class UserService {
             resUserDTO.setAddress(user.getAddress());
             resUserDTO.setPhone(user.getPhone());
             resUserDTO.setRoleId(user.getRoleId());
+            resUserDTO.setRole(user.getRole());
             resUserDTO.setPositionId(user.getPositionId());
             resUserDTO.setCreatedAt(user.getCreatedAt());
             resUserDTO.setUpdatedAt(user.getUpdatedAt());

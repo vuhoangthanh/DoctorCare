@@ -3,13 +3,20 @@ package vn.project.DoctorCare.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
+import vn.project.DoctorCare.domain.AllCode;
+import vn.project.DoctorCare.domain.Permission;
 import vn.project.DoctorCare.domain.User;
 import vn.project.DoctorCare.domain.request.ReqLoginDTO;
+import vn.project.DoctorCare.domain.response.PermissionDTO;
 import vn.project.DoctorCare.domain.response.ResLoginDTO;
+import vn.project.DoctorCare.domain.response.RoleDTO;
 import vn.project.DoctorCare.service.UserService;
 import vn.project.DoctorCare.util.SecurityUtil;
 import vn.project.DoctorCare.util.annotation.ApiMessage;
 import vn.project.DoctorCare.util.error.IdInvalidException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -71,12 +78,13 @@ public class AuthController {
                                         currentUserDB.getFirstName(),
                                         currentUserDB.getLastName(),
                                         currentUserDB.getEmail(),
-                                        currentUserDB.getRoleId());
+                                        currentUserDB.getRoleId(),
+                                        currentUserDB.getRole());
                         res.setUser(userLogin);
                 }
 
                 // create access token
-                String access_token = this.securityUtil.createAccessToken(authentication.getName(), res.getUser());
+                String access_token = this.securityUtil.createAccessToken(authentication.getName(), res);
                 res.setAccessToken(access_token);
 
                 // create refresh token
@@ -142,19 +150,42 @@ public class AuthController {
 
                 // issue new token/set refresh token as cookies
                 ResLoginDTO res = new ResLoginDTO();
+
                 User currentUserDB = this.userService.handleGetUserByUsername(email);
+
+                // AllCode getRole = new AllCode();
+                // List<Permission> getPermission = new ArrayList<Permission>();
+                // getRole = currentUserDB.getRole();
+
+                // RoleDTO roleDTO = new RoleDTO(getRole.getId(), getRole.getKeyMap(),
+                // getRole.getType(),
+                // getRole.getValueEn(), getRole.getValueVi(), getRole.getPermissions());
+
+                // getPermission = roleDTO.getPermissions();
+
+                // List<PermissionDTO> list = new ArrayList<PermissionDTO>();
+
+                // for (Permission permission : getPermission) {
+                // PermissionDTO permissionDTO = new PermissionDTO(permission.getId(),
+                // permission.getName(),
+                // permission.getApiPath(), permission.getMethod(), permission.getModule());
+
+                // list.add(permissionDTO);
+                // }
+
                 if (currentUser != null) {
                         ResLoginDTO.UserLogin userLogin = new ResLoginDTO.UserLogin(
                                         currentUser.getId(),
                                         currentUser.getFirstName(),
                                         currentUser.getLastName(),
                                         currentUser.getEmail(),
-                                        currentUserDB.getRoleId());
+                                        currentUserDB.getRoleId(),
+                                        currentUserDB.getRole());
                         res.setUser(userLogin);
                 }
 
                 // create access token
-                String access_token = this.securityUtil.createAccessToken(email, res.getUser());
+                String access_token = this.securityUtil.createAccessToken(email, res);
                 res.setAccessToken(access_token);
 
                 // create refresh token

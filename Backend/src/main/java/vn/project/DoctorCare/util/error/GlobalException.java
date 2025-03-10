@@ -36,6 +36,19 @@ public class GlobalException {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(res);
     }
 
+    // bắt permission endpoint
+    @ExceptionHandler(value = { PermissionException.class })
+    public ResponseEntity<RestResponse<Object>> handlePermissionEndpoint(Exception ex) {
+
+        RestResponse<Object> res = new RestResponse<Object>();
+        // res.setStatusCode(HttpStatus.BAD_REQUEST.value());
+        res.setStatusCode(HttpStatus.UNAUTHORIZED.value());
+        res.setError(ex.getMessage());
+        res.setMessage("You do not have access to this endpoint.");
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(res);
+    }
+
     // bắt url 404
     @ExceptionHandler(value = { NoResourceFoundException.class })
     public ResponseEntity<RestResponse<Object>> handleNotFoundException(Exception ex) {

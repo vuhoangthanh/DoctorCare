@@ -2,6 +2,7 @@ package vn.project.DoctorCare.domain.response;
 
 import java.time.Instant;
 
+import vn.project.DoctorCare.domain.AllCode;
 import vn.project.DoctorCare.util.constant.GenderEnum;
 
 public class ResUserDTO {
@@ -14,6 +15,7 @@ public class ResUserDTO {
     private String address;
     private String avatar;
     private String roleId;
+    private AllCode role;
     private String positionId;
     private Instant createdAt;
     private Instant updatedAt;
@@ -25,6 +27,14 @@ public class ResUserDTO {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public AllCode getRole() {
+        return role;
+    }
+
+    public void setRole(AllCode role) {
+        this.role = role;
     }
 
     public String getFirstName() {

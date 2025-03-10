@@ -264,4 +264,12 @@ public class User {
         this.doctorInfo = doctorInfo;
     }
 
+    public AllCode getRole() {
+        return role;
+    }
+
+    public void setRole(AllCode role) {
+        this.role = role;
+    }
+
 }

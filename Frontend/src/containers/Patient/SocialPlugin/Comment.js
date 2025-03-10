@@ -50,10 +50,11 @@ class Comment extends Component {
         let { dataHref, numPost, width } = this.props;
         return (
             <>
-                <div class="fb-comments"
+                <div className="fb-comments"
                     data-href={dataHref}
                     data-width={width ? width : ""}
-                    data-numPosts={numPost ? numPost : 5}></div>
+                    data-num-posts={numPost ? numPost : 5}>
+                </div>
             </>
         );
     }

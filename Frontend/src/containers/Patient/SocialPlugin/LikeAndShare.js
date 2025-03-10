@@ -51,7 +51,7 @@ class LikeAndShare extends Component {
         console.log("checkhref", dataHref)
         return (
             <>
-                <div class="fb-like"
+                <div className="fb-like"
                     data-href={dataHref}
                     data-width=""
                     data-layout="standard"

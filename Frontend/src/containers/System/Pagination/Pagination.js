@@ -26,12 +26,12 @@ class Pagination extends Component {
         return (
             <div className="col-12 pagination-container">
                 <ReactPaginate
-                    nextLabel={<i class="fas fa-chevron-right"></i>}
+                    nextLabel={<i className="fas fa-chevron-right"></i>}
                     onPageChange={handlePageClick}
                     pageRangeDisplayed={3}
                     marginPagesDisplayed={2}
                     pageCount={pageCount}
-                    previousLabel={<i class="fas fa-chevron-left"></i>}
+                    previousLabel={<i className="fas fa-chevron-left"></i>}
                     pageClassName="page-item"
                     pageLinkClassName="page-link"
                     previousClassName="page-item"

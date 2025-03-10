@@ -11,12 +11,6 @@ const instance = axios.create({
 });
 
 
-// instance.interceptors.response.use(
-//     (response) => {
-
-//         const { data } = response;
-//         return response.data;
-//     })
 
 // Interceptor xử lý response
 instance.interceptors.response.use(
@@ -29,8 +23,18 @@ instance.interceptors.response.use(
         };
     }
 );
+if (JSON.parse(localStorage.getItem("persist:user")).token !== "null") {
+    instance.defaults.headers.common["Authorization"] = `Bearer ${JSON.parse(JSON.parse(localStorage.getItem("persist:user")).token).accessToken}`;
+}
 
-instance.defaults.headers.common["Authorization"] = `Bearer ${JSON.parse(JSON.parse(localStorage.getItem("persist:user")).token).accessToken}`;
+// if (localStorage.getItem("persist:user")) {
+
+// }
+// if (JSON.parse(localStorage.getItem("persist:user")).token !== null) {
+//     // let token = localStorage.getItem("persist:user") ? `${JSON.parse(JSON.parse(localStorage.getItem("persist:user")).token).accessToken}` : ""
+//     instance.defaults.headers.common["Authorization"] = `Bearer ${token} ? ${token}: ""`;
+// }
+
 
 
 export default instance;
