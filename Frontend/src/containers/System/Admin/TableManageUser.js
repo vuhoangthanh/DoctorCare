@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import './TableManageUser.scss';
 import * as actions from "../../../store/actions"
 import UserRedux from './UserRedux';
-
+import moment from 'moment';
 
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
@@ -60,8 +60,9 @@ class TableManageUser extends Component {
         }
     }
 
-    handleDeleteUser = (user) => {
-        this.props.deleteAUserRedux(user.id);
+    handleDeleteUser = (user, page, size) => {
+
+        this.props.deleteAUserRedux(user.id, page, size);
     }
 
     handleEditUser = (user) => {
@@ -85,11 +86,13 @@ class TableManageUser extends Component {
     render() {
         let arrUsers = this.state.usersRedux
         let { pageCount } = this.state
+        let { page, size } = this.props
         return (
             <React.Fragment>
                 <table id="tableManageUser" class="table table-bordered table-hover  table-rounded">
                     <thead class="table-light">
                         <tr>
+                            <th class="first">Stt</th>
                             <th>Email</th>
                             <th>FirstName</th>
                             <th>LastName</th>
@@ -102,20 +105,22 @@ class TableManageUser extends Component {
                     <tbody>
                         {arrUsers && arrUsers.length > 0 &&
                             arrUsers.map((item, index) => {
+
                                 return (
                                     <tr key={index}>
+                                        <td class="first">{item.id}</td>
                                         <td>{item.email}</td>
                                         <td>{item.firstName}</td>
                                         <td>{item.lastName}</td>
                                         <td>{item.gender}</td>
                                         <td>{item.address}</td>
-                                        <td>{item.createdAt}</td>
+                                        <td>{moment(item.createdAt).format('DD/MM/YYYY HH:mm:ss')}</td>
                                         <td>
                                             <button
                                                 onClick={() => this.handleEditUser(item)}
                                                 className="btn-edit" ><i className="fas fa-pencil-alt"></i></button>
                                             <button
-                                                onClick={() => { this.handleDeleteUser(item) }}
+                                                onClick={() => { this.handleDeleteUser(item, page, size) }}
                                                 className="btn-delete"><i className="fas fa-trash-alt"></i></button>
                                         </td>
                                     </tr>
@@ -146,7 +151,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         fetchUserRedux: (data) => dispatch(actions.fetchAllUsersStart(data)),
-        deleteAUserRedux: (id) => dispatch(actions.deleteAUser(id))
+        deleteAUserRedux: (id, page, size) => dispatch(actions.deleteAUser(id, page, size))
     };
 };
 

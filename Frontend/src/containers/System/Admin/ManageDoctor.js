@@ -301,128 +301,196 @@ class ManageDoctor extends Component {
         return result;
     }
     render() {
+        const customStyles = {
+            control: (provided, state) => ({
+                ...provided,
+                minHeight: "32px",
+                height: "32px",
+                borderRadius: "7px",
+                border: state.isFocused ? "2px solid #2266aa" : "1px solid #ced4da",
+                boxShadow: state.isFocused ? "0 0 5px rgba(34, 102, 170, 0.5)" : "none",
+                transition: "0.3s",
+                "&:hover": {
+                    border: "2px solid #2266aa",
+                },
+            }),
+            valueContainer: (provided) => ({
+                ...provided,
+                height: "32px",
+                padding: "0 5px",
+            }),
+            input: (provided) => ({
+                ...provided,
+                margin: "0px",
+            }),
+            indicatorsContainer: (provided) => ({
+                ...provided,
+                height: "32px",
+            }),
+            menu: (provided) => ({
+                ...provided,
+                fontSize: "14px",  // Cỡ chữ trong dropdown
+                backgroundColor: "#fff",
+            }),
+            option: (provided, state) => ({
+                ...provided,
+                fontSize: "14px", // Cỡ chữ
+                color: state.isSelected ? "#ffffff" : "#333333", // Màu chữ
+                fontFamily: "'Roboto', sans-serif",
+                backgroundColor: state.isSelected ? "#06adef" : "#ffffff", // Màu nền
+
+                "&:hover": {
+                    backgroundColor: "#06adef",
+                    color: "white"
+                },
+                singleValue: (provided) => ({
+                    ...provided,
+                    fontFamily: "'Roboto', sans-serif",
+                    fontSize: "14px",  // Cỡ chữ của giá trị đã chọn
+                    textIndent: "5px", // Màu chữ của giá trị đã chọn
+                }),
+            }),
+        };
+
+
+
         let { hasOldData, listSpecialty, listClinic } = this.state
 
         return (
             <div className="manage-doctor-container">
-                <div className="manage-doctor-title">
-                    <FormattedMessage id="admin.manage-doctor.title" />
-                </div>
-                <div className="more-info">
-                    <div className="content-left">
-
-                        <label><FormattedMessage id="admin.manage-doctor.select-doctor" /></label>
-                        <Select
-                            value={this.state.selectedDoctor}
-                            onChange={this.handleChangeSelect}
-                            options={this.state.listDoctors}
-                            placeholder={<FormattedMessage id="admin.manage-doctor.select-doctor" />}
-                        />
+                <div className="container">
+                    <div className="manage-doctor-title">
+                        <FormattedMessage id="admin.manage-doctor.title" />
                     </div>
-                    <div className="content-right">
-                        <label> <FormattedMessage id="admin.manage-doctor.intro" /></label>
-                        <textarea
-                            onChange={(event) => this.handleOnChangeText(event, 'description')}
-                            value={this.state.description}
-                            className="form-control" >
+                    <div className="all-info">
+                        <div className="more-info">
+                            <div className="content-left">
 
-                        </textarea>
-                    </div>
+                                <label className="required"><FormattedMessage id="admin.manage-doctor.select-doctor" /></label>
+                                <Select
+                                    value={this.state.selectedDoctor}
+                                    onChange={this.handleChangeSelect}
+                                    options={this.state.listDoctors}
+                                    placeholder={<FormattedMessage id="admin.manage-doctor.select-doctor" />}
+                                    styles={customStyles}
+                                />
+                            </div>
+                            <div className="content-right">
+                                <label className="required"> <FormattedMessage id="admin.manage-doctor.intro" /></label>
+                                <textarea
+                                    onChange={(event) => this.handleOnChangeText(event, 'description')}
+                                    value={this.state.description}
+                                    className="form-control" >
 
-                </div>
+                                </textarea>
+                            </div>
 
-                <div className="more-info-extra">
-                    <div className="row">
-                        <div className="col-4 form-group">
-                            <label> <FormattedMessage id="admin.manage-doctor.price" /></label>
-                            <Select
-                                value={this.state.selectedPrice}
-                                onChange={this.handleChangeSelectDoctorInfo}
-                                options={this.state.listPrice}
-                                placeholder={<FormattedMessage id="admin.manage-doctor.price" />}
-                                name="selectedPrice"
+                        </div>
+
+                        <div className="more-info-extra">
+                            <div className="row">
+                                <div className="col-4 form-group">
+                                    <label className="required"> <FormattedMessage id="admin.manage-doctor.price" /></label>
+                                    <Select
+                                        value={this.state.selectedPrice}
+                                        onChange={this.handleChangeSelectDoctorInfo}
+                                        options={this.state.listPrice}
+                                        placeholder={<FormattedMessage id="admin.manage-doctor.price" />}
+                                        name="selectedPrice"
+                                        styles={customStyles}
+                                    />
+                                </div>
+                                <div className="col-4 form-group">
+                                    <label className="required"> <FormattedMessage id="admin.manage-doctor.payment" /></label>
+                                    <Select
+                                        value={this.state.selectedPayment}
+                                        onChange={this.handleChangeSelectDoctorInfo}
+                                        options={this.state.listPayment}
+                                        placeholder={<FormattedMessage id="admin.manage-doctor.price" />}
+                                        name="selectedPayment"
+                                        styles={customStyles}
+                                    />
+                                </div>
+                                <div className="col-4 form-group">
+                                    <label className="required"> <FormattedMessage id="admin.manage-doctor.province" /></label>
+                                    <Select
+                                        value={this.state.selectedProvince}
+                                        onChange={this.handleChangeSelectDoctorInfo}
+                                        options={this.state.listProvince}
+                                        placeholder={<FormattedMessage id="admin.manage-doctor.province" />}
+                                        name="selectedProvince"
+                                        styles={customStyles}
+                                    />
+                                </div>
+                                <div className="col-4 form-group">
+                                    <label className="required"> <FormattedMessage id="admin.manage-doctor.nameClinic" /></label>
+                                    <input className="form-control"
+                                        onChange={(event) => this.handleOnChangeText(event, 'nameClinic')}
+                                        value={this.state.nameClinic} />
+
+                                </div>
+                                <div className="col-4 form-group">
+                                    <label className="required"> <FormattedMessage id="admin.manage-doctor.addressClinic" /></label>
+                                    <input className="form-control"
+                                        onChange={(event) => this.handleOnChangeText(event, 'addressClinic')}
+                                        value={this.state.addressClinic}
+                                    />
+                                </div>
+                                <div className="col-4 form-group">
+                                    <label className="required"> <FormattedMessage id="admin.manage-doctor.note" /></label>
+                                    <input className="form-control"
+                                        onChange={(event) => this.handleOnChangeText(event, 'note')}
+                                        value={this.state.note}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-4 form-group">
+                                <label className="required"> <FormattedMessage id="admin.manage-doctor.specialty" /></label>
+                                <Select
+                                    value={this.state.selectedSpecialty}
+                                    onChange={this.handleChangeSelectDoctorInfo}
+                                    options={listSpecialty}
+                                    placeholder={<FormattedMessage id="admin.manage-doctor.select-doctor" />}
+                                    name="selectedSpecialty"
+                                    styles={customStyles}
+                                />
+                            </div>
+                            <div className="col-4 form-group">
+                                <label className="required"> <FormattedMessage id="admin.manage-doctor.clinic" /></label>
+                                <Select
+                                    value={this.state.selectedClinic}
+                                    onChange={this.handleChangeSelectDoctorInfo}
+                                    options={listClinic}
+                                    placeholder={<FormattedMessage id="admin.manage-doctor.select-doctor" />}
+                                    name="selectedClinic"
+                                    styles={customStyles}
+                                />
+                            </div>
+                        </div>
+                        <div className="manage-doctor-editor">
+                            <MdEditor
+                                style={{
+                                    height: '300px', borderRadius: "8px",
+                                    overflow: "hidden"
+                                }}
+                                renderHTML={text => mdParser.render(text)}
+                                onChange={this.handleEditorChange}
+                                value={this.state.contentMarkdown}
+                                className="markdown"
                             />
                         </div>
-                        <div className="col-4 form-group">
-                            <label> <FormattedMessage id="admin.manage-doctor.payment" /></label>
-                            <Select
-                                value={this.state.selectedPayment}
-                                onChange={this.handleChangeSelectDoctorInfo}
-                                options={this.state.listPayment}
-                                placeholder={<FormattedMessage id="admin.manage-doctor.price" />}
-                                name="selectedPayment"
-                            />
-                        </div>
-                        <div className="col-4 form-group">
-                            <label> <FormattedMessage id="admin.manage-doctor.payment" /></label>
-                            <Select
-                                value={this.state.selectedProvince}
-                                onChange={this.handleChangeSelectDoctorInfo}
-                                options={this.state.listProvince}
-                                placeholder={<FormattedMessage id="admin.manage-doctor.province" />}
-                                name="selectedProvince"
-                            />
-                        </div>
-                        <div className="col-4 form-group">
-                            <label> <FormattedMessage id="admin.manage-doctor.nameClinic" /></label>
-                            <input className="form-control"
-                                onChange={(event) => this.handleOnChangeText(event, 'nameClinic')}
-                                value={this.state.nameClinic} />
-                        </div>
-                        <div className="col-4 form-group">
-                            <label> <FormattedMessage id="admin.manage-doctor.addressClinic" /></label>
-                            <input className="form-control"
-                                onChange={(event) => this.handleOnChangeText(event, 'addressClinic')}
-                                value={this.state.addressClinic}
-                            />
-                        </div>
-                        <div className="col-4 form-group">
-                            <label> <FormattedMessage id="admin.manage-doctor.note" /></label>
-                            <input className="form-control"
-                                onChange={(event) => this.handleOnChangeText(event, 'note')}
-                                value={this.state.note}
-                            />
-                        </div>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-4 form-group">
-                        <label> <FormattedMessage id="admin.manage-doctor.specialty" /></label>
-                        <Select
-                            value={this.state.selectedSpecialty}
-                            onChange={this.handleChangeSelectDoctorInfo}
-                            options={listSpecialty}
-                            placeholder={<FormattedMessage id="admin.manage-doctor.select-doctor" />}
-                            name="selectedSpecialty"
-                        />
-                    </div>
-                    <div className="col-4 form-group">
-                        <label> <FormattedMessage id="admin.manage-doctor.clinic" /></label>
-                        <Select
-                            value={this.state.selectedClinic}
-                            onChange={this.handleChangeSelectDoctorInfo}
-                            options={listClinic}
-                            placeholder={<FormattedMessage id="admin.manage-doctor.select-doctor" />}
-                            name="selectedClinic"
-                        />
-                    </div>
-                </div>
-                <div className="manage-doctor-editor">
-                    <MdEditor
-                        style={{ height: '300px' }}
-                        renderHTML={text => mdParser.render(text)}
-                        onChange={this.handleEditorChange}
-                        value={this.state.contentMarkdown}
-                    />
-                </div>
 
-                <button
-                    onClick={() => this.handleSaveContentMarkdown()}
-                    className={hasOldData === true ? "save-content-doctor" : "create-content-doctor"}
-                >
-                    {hasOldData === true ?
-                        <span><FormattedMessage id="admin.manage-doctor.save" /></span> : <span><FormattedMessage id="admin.manage-doctor.add" /></span>}
-                </button>
+                        <button
+                            onClick={() => this.handleSaveContentMarkdown()}
+                            className={hasOldData === true ? "save-content-doctor" : "create-content-doctor"}
+                        >
+                            {hasOldData === true ?
+                                <span><FormattedMessage id="admin.manage-doctor.save" /></span> : <span><FormattedMessage id="admin.manage-doctor.add" /></span>}
+                        </button>
+                    </div>
+                </div>
             </div>
         );
     }

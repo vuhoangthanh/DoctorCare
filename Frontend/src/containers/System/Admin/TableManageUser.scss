@@ -1,88 +1,40 @@
 .table {
-    // border-collapse: separate;
-    /* Tách viền để giữ border-radius */
-    border-spacing: 0;
-    /* Loại bỏ khoảng cách giữa các ô */
-    border-radius : 10px;
-    /* Bo tròn bảng */
-    overflow      : hidden;
-    /* Đảm bảo viền không bị cắt */
-}
+    // border-spacing   : 0;
+    border: 1px solid #dee2e6;
 
-/* Loại bỏ viền của bảng để tránh viền đôi */
-.table-bordered {
-    border: none;
-}
+    .first {
+        text-align: center;
+    }
 
-.table th,
-.table td {
-    border        : 1px solid #dee2e6 !important;
-    /* Viền 1px */
-    text-align    : center;
-    vertical-align: middle;
-}
-
-/* Bo tròn các góc bảng */
-.table {
     thead {
-        tr:first-child th:first-child {
-            border-top-left-radius: 10px;
-            border                : 1px solid #dee2e6 !important;
+
+        th {
+            border        : 1px solid #dee2e6 !important;
+            text-align    : left;
+            vertical-align: middle;
+        }
+
+
+    }
+
+
+    tbody {
+        tr {
+            background-color: white;
+
+            &:hover {
+                background-color: #f0f0f0 !important;
+            }
+        }
+
+        td {
+            font-size     : 13px;
+            border        : 1px solid #dee2e6 !important;
+            text-align    : left;
+            vertical-align: middle;
+            padding       : 8px;
+            font-family   : 'Roboto', sans-serif;
         }
     }
-}
 
-.table thead tr:first-child th:last-child {
-    border-top-right-radius: 10px;
-}
-
-.table tbody tr:last-child td:first-child {
-    border-bottom-left-radius: 10px;
-}
-
-.table tbody tr:last-child td:last-child {
-    border-bottom-right-radius: 10px;
-}
-
-
-.table th,
-.table td {
-    border        : 1px solid #dee2e6 !important;
-    /* Giữ viền */
-    text-align    : center;
-    vertical-align: middle;
-}
-
-
-
-.table th,
-.table td {
-    border        : 1px solid #dee2e6 !important;
-    text-align    : center;
-    vertical-align: middle;
-
-}
-
-.table tbody tr {
-    background-color: white;
-
-    &:hover {
-        background-color: #f0f0f0 !important;
-    }
-}
-
-.actions i {
-    font-size: 1.2rem;
-    cursor   : pointer;
-
-    &:hover {
-        opacity: 0.7;
-    }
-}
-
-.table td {
-    border        : 1px solid #dee2e6;
-    text-align    : center;
-    vertical-align: middle;
-    padding       : 8px;
 }

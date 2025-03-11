@@ -204,8 +204,6 @@ class UserRedux extends Component {
     handleCurrentPage = (page) => {
         this.setState({
             page: page
-        }, () => {
-            console.log('page', this.state.page)
         })
     }
 
@@ -225,7 +223,7 @@ class UserRedux extends Component {
                 <div className="user-redux-body" >
 
                     <div className="container">
-                        <div className="row">
+                        <div className="row inp-user">
                             <div className="col-12">{isLoadingGender === true ? 'Loading Gender...' : ''}</div>
 
                             <div className="col-4">
@@ -341,13 +339,22 @@ class UserRedux extends Component {
                                     }
                                 </button>
                             </div>
-                            <div className="col-12 mb-5">
+
+
+                        </div>
+
+                        <div className="row list-user">
+                            <div className="col-12 title-table">
+                                <span>Danh sách người dùng</span>
+                            </div>
+                            <div className=" col-12 mb-5 mt-5">
                                 <TableManageUser
                                     handleEditUserFromParent={this.handleEditUserFromParent}
                                     action={this.state.action}
-                                    currentPageChange={this.handleCurrentPage} />
+                                    currentPageChange={this.handleCurrentPage}
+                                    page={this.state.page}
+                                    size={this.state.size} />
                             </div>
-
                         </div>
                     </div>
                 </div>

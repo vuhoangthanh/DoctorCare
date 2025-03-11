@@ -150,14 +150,18 @@ export const fetchAllUsersFailed = () => ({
 });
 
 
-export const deleteAUser = (userId) => {
+export const deleteAUser = (userId, page, size) => {
     return async (dispatch, getState) => {
         try {
             let response = await deleteUserService(userId);
             if (response && response.error === null) {
                 toast.success("Delete the user succeed");
                 dispatch(deleteUserSuccess(response.data))
-                dispatch(fetchAllUsersStart());
+                console.log("tst", page, size)
+                dispatch(fetchAllUsersStart({
+                    page: page,
+                    size: size
+                }));
             } else {
                 toast.error("Delete the user error");
                 dispatch(fetchAllUsersStart());

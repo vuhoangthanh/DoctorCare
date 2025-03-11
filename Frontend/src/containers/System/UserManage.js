@@ -152,7 +152,7 @@ class UserManage extends Component {
                         onClick={() => this.handleAddNewUser()}
                     ><i className="fas fa-plus"></i>Add new user</button>
                 </div>
-                <div className="users-table mt-4 mx-1">
+                <div className="users-table mt-5 mx-1">
                     <table>
                         <tbody>
                             <tr>

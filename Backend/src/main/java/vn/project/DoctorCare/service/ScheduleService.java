@@ -52,24 +52,6 @@ public class ScheduleService {
         return result;
     }
 
-    // private long id;
-
-    // private int maxNumber;
-
-    // private String date;
-
-    // private String timeType;
-    // private long doctorId;
-
-    // private Instant createdAt;
-    // private Instant updatedAt;
-    // private String createdBy;
-    // private String updatedBy;
-
-    // private AllCode timeTypeData;
-
-    // private DoctorDataDTO doctorData;
-
     public List<Schedule> handleAddSchedule(List<Schedule> schedules, long doctorId, String date) {
 
         List<Schedule> listSchedule = new ArrayList<Schedule>();
@@ -100,7 +82,7 @@ public class ScheduleService {
         return listSchedule;
     }
 
-    public List<Schedule> hh() {
+    public List<Schedule> fetchAllSchedule() {
         return this.scheduleRepository.findAll();
     }
 }

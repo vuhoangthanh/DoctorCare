@@ -1,19 +1,21 @@
 @import "../../styles/common.scss";
 
 .header-container {
-    z-index: 99;
-    display: flex;
-    justify-content: space-between;
-    background-color: $colormain;
-    color: $common-text-color;
-    height: 40px;
-    position: relative;
+    z-index            : 99;
+    display            : flex;
+    justify-content    : space-between;
+    background-color   : $colormain;
+    color              : $common-text-color;
+    height             : 40px;
+    // position        : relative;
+    position           : sticky;
+    top                : 0;
 
     .btn-logout {
-        color: $common-text-color;
+        color      : $common-text-color;
         line-height: 40px;
-        height: 40px;
-        padding: 0 10px;
+        height     : 40px;
+        padding    : 0 10px;
 
         &:hover {
             background-color: darken($colormain, 5);
@@ -31,12 +33,12 @@
 
         .language-en {
             margin-right: 15px;
-            margin-left: 10px;
-            cursor: pointer;
+            margin-left : 10px;
+            cursor      : pointer;
 
             &.active {
                 opacity: 1;
-                color: rgb(0, 255, 17);
+                color  : rgb(0, 255, 17);
             }
         }
 
@@ -45,7 +47,7 @@
 
             &.active {
                 opacity: 1;
-                color: red;
+                color  : red;
             }
         }
     }

@@ -58,9 +58,10 @@ public class ScheduleController {
         return ResponseEntity.status(HttpStatus.OK).body(schedules);
     }
 
-    @GetMapping("/hhh")
-    public List<Schedule> hhh() {
-        return this.scheduleService.hh();
+    @GetMapping("/all-schedules")
+    @ApiMessage("fetch all schedule")
+    public List<Schedule> getAllSchedule() {
+        return this.scheduleService.fetchAllSchedule();
     }
 
 }

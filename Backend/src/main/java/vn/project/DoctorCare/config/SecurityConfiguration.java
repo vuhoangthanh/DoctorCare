@@ -60,6 +60,7 @@ public class SecurityConfiguration {
 
                                 // schedule
                                 "/api/v1/schedules",
+                                "/api/v1/all-schedules",
 
                                 // allcode
                                 "/api/v1/allcodes",
