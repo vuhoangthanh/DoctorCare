@@ -1,18 +1,75 @@
-.user-redux-container {}
+.user-redux-container {
+    .user-redux-body {
+        .required::before {
+            content       : "\f621";
+            font-family   : "Font Awesome 5 Free";
+            font-weight   : 600;
+            font-size     : 7px;
+            color         : rgb(248, 102, 102);
+            margin-right  : 4px;
+            vertical-align: top;
+            line-height   : 2.5;
+        }
+
+        label {
+            margin-bottom: 5px;
+            margin-top   : 20px;
+            font-family  : 'Roboto', sans-serif;
+        }
+
+        input {
+            height       : 30px;
+            border-radius: 7px;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #6366f1;
+            box-shadow  : 0 0 5px rgba(99, 102, 241, 0.4);
+            outline     : none;
+        }
+
+        select {
+            height       : 30px;
+            border-radius: 7px;
+        }
+    }
+}
 
 .preview-avatar-container {
-    // display: flex;
 
+
+    #previewAvatar {
+        position: absolute;
+        width   : 0;
+        height  : 0;
+        opacity : 0;
+        overflow: hidden;
+        z-index : -1;
+        /* Đưa input ra khỏi vùng nhìn thấy */
+    }
 
     .label-upload {
-        padding      : 5px;
-        border-radius: 3px;
-        background   : #ddd;
-        cursor       : pointer;
+        padding        : 5px;
+        border-radius  : 7px;
+        background     : #ddd;
+        cursor         : pointer;
+        font-family    : 'Roboto', sans-serif;
+        margin-top     : 0px !important;
+        font-size      : 13px;
+        height         : 30px;
+        width          : 80px;
+        display        : flex;
+        justify-content: center;
+        align-items    : center;
+        gap            : 5px;
 
-        &:hover {
+        text-align:center &:hover {
             opacity: 0.9;
         }
+
+
     }
 
     .preview-avatar {
@@ -22,5 +79,6 @@
         background     : center center no-repeat;
         background-size: contain;
         cursor         : pointer;
+        border-radius  : 7px;
     }
 }

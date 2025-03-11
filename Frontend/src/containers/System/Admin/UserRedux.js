@@ -229,45 +229,45 @@ class UserRedux extends Component {
                             <div className="col-12">{isLoadingGender === true ? 'Loading Gender...' : ''}</div>
 
                             <div className="col-4">
-                                <label><FormattedMessage id="manage-user.email" /></label>
+                                <label className="required"><FormattedMessage id="manage-user.email" /></label>
                                 <input className="form-control" type="email"
                                     value={email}
                                     onChange={(event) => { this.onChangeInput(event, 'email') }}
                                     disabled={this.state.action === CRUD_ACTIONS.EDIT ? true : false} />
                             </div>
                             <div className="col-4">
-                                <label><FormattedMessage id="manage-user.password" /></label>
+                                <label className="required"><FormattedMessage id="manage-user.password" /></label>
                                 <input className="form-control" type="password"
                                     value={password}
                                     onChange={(event) => { this.onChangeInput(event, 'password') }}
                                     disabled={this.state.action === CRUD_ACTIONS.EDIT ? true : false} />
                             </div>
                             <div className="col-4">
-                                <label><FormattedMessage id="manage-user.first-name" /></label>
+                                <label className="required"><FormattedMessage id="manage-user.first-name" /></label>
                                 <input className="form-control" type="text"
                                     value={firstName}
                                     onChange={(event) => { this.onChangeInput(event, 'firstName') }} />
                             </div>
                             <div className="col-4">
-                                <label><FormattedMessage id="manage-user.last-name" /></label>
+                                <label className="required"><FormattedMessage id="manage-user.last-name" /></label>
                                 <input className="form-control" type="text"
                                     value={lastName}
                                     onChange={(event) => { this.onChangeInput(event, 'lastName') }} />
                             </div>
                             <div className="col-4">
-                                <label><FormattedMessage id="manage-user.phone-number" /></label>
+                                <label className="required"><FormattedMessage id="manage-user.phone-number" /></label>
                                 <input className="form-control" type="text"
                                     value={phoneNumber}
                                     onChange={(event) => { this.onChangeInput(event, 'phoneNumber') }} />
                             </div>
                             <div className="col-4">
-                                <label><FormattedMessage id="manage-user.address" /></label>
+                                <label className="required"><FormattedMessage id="manage-user.address" /></label>
                                 <input className="form-control" type="text"
                                     value={address}
                                     onChange={(event) => { this.onChangeInput(event, 'address') }} />
                             </div>
                             <div className="col-3">
-                                <label><FormattedMessage id="manage-user.gender" /></label>
+                                <label className="required"><FormattedMessage id="manage-user.gender" /></label>
                                 <select className="form-control"
                                     onChange={(event) => { this.onChangeInput(event, 'gender') }}
                                     value={gender}
@@ -285,7 +285,7 @@ class UserRedux extends Component {
                                 </select>
                             </div>
                             <div className="col-3">
-                                <label><FormattedMessage id="manage-user.position" /></label>
+                                <label className="required"><FormattedMessage id="manage-user.position" /></label>
                                 <select className="form-control"
                                     onChange={(event) => { this.onChangeInput(event, 'position') }}
                                     value={position}
@@ -301,7 +301,7 @@ class UserRedux extends Component {
                                 </select>
                             </div>
                             <div className="col-3">
-                                <label><FormattedMessage id="manage-user.role" /></label>
+                                <label className="required"><FormattedMessage id="manage-user.role" /></label>
                                 <select className="form-control"
                                     onChange={(event) => { this.onChangeInput(event, 'role') }}
                                     value={role}
@@ -318,7 +318,7 @@ class UserRedux extends Component {
                             </div>
 
                             <div className="col-3">
-                                <label><FormattedMessage id="manage-user.avatar" /></label>
+                                <label className="required"><FormattedMessage id="manage-user.avatar" /></label>
                                 <div className="preview-avatar-container">
                                     <input id="previewAvatar" type="file" className="form-control" hidden
                                         onChange={(event) => this.handleOnChangeAvatar(event)}
@@ -328,6 +328,7 @@ class UserRedux extends Component {
                                         style={{ backgroundImage: `url(${this.state.previewAvatarURL})` }}
                                         onClick={() => this.openPreviewAvatar()}
                                     ></div>
+
                                 </div>
                             </div>
                             <div className="col-12 mt-3">

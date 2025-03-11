@@ -87,8 +87,8 @@ class TableManageUser extends Component {
         let { pageCount } = this.state
         return (
             <React.Fragment>
-                <table id="tableManageUser">
-                    <tbody>
+                <table id="tableManageUser" class="table table-bordered table-hover  table-rounded">
+                    <thead class="table-light">
                         <tr>
                             <th>Email</th>
                             <th>FirstName</th>
@@ -98,6 +98,8 @@ class TableManageUser extends Component {
                             <th>Created At</th>
                             <th>Actions</th>
                         </tr>
+                    </thead>
+                    <tbody>
                         {arrUsers && arrUsers.length > 0 &&
                             arrUsers.map((item, index) => {
                                 return (
