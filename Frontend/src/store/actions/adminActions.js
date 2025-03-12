@@ -348,28 +348,36 @@ export const editDetailDoctorFailed = () => ({
     type: actionTypes.EDIT_DETAIL_DOCTOR_FAILED
 });
 
-export const getRequiredDoctorInfo = () => {
+export const getRequiredDoctorInfo = (data) => {
     return async (dispatch, getState) => {
         try {
             dispatch({ type: actionTypes.FETCH_REQUIRED_DOCTOR_INFO_START })
             let responsePrice = await getAllCodeService("PRICE");
             let responsePayment = await getAllCodeService("PAYMENT");
             let responseProvince = await getAllCodeService("PROVINCE");
-            let responseSpecialty = await getAllSpecialty();
-            let responseClinic = await getAllClinic();
-
+            let responseSpecialty = await getAllSpecialty({
+                page: data.page,
+                size: data.size
+            });
+            let responseClinic = await getAllClinic({
+                page: data.page,
+                size: data.size
+            });
             if (responsePrice && responsePrice.error === null
                 && responsePayment && responsePayment.error === null
                 && responseProvince && responseProvince.error === null
                 && responseSpecialty && responseSpecialty.error === null
                 && responseClinic && responseClinic.error === null
             ) {
+                console.log("fsads", responseSpecialty.data.result);
                 let data = {
                     responsePrice: responsePrice.data,
                     responsePayment: responsePayment.data,
                     responseProvince: responseProvince.data,
-                    responseSpecialty: responseSpecialty.data,
-                    responseClinic: responseClinic.data
+                    responseSpecialty: responseSpecialty.data.result,
+                    responseClinic: responseClinic.data.result,
+                    pageCountSpecialty: responseSpecialty.data.meta,
+                    pageCountClinic: responseClinic.data.meta
                 }
 
                 dispatch(fetchDoctorInfoSuccess(data))

@@ -8,6 +8,7 @@ import HandBook from './Section/HandBook';
 import About from './Section/About';
 import HomeFooter from './HomeFooter';
 import './HomePage.scss'
+import CardInfo from './Section/CardInfo';
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -31,6 +32,7 @@ class HomePage extends Component {
         return (
             <div>
                 <HomeHeader isShowBanner={true} />
+                <CardInfo />
                 <Specialty settings={settings} />
                 <MedicalFacility settings={settings} />
                 <OutStandingDoctor settings={settings} />

@@ -10,6 +10,7 @@ import MdEditor from 'react-markdown-editor-lite';
 import { createNewSpecialty } from '../../../services/userService'
 import { toast } from "react-toastify";
 import * as actions from "../../../store/actions"
+import Pagination from '../Pagination/Pagination';
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
@@ -21,23 +22,28 @@ class ManageSpecialty extends Component {
             imageBase64: '',
             descriptionHTML: '',
             descriptionMarkdown: '',
-            listSpecialties: []
+            listSpecialties: [],
+
+            page: 1,
+            size: 4,
+            pageCount: 2
         }
     }
     async componentDidMount() {
-        this.props.fetchAllScheduleTimeRedux();
+        this.props.fetchAllScheduleTimeRedux({
+            page: this.state.page,
+            size: this.state.size
+        });
     }
 
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.allRequiredDoctorInfo !== this.props.allRequiredDoctorInfo) {
             this.setState({
-                listSpecialties: this.props.allRequiredDoctorInfo.responseSpecialty
-
+                listSpecialties: this.props.allRequiredDoctorInfo.responseSpecialty,
+                pageCount: this.props.allRequiredDoctorInfo.pageCountSpecialty.pages
             })
-
         }
-
     }
 
 
@@ -87,11 +93,20 @@ class ManageSpecialty extends Component {
             toast.error("Save Specialty error!");
 
         }
-        console.log('fsda', this.state)
     }
+
+    handlePageClick = async (event) => {
+        this.setState({
+            page: +event.selected + 1
+        })
+        this.props.fetchAllScheduleTimeRedux({
+            page: +event.selected + 1 ? +event.selected + 1 : this.state.page,
+            size: this.state.size
+        });
+    };
     render() {
         let { language } = this.props;
-        let { listSpecialties } = this.state;
+        let { listSpecialties, pageCount } = this.state;
         return (
             <div className="manage-specialty-container">
                 <div className="ms-title">Quản lý chuyên khoa</div>
@@ -184,6 +199,12 @@ class ManageSpecialty extends Component {
                                 </tbody>
                             </table>
                         </div>
+                        <div className="col-12">
+                            <Pagination
+                                pageCount={pageCount}
+                                handlePageClick={this.handlePageClick} // Không cần arrow function
+                            />
+                        </div>
                     </div>
                 </div>
 
@@ -202,7 +223,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchAllScheduleTimeRedux: () => dispatch(actions.getRequiredDoctorInfo()),
+        fetchAllScheduleTimeRedux: (data) => dispatch(actions.getRequiredDoctorInfo(data)),
 
     };
 };

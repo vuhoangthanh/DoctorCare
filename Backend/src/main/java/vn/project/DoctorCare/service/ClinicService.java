@@ -1,12 +1,20 @@
 package vn.project.DoctorCare.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import vn.project.DoctorCare.domain.Clinic;
+import vn.project.DoctorCare.domain.User;
 import vn.project.DoctorCare.domain.response.ResClinicByIdDTO;
+import vn.project.DoctorCare.domain.response.ResUserDTO;
+import vn.project.DoctorCare.domain.response.ResultPaginationDTO;
+import vn.project.DoctorCare.domain.response.clinic.ResClinicDTO;
 import vn.project.DoctorCare.repository.ClinicRepository;
 
 @Service
@@ -20,8 +28,41 @@ public class ClinicService {
         this.doctorInfoService = doctorInfoService;
     }
 
-    public List<Clinic> fetchAllClinic() {
-        return this.clinicRepository.findAll();
+    public ResultPaginationDTO fetchAllClinic(Specification<Clinic> spec, Pageable pageable) {
+        Page<Clinic> pageClinic = this.clinicRepository.findAll(spec, pageable);
+
+        List<Clinic> listClinic = pageClinic.getContent();
+
+        ResultPaginationDTO resultPaginationDTO = new ResultPaginationDTO();
+        ResultPaginationDTO.Meta meta = new ResultPaginationDTO.Meta();
+
+        meta.setPage(pageable.getPageNumber());
+        meta.setPageSize(pageable.getPageSize());
+        meta.setPages(pageClinic.getTotalPages());
+        meta.setTotal(pageClinic.getTotalElements());
+
+        resultPaginationDTO.setMeta(meta);
+
+        List<ResClinicDTO> listResClinicDTOs = new ArrayList<ResClinicDTO>();
+
+        for (Clinic clinic : listClinic) {
+            ResClinicDTO resClinicDTO = new ResClinicDTO();
+
+            resClinicDTO.setId(clinic.getId());
+            resClinicDTO.setName(clinic.getName());
+            resClinicDTO.setAddress(clinic.getAddress());
+            resClinicDTO.setCreatedAt(clinic.getCreatedAt());
+            resClinicDTO.setDescriptionHtml(clinic.getDescriptionHtml());
+            resClinicDTO.setDescriptionMarkdown(clinic.getDescriptionMarkdown());
+            resClinicDTO.setImage(clinic.getImage());
+
+            listResClinicDTOs.add(resClinicDTO);
+        }
+
+    resultPaginationDTO.setResult(listResClinicDTOs);
+
+
+        return resultPaginationDTO;
     }
 
     public ResClinicByIdDTO fetchClinicById(long id) {

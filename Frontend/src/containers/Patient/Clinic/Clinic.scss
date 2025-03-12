@@ -1,0 +1,198 @@
+.clinic-container {
+    .link-navigation {
+        padding    : 0 100px;
+        padding-top: 15px;
+
+
+        i {
+            color: #06adef;
+        }
+
+        .custom-link-navigation {
+            cursor         : pointer;
+            font-family    : Mulish, sans-serif;
+            font-size      : 14px;
+            color          : #06adef;
+            margin-left    : 5px;
+            text-decoration: none;
+            font-weight    : 600;
+
+            &:hover {
+                opacity        : 0.7;
+                text-decoration: underline;
+            }
+        }
+
+        span {
+            font-family    : Mulish, sans-serif;
+            font-size      : 14px;
+            color          : #06adef;
+            margin-left    : 5px;
+            text-decoration: none;
+            font-weight    : 600;
+        }
+    }
+
+    .clinic-body {
+        // background-color: white;
+        background-color: #f1f6ff;
+        margin-top      : 10px;
+
+        .title-clinic {
+            background-color: #06adef;
+            height          : 20vh;
+            display         : flex;
+            justify-content : center;
+            align-items     : center;
+            flex-direction  : column;
+
+            .title-clinic-up {
+                font-size  : 35px;
+                color      : white;
+                font-weight: 700;
+            }
+
+            .title-clinic-down {
+                font-size: 17px;
+                color    : white;
+            }
+        }
+
+        .father-clinic {
+            padding: 0 150px;
+
+            .filter-clinic {
+                margin          : 35px 0;
+                height          : 70px;
+                border-radius   : 10px;
+                background-color: white;
+                display         : flex;
+                justify-content : flex-end;
+                align-items     : center;
+                gap             : 10px;
+                box-shadow      : 0 0 5px rgba(99, 102, 241, 0.4);
+
+                button {
+                    margin-right    : 10px;
+                    height          : 32px;
+                    min-width       : 100px;
+                    border          : none;
+                    outline         : none;
+                    background-color: #06adef;
+                    border-radius   : 8px;
+                    font-weight     : 500;
+                    color           : white;
+                    font-family     : Mulish, sans-serif;
+
+                    &:hover {
+                        opacity: 0.7;
+                    }
+                }
+
+                input {
+                    height       : 32px;
+                    min-width    : 230px;
+                    border       : 1px solid #dee2e6;
+                    outline      : none;
+                    border-radius: 8px;
+                    text-indent  : 6px;
+
+                    &:focus {
+                        border-color: #6366f1;
+                        box-shadow  : 0 0 5px rgba(99, 102, 241, 0.4);
+                        outline     : none;
+                    }
+                }
+            }
+
+            .list-clinic {
+                .each-clinic {
+                    margin          : 15px 0;
+                    border-radius   : 10px;
+                    height          : 230px;
+                    background-color: white;
+                    display         : flex;
+                    flex-direction  : row;
+                    box-shadow      : 0 4px 10px rgba(0, 0, 0, 0.1);
+
+                    .image-clinic {
+                        display: flex;
+
+
+                        .background-image {
+                            position        : relative;
+                            top             : -15px;
+                            left            : 20px;
+                            background-color: #E6F0FF;
+
+                            width              : 210px;
+                            height             : 190px;
+                            background-position: center center;
+                            background-repeat  : no-repeat;
+                            background-size    : cover;
+                            border-radius      : 10px;
+
+                            display        : flex;
+                            justify-content: center;
+                            align-items    : center;
+
+                            .image {
+                                background-position   : center center;
+                                background-repeat     : no-repeat;
+                                background-size       : cover;
+                                width                 : 150px;
+                                height                : 150px;
+                                border-radius         : 50%;
+                                // border             : 1px solid red;
+                                background-color      : transparent;
+                            }
+                        }
+
+                    }
+
+                    .info-clinic {
+                        padding: 15px 10px;
+
+                        .name-clinic {
+                            color      : #06adef;
+                            font-weight: 600;
+                            font-size  : 25px;
+                            font-family: Mulish, sans-serif;
+
+                        }
+
+                        .address-clinic {
+                            margin-top : 5px;
+                            color      : black;
+                            font-size  : 15px;
+                            font-family: Mulish, sans-serif;
+                        }
+                    }
+
+                    .btn-booking {
+
+                        padding-top: 100px;
+
+                        button {
+                            background-color: #06adef;
+                            height          : 50px;
+                            width           : 95%;
+                            border          : none;
+                            outline         : none;
+                            border-radius   : 8px;
+                            font-weight     : 600;
+                            color           : white;
+                            font-family     : Mulish, sans-serif;
+                            font-size       : 18px;
+                            font-weight     : 900;
+
+                            &:hover {
+                                opacity: 0.7;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

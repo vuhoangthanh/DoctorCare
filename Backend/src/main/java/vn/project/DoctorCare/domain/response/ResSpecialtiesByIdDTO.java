@@ -8,10 +8,19 @@ public class ResSpecialtiesByIdDTO {
     private long id;
     private String descriptionHtml;
     private String descriptionMarkdown;
+    private String name;
     private List<DoctorInfo> doctorInfos;
 
     public long getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setId(long id) {

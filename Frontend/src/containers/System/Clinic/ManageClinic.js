@@ -10,6 +10,7 @@ import MdEditor from 'react-markdown-editor-lite';
 import { createNewSpecialty, createNewClinic, getAllClinic } from '../../../services/userService'
 import { toast } from "react-toastify";
 import * as actions from "../../../store/actions"
+import Pagination from '../Pagination/Pagination';
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
@@ -23,24 +24,30 @@ class ManageClinic extends Component {
             descriptionMarkdown: '',
             address: '',
 
-            listClinics: []
+            listClinics: [],
+
+            page: 1,
+            size: 2,
+            pageCount: 2
         }
     }
     async componentDidMount() {
-        this.props.fetchAllScheduleTimeRedux();
-
+        this.props.fetchAllScheduleTimeRedux({
+            page: this.state.page,
+            size: this.state.size
+        });
+        // console.log("uphazz", this.props.allRequiredDoctorInfo.pageCountClinic.pages)
     }
 
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.allRequiredDoctorInfo !== this.props.allRequiredDoctorInfo) {
             this.setState({
-                listClinics: this.props.allRequiredDoctorInfo.responseClinic
-
+                listClinics: this.props.allRequiredDoctorInfo.responseClinic,
+                pageCount: this.props.allRequiredDoctorInfo.pageCountClinic.pages
             })
 
         }
-
     }
 
 
@@ -94,6 +101,16 @@ class ManageClinic extends Component {
         }
     }
 
+    handlePageClick = async (event) => {
+        this.setState({
+            page: +event.selected + 1
+        })
+        this.props.fetchAllScheduleTimeRedux({
+            page: +event.selected + 1 ? +event.selected + 1 : this.state.page,
+            size: this.state.size
+        });
+    };
+
     handleEditClinic = () => {
 
     }
@@ -102,8 +119,8 @@ class ManageClinic extends Component {
     }
     render() {
         let { language } = this.props;
-        let { listClinics } = this.state;
-        console.log(listClinics)
+        let { listClinics, pageCount } = this.state;
+        console.log("count", pageCount)
         return (
             <div className="manage-specialty-container">
                 <div className="ms-title">Quản lý phòng khám</div>
@@ -203,6 +220,12 @@ class ManageClinic extends Component {
                                 </tbody>
                             </table>
                         </div>
+                        <div className="col-12">
+                            <Pagination
+                                pageCount={pageCount}
+                                handlePageClick={this.handlePageClick} // Không cần arrow function
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -219,7 +242,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchAllScheduleTimeRedux: () => dispatch(actions.getRequiredDoctorInfo()),
+        fetchAllScheduleTimeRedux: (data) => dispatch(actions.getRequiredDoctorInfo(data)),
 
     };
 };

@@ -5,7 +5,7 @@ import moment from 'moment'
 import { FormattedMessage } from 'react-intl';
 import './DetailSpecialty.scss'
 import HomeHeader from '../../HomePage/HomeHeader';
-
+import { Link } from 'react-router-dom';
 import DoctorSchedule from '../Doctor/DoctorSchedule';
 import DoctorExtraInfo from '../Doctor/DoctorExtraInfo';
 import ProfileDoctor from '../Doctor/ProfileDoctor';
@@ -19,10 +19,15 @@ class DetailSpecialty extends Component {
         this.state = {
             arrDoctorId: [],
             dataDetailSpecialty: {},
-            listProvince: []
+            listProvince: [],
+            expanded: false
         }
     }
     async componentDidMount() {
+
+        // if (!this.state.dataDetailSpecialty || _.isEmpty(!this.state.dataDetailSpecialty)) return null;
+
+
         if (this.props.match && this.props.match.params && this.props.match.params.id) {
             let id = this.props.match.params.id;
 
@@ -63,6 +68,12 @@ class DetailSpecialty extends Component {
                 })
             }
         }
+    }
+
+    setExpanded = (test) => {
+        this.setState({
+            expanded: test
+        })
     }
 
     getDataDetailSPecialty = async (event) => {
@@ -107,16 +118,29 @@ class DetailSpecialty extends Component {
     render() {
         let { language } = this.props;
         let { arrDoctorId, dataDetailSpecialty, listProvince } = this.state;
+        console.log(dataDetailSpecialty)
         return (
             <div className="detail-specialty-container">
                 <HomeHeader />
+                <div className="link-navigation row">
+                    <div className="col-12">
+                        <Link className="custom-link-navigation" to={`/home`}><i class="fas fa-home"></i> Trang chủ/</Link>
+                        <Link className="custom-link-navigation" to={`/home`}>Chuyên khoa/</Link>
+                        {dataDetailSpecialty && !_.isEmpty(dataDetailSpecialty)
+                            &&
+                            <span>{dataDetailSpecialty.name}</span>
+                        }</div>
+                </div>
                 <div className="detail-specialty-body">
                     <div className="description-specialty">
                         {dataDetailSpecialty && !_.isEmpty(dataDetailSpecialty)
                             &&
-                            < div dangerouslySetInnerHTML={{ __html: dataDetailSpecialty.descriptionHtml }}>
+                            < div className={`content ${this.state.expanded ? "expanded" : ""}`} dangerouslySetInnerHTML={{ __html: dataDetailSpecialty.descriptionHtml }}>
                             </div>
                         }
+                        <span className="toggle-btn" onClick={() => this.setExpanded(!this.state.expanded)}>
+                            {this.state.expanded ? "Thu gọn" : "Xem thêm..."}
+                        </span>
                     </div>
                     <div className="search-sp-doctor">
                         <select onChange={(event) => this.handleOnchangeSelect(event)}>

@@ -46,14 +46,20 @@ class ManageDoctor extends Component {
             addressClinic: '',
             note: '',
             ClinicId: '',
-            specialtyId: ''
+            specialtyId: '',
+
+            page: '',
+            size: ''
 
         }
     }
 
     componentDidMount() {
         this.props.fetchAllDoctorsRedux();
-        this.props.getRequiredDoctorInfo();
+        this.props.getRequiredDoctorInfo({
+            page: this.state.page,
+            size: this.state.size
+        });
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -71,6 +77,7 @@ class ManageDoctor extends Component {
             let dataSelectProvince = this.buildDataInputSelect(responseProvince, 'PROVINCE')
             let dataSelectSpecialty = this.buildDataInputSelect(responseSpecialty, 'SPECIALTY')
             let dataSelectClinic = this.buildDataInputSelect(responseClinic, 'CLINIC')
+
 
             this.setState({
                 listPrice: dataSelectPrice,
@@ -155,8 +162,10 @@ class ManageDoctor extends Component {
         this.setState({ selectedDoctor });
         let { listPayment, listPrice, listProvince, listSpecialty, listClinic } = this.state
 
+
+
         let response = await getDetailInfoDoctor(selectedDoctor.value);
-        console.log("fdsa", this.state)
+
         if (response && response.data && response.data.markdown) {
             let markdown = response.data.markdown;
 
@@ -301,6 +310,8 @@ class ManageDoctor extends Component {
         return result;
     }
     render() {
+        console.log("fdsa", this.props)
+
         const customStyles = {
             control: (provided, state) => ({
                 ...provided,
@@ -509,7 +520,7 @@ const mapDispatchToProps = dispatch => {
         fetchAllDoctorsRedux: () => dispatch(actions.fetchAllDoctors()),
         saveDetailDoctorRedux: (data) => dispatch(actions.saveDetailDoctor(data)),
         editDetailDoctorRedux: (data) => dispatch(actions.editDetailDoctor(data)),
-        getRequiredDoctorInfo: () => dispatch(actions.getRequiredDoctorInfo()),
+        getRequiredDoctorInfo: (data) => dispatch(actions.getRequiredDoctorInfo(data)),
 
     };
 };

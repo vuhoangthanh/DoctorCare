@@ -56,11 +56,18 @@
         "edit": "Save changes"
     },
     "home-page": {
-        "outstanding-doctor": "Last week's featured doctor",
+        "skilled": "Experienced and Highly Skilled",
+        "outstanding-doctor": " Medical Team",
         "more-information": "See more",
         "specialty-popular": "Chuyên khoa phổ biến",
-        "specialty": "Specialty ",
-        "popular": "popular"
+        "examination": "Examination & treatment ",
+        "specialty": "specialty ",
+        "from": "from leading experts",
+        "text-extra-specialty": "Easily find and book specialist appointments with experienced doctors for precise consultation and treatment!",
+        "clinic": "Healthcare Facilities",
+        "text-extra-clinic": "A modern healthcare system with advanced equipment and dedicated specialists, ready to provide high-quality medical services. Easily find the nearest facility for convenient consultations and treatment.",
+        "modern": " Modern ",
+        "text-extra-doctor": "Our team of experienced and dedicated doctors is always ready to listen and provide professional consultation. With extensive expertise and a strong commitment to healthcare, our doctors ensure high-quality medical services, giving you peace of mind during your examination and treatment.s"
     },
     "manage-schedule": {
         "title": "Manage doctor's examination plan",

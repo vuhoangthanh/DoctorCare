@@ -3,22 +3,21 @@
     z-index         : 1000 !important;
     height          : 50px !important;
     width           : 50px !important;
-    background-color: #f1f6ff !important;
+    background-color: #0b7ae1 !important;
     border-radius   : 50% !important;
+    margin-top      : -10px;
 
     &:hover {
-        background-color: #0b7ae1 !important;
+        opacity: 0.9 !important;
     }
 }
 
 .slick-prev::before,
 .slick-next::before {
     font-family: FontAwesome !important;
-    color      : #039edb;
+    color      : white !important;
 
-    &:hover {
-        color: white;
-    }
+
 }
 
 .slick-next {
@@ -26,11 +25,12 @@
     z-index         : 1000 !important;
     height          : 50px !important;
     width           : 50px !important;
-    background-color: #f1f6ff !important;
+    background-color: #0b7ae1 !important;
     border-radius   : 50% !important;
+    margin-top      : -10px;
 
     &:hover {
-        background-color: #0b7ae1 !important;
+        opacity: 0.9 !important;
     }
 }
 
@@ -44,10 +44,14 @@
     }
 
     &.section-medical-facility {
-        background: #f1f6ff;
+        background: #d8f4ff;
     }
 
     &.section-outstanding-doctor {
+        background: white;
+    }
+
+    &.section-handbook {
         background: white;
     }
 
@@ -108,7 +112,8 @@
 }
 
 .section-share {
-    height: 330px;
+    // height: 330px;
+    padding-bottom: 80px;
 
 
     .section-container {
@@ -117,41 +122,138 @@
         flex-direction: column;
 
         .section-header {
-            margin-bottom: 30px;
-            padding-top  : 30px;
+            margin-bottom  : 30px;
+            padding-top    : 30px;
+            text-align     : center;
+            display        : flex;
+            justify-content: center;
+            flex-direction : column;
 
             .title-section {
-                font-size  : 30px;
-                font-weight: 700;
-                font-family: Mulish, sans-serif;
+                margin-top    : 50px;
+                font-size     : 30px;
+                line-height   : 1.2;
+                color         : #0b3052;
+                letter-spacing: .01em;
+                font-weight   : 700;
+                font-family   : Mulish, sans-serif;
 
                 .highlight {
                     color: #06adef;
                 }
+
+                &.clinic {
+                    margin-top: -155px;
+                    z-index   : 10;
+                }
             }
 
-            .btn-section {
-                float           : right;
-                padding         : 10px 15px;
-                border          : none;
-                outline         : none;
-                display         : block;
-                cursor          : pointer;
-                background-color: #06adef;
-                border-radius   : 50px;
-                font-family     : Mulish, sans-serif;
-                outline         : 0;
-                color           : white;
-                min-height      : 45px;
-                font-weight     : 700;
-                width           : 200px;
+            .extra-info {
+                color         : #788291;
+                font-family   : Noto Sans, sans-serif;
+                font-size     : 16px;
+                font-weight   : 400;
+                letter-spacing: 0;
+                margin-top    : 10px;
+                z-index       : 10;
 
-                &:hover {
-                    background-color: #039edb;
+                &.clinic {
+                    color         : #0b3052;
+                    font-family   : Noto Sans, sans-serif;
+                    font-size     : 16px;
+                    font-weight   : 400;
+                    letter-spacing: 0;
+                }
 
+                &.doctor {
+                    text-align: center;
+                    padding   : 0 10vw;
                 }
             }
         }
+
+        .section-body {
+            .btn-more {
+                display        : flex;
+                justify-content: center;
+                margin-top     : 25px;
+
+                .btn-section {
+                    background     : #f1f6ff;
+                    font-size      : 16px;
+                    min-height     : 45px;
+                    overflow       : hidden;
+                    font-size      : 16px;
+                    min-height     : 45px;
+                    line-height    : 1;
+                    font-family    : Mulish, sans-serif;
+                    font-weight    : 400;
+                    text-align     : center;
+                    display        : inline-flex;
+                    align-items    : center;
+                    padding        : 12px 35px;
+                    border-radius  : 50px;
+                    outline        : 0;
+                    border         : none;
+                    cursor         : pointer;
+                    text-decoration: none;
+
+                    i {
+                        margin-left: 10px;
+                        margin-top : 1.5px;
+                        font-size  : 15px;
+                    }
+
+                    &:hover {
+                        background: #ebf1fd;
+                        // opacity: 1.5;
+
+                    }
+                }
+            }
+
+            .btn-more1 {
+                display        : flex;
+                justify-content: center;
+                margin-top     : 25px;
+
+                .btn-section {
+                    color           : #06adef;
+                    font-size       : 16px;
+                    line-height     : 1;
+                    letter-spacing  : .01em;
+                    font-family     : Mulish, sans-serif;
+                    font-weight     : 400;
+                    text-align      : center;
+                    display         : inline-flex;
+                    align-items     : center;
+                    padding         : 12px 5px;
+                    border-radius   : 50px;
+                    outline         : 0;
+                    border          : none;
+                    cursor          : pointer;
+                    text-decoration : none;
+                    background-color: transparent;
+
+                    i {
+                        margin-left: 10px;
+                        margin-top : 2px;
+                        font-size  : 15px;
+                        color      : #06adef;
+                    }
+
+                    &:hover {
+                        text-decoration: underline;
+
+                        i {
+                            text-decoration: none;
+                        }
+                    }
+                }
+            }
+        }
+
+
     }
 
 
@@ -214,5 +316,37 @@
         padding    : 20px 10px;
         font-size  : 22px;
         font-weight: 600
+    }
+}
+
+.curve-clinic {
+
+    transform         : rotate(180deg);
+    // margin-top     : 100px;
+    text-align        : left;
+    display           : flex;
+    justify-content   : flex-end;
+    overflow          : hidden;
+
+    svg {
+        width: 2000px;
+
+    }
+}
+
+.curve-handbook {
+    width   : 100vw;
+    overflow: hidden;
+
+    .review-article--shape {
+        // width               : 150%;
+        // min-width           : 2600px;
+        // // -webkit-transform: translateX(-50%);
+        // // -ms-transform    : translateX(-50%);
+        // transform           : translateX(-7%);
+        -webkit-filter: drop-shadow(0 30px 15px rgba(45, 53, 71, .03));
+        filter        : drop-shadow(0 30px 15px rgba(45, 53, 71, .03));
+        pointer-events: none;
+        z-index       : -1;
     }
 }

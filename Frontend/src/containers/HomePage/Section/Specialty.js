@@ -5,6 +5,7 @@ import { getAllSpecialty } from '../../../services/userService'
 import { FormattedMessage } from 'react-intl';
 import './Specialty.scss'
 import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 
 class Specialty extends Component {
 
@@ -12,13 +13,21 @@ class Specialty extends Component {
         super(props);
         this.state = {
             dataSpecialty: [],
+
+            page: '',
+            size: ''
         }
     }
     async componentDidMount() {
-        let response = await getAllSpecialty();
+        let { page, size } = this.state
+
+        let response = await getAllSpecialty({
+            page: page,
+            size: size
+        });
         if (response && response.error === null) {
             this.setState({
-                dataSpecialty: response.data ? response.data : []
+                dataSpecialty: response.data.result ? response.data.result : []
             })
         } else {
 
@@ -36,14 +45,17 @@ class Specialty extends Component {
             this.props.history.push(`/detail-specialty/${item.id}`)
         }
     }
+
+
     render() {
         let { dataSpecialty } = this.state;
         return (
             <div className="section-share section-specialty">
                 <div className="section-container">
                     <div className="section-header">
-                        <span className="title-section"><FormattedMessage id="home-page.specialty" /><span className="highlight"><FormattedMessage id="home-page.popular" /></span></span>
-                        <button className="btn-section"><FormattedMessage id="home-page.more-information" /></button>
+                        <span className="title-section"><FormattedMessage id="home-page.examination" /><span className="highlight"><FormattedMessage id="home-page.specialty" /></span><FormattedMessage id="home-page.from" /></span>
+                        {/* <Link className="custom-link" to={`/specialty`}><button className="btn-section"><FormattedMessage id="home-page.more-information" /></button></Link> */}
+                        <span className="extra-info"><FormattedMessage id="home-page.text-extra-specialty" /></span>
                     </div>
                     <div className="section-body">
                         <Slider {...this.props.settings}>
@@ -60,9 +72,13 @@ class Specialty extends Component {
                                     )
                                 })}
                         </Slider>
+                        <div className="btn-more">
+                            <Link className="custom-link" to={`/specialty`}><button className="btn-section"><FormattedMessage id="home-page.more-information" /><i class="fas fa-long-arrow-alt-right"></i></button></Link>
+                        </div>
                     </div>
+
                 </div>
-            </div>
+            </div >
         );
     }
 }

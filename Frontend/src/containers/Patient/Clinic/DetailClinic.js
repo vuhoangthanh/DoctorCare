@@ -59,10 +59,10 @@ class DetailClinic extends Component {
         let { language } = this.props;
         let { arrDoctorId, dataDetailClinic } = this.state;
         return (
-            <div className="detail-specialty-container">
+            <div className="detail-clinic-container">
                 <HomeHeader />
-                <div className="detail-specialty-body">
-                    <div className="description-specialty">
+                <div className="detail-clinic-body">
+                    <div className="description-clinic">
                         {dataDetailClinic && !_.isEmpty(dataDetailClinic)
                             &&
                             <>

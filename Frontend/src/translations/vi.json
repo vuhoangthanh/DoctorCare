@@ -56,10 +56,17 @@
         "edit": "Lưu thay đổi"
     },
     "home-page": {
-        "outstanding-doctor": "Bác sĩ nổi bật tuần qua",
+        "skilled": "giàu kinh nghiệm chuyên môn cao ",
+        "outstanding-doctor": "Đội ngũ bác sĩ ",
         "more-information": "Xem thêm",
-        "specialty": "Chuyên khoa ",
-        "popular": "phổ biến"
+        "examination": "Khám & điều trị ",
+        "specialty": "chuyên khoa ",
+        "from": "từ các chuyên gia hàng đầu",
+        "text-extra-specialty": "Dễ dàng tìm và đặt lịch khám chuyên khoa với bác sĩ giàu kinh nghiệm, nhận tư vấn và điều trị chính xác!",
+        "clinic": "Hệ thống cơ sở y",
+        "text-extra-clinic": "Hệ thống cơ sở y tế hiện đại, trang thiết bị tiên tiến cùng đội ngũ chuyên gia tận tâm, sẵn sàng mang đến dịch vụ chăm sóc sức khỏe chất lượng cao. Bạn có thể dễ dàng tìm kiếm cơ sở gần nhất để thuận tiện thăm khám và điều trị.",
+        "modern": " tế hiện đại",
+        "text-extra-doctor": "Đội ngũ bác sĩ giàu kinh nghiệm, tận tâm và chuyên môn cao, luôn sẵn sàng lắng nghe và tư vấn tận tình. Với chuyên môn sâu rộng và sự tận tụy với nghề, các bác sĩ tại hệ thống của chúng tôi cam kết mang đến dịch vụ y tế chất lượng, giúp bạn an tâm trong quá trình thăm khám và điều trị."
     },
     "manage-schedule": {
         "title": "Quản lý kết hoạch khám bệnh của bác sĩ",
