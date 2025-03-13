@@ -15,33 +15,7 @@ public class ResSpecialtyDTO {
     private String descriptionMarkdown;
 
     private Instant createdAt;
-    private Instant updatedAt;
-    private String createdBy;
-    private String updatedBy;
 
-    public String getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public Instant getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
-    }
 
     public Instant getCreatedAt() {
         return createdAt;

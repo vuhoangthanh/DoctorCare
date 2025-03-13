@@ -49,7 +49,8 @@ class ManageDoctor extends Component {
             specialtyId: '',
 
             page: '',
-            size: ''
+            size: '',
+            filter: ''
 
         }
     }
@@ -58,7 +59,9 @@ class ManageDoctor extends Component {
         this.props.fetchAllDoctorsRedux();
         this.props.getRequiredDoctorInfo({
             page: this.state.page,
-            size: this.state.size
+            size: this.state.size,
+            filterName: this.state.filter,
+            filterAddress: this.state.filter
         });
     }
 
@@ -131,7 +134,7 @@ class ManageDoctor extends Component {
                     nameClinic: this.state.nameClinic,
                     addressClinic: this.state.addressClinic,
                     note: this.state.note,
-                    ClinicId: this.state.selectedClinic && this.state.selectedClinic.value ? this.state.selectedClinic.value : '',
+                    clinicId: this.state.selectedClinic && this.state.selectedClinic.value ? this.state.selectedClinic.value : '',
                     specialtyId: this.state.selectedSpecialty.value,
 
                 })
@@ -153,6 +156,8 @@ class ManageDoctor extends Component {
                     note: this.state.note,
                     clinicId: this.state.selectedClinic && this.state.selectedClinic.value ? this.state.selectedClinic.value : '',
                     specialtyId: this.state.selectedSpecialty.value,
+                }, () => {
+                    console.log("clinic", this.state.selectedClinic)
                 });
             }
         }

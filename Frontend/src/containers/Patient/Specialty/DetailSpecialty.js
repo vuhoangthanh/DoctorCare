@@ -124,7 +124,7 @@ class DetailSpecialty extends Component {
                 <HomeHeader />
                 <div className="link-navigation row">
                     <div className="col-12">
-                        <Link className="custom-link-navigation" to={`/home`}><i class="fas fa-home"></i> Trang chủ/</Link>
+                        <Link className="custom-link-navigation" to={`/home`}><i className="fas fa-home"></i> Trang chủ/</Link>
                         <Link className="custom-link-navigation" to={`/home`}>Chuyên khoa/</Link>
                         {dataDetailSpecialty && !_.isEmpty(dataDetailSpecialty)
                             &&

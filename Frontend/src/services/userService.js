@@ -75,9 +75,14 @@ const putVerifyBookingAppointment = (data) => {
 const createNewSpecialty = (data) => {
     return axios.post(`/api/v1/specialties`, data)
 }
-
+const putSpecialty = (data) => {
+    return axios.put(`/api/v1/specialties`, data)
+}
+const deleteSpecialty = (data) => {
+    return axios.delete(`/api/v1/specialties?id=${data.id}`)
+}
 const getAllSpecialty = (data) => {
-    return axios.get(`/api/v1/specialties?page=${data.page}&size=${data.size}`)
+    return axios.get(`/api/v1/specialties?page=${data.page}&size=${data.size}&filter=name~'${data.filterName}'`)
 }
 const getDetailSpecialty = (data) => {
     return axios.get(`/api/v1/get-specialties-by-id?id=${data.id}&location=${data.location}`)
@@ -88,7 +93,7 @@ const createNewClinic = (data) => {
 }
 
 const getAllClinic = (data) => {
-    return axios.get(`/api/v1/clinics?page=${data.page}&size=${data.size}`)
+    return axios.get(`/api/v1/clinics?page=${data.page}&size=${data.size}&filter=name~'${data.filterName}' and address~'${data.filterAddress}'`)
 }
 const putClinic = (data) => {
     return axios.put(`/api/v1/clinics`, data)
@@ -134,5 +139,7 @@ export {
     postSendRemedy,
     getAllUsersPage,
     putClinic,
-    deleteClinic
+    deleteClinic,
+    deleteSpecialty,
+    putSpecialty
 }

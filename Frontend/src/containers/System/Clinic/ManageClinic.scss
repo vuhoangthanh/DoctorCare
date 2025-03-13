@@ -11,8 +11,68 @@
         color         : #06adef;
     }
 
+    .line-search {
+        height          : 80px;
+        border-radius   : 10px;
+        border          : none;
+        display         : flex;
+        align-items     : center;
+        margin-bottom   : 20px;
+        background-color: white;
+        padding-right   : 30px;
+        padding-left    : 100px;
+
+        span {
+            font-family : 'Roboto', sans-serif;
+            font-size   : 15px;
+            margin-right: 5px;
+        }
+
+        input {
+            text-indent  : 5px;
+            height       : 32px;
+            width        : 250px;
+            border-radius: 7px;
+            border       : 1px solid #dee2e6;
+            outline      : none;
 
 
+            &:focus {
+                border-color: #6366f1;
+                box-shadow  : 0 0 5px rgba(99, 102, 241, 0.4);
+                outline     : none;
+            }
+
+            &::placeholder {
+                color      : #dee2e6;
+                font-size  : 13px;
+                font-family: 'Roboto', sans-serif;
+            }
+        }
+
+        button {
+            float           : right;
+            width           : 110px;
+            height          : 32px;
+            background-color: #06adef;
+            font-family     : 'Roboto', sans-serif;
+            font-size       : 13px;
+            border          : none;
+            border-radius   : 5px;
+            color           : white;
+
+            &:hover {
+                opacity: 0.9;
+            }
+
+            &.refresh-search {
+                background-color: white;
+                border          : 1px solid #dee2e6;
+                color           : black;
+                margin-left     : 5px;
+            }
+        }
+    }
 
     .table-clinics {
         background-color: white;
@@ -30,10 +90,11 @@
             }
         }
 
-        .line-search {
+        .line-add {
             display        : flex;
             gap            : 7px;
             justify-content: flex-end;
+
 
             .inp-search {
                 input {
@@ -67,7 +128,6 @@
                         opacity: 0.9;
                     }
                 }
-
             }
 
             .btn-show-modal-add {
@@ -84,7 +144,17 @@
                     &:hover {
                         opacity: 0.9;
                     }
+
+                    i {
+                        font-size   : 10px;
+                        margin-right: 5px;
+                    }
                 }
+            }
+
+            .refresh {
+                padding  : 6px 4px;
+                font-size: 15px;
             }
 
         }

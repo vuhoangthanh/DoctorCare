@@ -71,7 +71,7 @@ class OutStandingDoctor extends Component {
                             }
                         </Slider>
                         <div className="btn-more">
-                            <button className="btn-section"><FormattedMessage id="home-page.more-information" /><i class="fas fa-long-arrow-alt-right"></i></button>
+                            <button className="btn-section"><FormattedMessage id="home-page.more-information" /><i className="fas fa-long-arrow-alt-right"></i></button>
                         </div>
                     </div>
                 </div >

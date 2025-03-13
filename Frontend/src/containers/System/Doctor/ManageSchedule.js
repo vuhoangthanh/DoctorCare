@@ -310,10 +310,10 @@ class ManageDoctor extends Component {
                             </div>
                         </div>
                         <div className="col-12 mt-3">
-                            <table id="tableManageUser" class="table table-bordered table-hover  table-rounded">
-                                <thead class="table-light">
+                            <table id="tableManageUser" className="table table-bordered table-hover  table-rounded">
+                                <thead className="table-light">
                                     <tr>
-                                        <th class="first">Stt</th>
+                                        <th className="first">Stt</th>
                                         <th>Name</th>
                                         <th>Date</th>
                                         <th>Time</th>
@@ -352,7 +352,7 @@ class ManageDoctor extends Component {
                                                                             <button key={index1}>{item1.timeTypeData.valueVi}</button>
                                                                         ))
                                                                             :
-                                                                            <span class="no-schedule">Không có lịch</span>
+                                                                            <span className="no-schedule">Không có lịch</span>
                                                                         }
                                                                     </td>
                                                                     <td>{createdAtValue}</td>

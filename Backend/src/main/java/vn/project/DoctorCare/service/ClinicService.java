@@ -101,7 +101,6 @@ public class ClinicService {
         Clinic clinic = this.findById(reqClinic.getId());
 
         if(clinic != null){
-
             clinic.setId(reqClinic.getId());
             clinic.setAddress(reqClinic.getAddress());
             clinic.setDescriptionHtml(reqClinic.getDescriptionHtml());

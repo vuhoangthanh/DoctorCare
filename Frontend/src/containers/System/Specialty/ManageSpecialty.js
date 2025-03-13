@@ -7,11 +7,13 @@ import './ManageSpecialty.scss'
 import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from "../../../utils"
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
-import { createNewSpecialty } from '../../../services/userService'
+import { createNewSpecialty, putSpecialty, deleteSpecialty } from '../../../services/userService'
 import { toast } from "react-toastify";
 import * as actions from "../../../store/actions"
 import Pagination from '../Pagination/Pagination';
-
+import ModalAddSpecialty from './ModalAddSpecialty';
+import ModalEditSpecialty from './ModalEditSpecialty';
+import { emitter } from '../../../utils/emitter';
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
 class ManageSpecialty extends Component {
@@ -24,16 +26,19 @@ class ManageSpecialty extends Component {
             descriptionMarkdown: '',
             listSpecialties: [],
 
+            filterName: '',
+
+            specialtyEdit: {},
+            isOpenModalSpecialty: false,
+            isOpenModalEditSpecialty: false,
+
             page: 1,
             size: 4,
             pageCount: 2
         }
     }
     async componentDidMount() {
-        this.props.fetchAllScheduleTimeRedux({
-            page: this.state.page,
-            size: this.state.size
-        });
+        this.handleCallSpecialty();
     }
 
 
@@ -46,6 +51,23 @@ class ManageSpecialty extends Component {
         }
     }
 
+    toggleSpecialtyModal = () => {
+        this.setState({
+            isOpenModalSpecialty: !this.state.isOpenModalSpecialty,
+        })
+    }
+
+    handleShowModal = () => {
+        this.setState({
+            isOpenModalSpecialty: true,
+        })
+    }
+
+    toggleSpecialtyEditModal = () => {
+        this.setState({
+            isOpenModalEditSpecialty: !this.state.isOpenModalEditSpecialty,
+        })
+    }
 
     handleOnChangeInput = (event, id) => {
         let stateCopy = { ...this.state }
@@ -54,44 +76,37 @@ class ManageSpecialty extends Component {
             ...stateCopy
         })
     }
+    handleCallSpecialty = () => {
+        this.props.fetchAllScheduleTimeRedux({
+            page: this.state.page,
+            size: this.state.size,
+            filterName: this.state.filterName
+        }, () => {
+            this.setState({
+                pageCount: this.props.allRequiredDoctorInfo.pageCountSpecialty.pages
+            })
+        });
+    }
 
-    handleEditorChange = ({ html, text }) => {
+    handleEditSpecialty = (specialty) => {
         this.setState({
-            descriptionMarkdown: text,
-            descriptionHTML: html
+            isOpenModalEditSpecialty: true,
+            specialtyEdit: specialty
         })
     }
 
-    handleOnChangeImage = async (event) => {
-        let data = event.target.files;
-        let file = data[0];
-        if (file) {
-            let base64 = await CommonUtils.getBase64(file);
-            this.setState({
-                imageBase64: base64
-            })
-        }
-    }
-    handleSaveSpecialty = async () => {
-        let response = await createNewSpecialty({
-            name: this.state.name,
-            image: this.state.imageBase64,
-            descriptionHtml: this.state.descriptionHTML,
-            descriptionMarkdown: this.state.descriptionMarkdown
+    handleSaveSpecialty = async (specialty) => {
+        let response = await createNewSpecialty(specialty)
 
-        })
-        if (response && response.error === null) {
-            toast.success("Save Specialty success!");
-            this.setState({
-                name: '',
-                imageBase64: '',
-                descriptionHTML: '',
-                descriptionMarkdown: ''
-            })
-
+        if (response && response.error !== null) {
+            toast.error(response.message);
         } else {
-            toast.error("Save Specialty error!");
-
+            toast.success("Save specialty success");
+            this.handleCallSpecialty();
+            this.setState({
+                isOpenModalSpecialty: false
+            })
+            emitter.emit('EVENT_CLEAR_MODAL_DATA')
         }
     }
 
@@ -101,114 +116,166 @@ class ManageSpecialty extends Component {
         })
         this.props.fetchAllScheduleTimeRedux({
             page: +event.selected + 1 ? +event.selected + 1 : this.state.page,
-            size: this.state.size
+            size: this.state.size,
+            filterName: this.state.filterName
         });
     };
+
+    handleEditSpecialty = (specialty) => {
+        this.setState({
+            isOpenModalEditSpecialty: true,
+            specialtyEdit: specialty
+        })
+    }
+
+    doEditSpecialty = async (specialty) => {
+        try {
+            let response = await putSpecialty(specialty);
+            if (response && response.error !== null) {
+                toast.error("Edit specialty error");
+            } else {
+                toast.success("Edit specialty success");
+                this.handleCallSpecialty();
+                this.setState({
+                    isOpenModalEditSpecialty: false
+                })
+            }
+        } catch (e) {
+            console.log(e)
+        }
+    }
+    handleDeleteSpecialty = async (specialty) => {
+        let response = await deleteSpecialty({ id: specialty.id })
+        if (response && response.error === null) {
+            toast.success("Delete specialty success");
+            this.props.fetchAllScheduleTimeRedux({
+                page: this.state.page,
+                size: this.state.size,
+                filterName: this.state.filterName
+            });
+        } else {
+            toast.error("Delete specialty error");
+        }
+
+    }
+    handleSearch = () => {
+        this.handleCallSpecialty();
+    }
+    handleRefreshFilter = () => {
+        this.setState({
+            filterName: ''
+        }, () => {
+            this.handleCallSpecialty();
+        })
+
+    }
     render() {
         let { language } = this.props;
         let { listSpecialties, pageCount } = this.state;
         return (
-            <div className="manage-specialty-container">
-                <div className="ms-title">Quản lý chuyên khoa</div>
-                <div className="container">
-                    <div className="add-new-specialty row">
-                        <div className="col-6 form-group">
-                            <label className="required">Tên chuyên khoa</label>
-                            <input type="text" className="form-control"
-                                value={this.state.name}
-                                onChange={(event) => this.handleOnChangeInput(event, 'name')} />
+            <>
+                < ModalAddSpecialty
+                    isOpen={this.state.isOpenModalSpecialty}
+                    toggleFormParent={this.toggleSpecialtyModal}
+                    handleSaveSpecialty={this.handleSaveSpecialty}
+                />
+                <ModalEditSpecialty
+                    isOpen={this.state.isOpenModalEditSpecialty}
+                    toggleFormParent={this.toggleSpecialtyEditModal}
+                    currentSpecialty={this.state.specialtyEdit}
+                    editSpecialty={this.doEditSpecialty}
+                />
+                <div className="manage-specialty-container">
+                    <div className="ms-title">Quản lý chuyên khoa</div>
+                    <div className="container">
+                        <div className="row line-search">
+                            <div className="col-8">
+                                <span>Name: </span>
+                                <input type="text" placeholder="Nhập dữ liệu"
+                                    value={this.state.filterName}
+                                    onChange={(event) => this.handleOnChangeInput(event, 'filterName')} />
+                            </div>
+                            <div className="col-4">
+                                <button className="refresh-search"
+                                    onClick={() => this.handleRefreshFilter()}>Làm lại
+                                </button>
+                                <button
+                                    onClick={() => this.handleSearch()}>Tìm kiếm
+                                </button>
+
+                            </div>
                         </div>
-                        <div className="col-6">
-                            <label className="required">Ảnh chuyên khoa</label>
-                            <input type="file" className="form-control"
-                                onChange={(event) => this.handleOnChangeImage(event)} />
-                        </div>
-                        <div className="col-12 mt-3">
-                            <div className="manage-specialty-editor">
-                                <MdEditor
-                                    style={{
-                                        height: '300px', borderRadius: "8px",
-                                        overflow: "hidden"
-                                    }}
-                                    renderHTML={text => mdParser.render(text)}
-                                    onChange={this.handleEditorChange}
-                                    value={this.state.descriptionMarkdown}
+
+                        <div className="row table-specialties">
+                            <div className="col-6">
+                                <div className="title-table"><span>Danh sách chuyên khóa</span></div>
+                            </div>
+                            <div className="col-6 line-add">
+
+                                <div className="btn-show-modal-add">
+                                    <button
+                                        onClick={() => this.handleShowModal()}>
+                                        <i className="fas fa-plus"></i>Thêm
+                                    </button>
+                                </div>
+                                <div className="refresh">
+                                    <i className="fas fa-sync"></i>
+                                </div>
+                            </div>
+                            <div className="12">
+                                <table className="table table-bordered table-hover  table-rounded">
+                                    <thead className="table-light">
+                                        <tr>
+                                            <th className="first col1">Stt</th>
+                                            <th className="col2">Name</th>
+                                            <th className="col3">Image</th>
+                                            <th className="col5">Create at</th>
+                                            <th className="col6">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {listSpecialties && listSpecialties.length > 0 ?
+                                            listSpecialties.map((item, index) => {
+                                                return (
+                                                    <>
+                                                        <tr>
+                                                            <td className="first">{item.id}</td>
+                                                            <td>{item.name}</td>
+                                                            <td>
+                                                                <div className="bg-image"
+                                                                    style={{ backgroundImage: `url(${item.image})` }}>
+                                                                </div>
+                                                            </td>
+                                                            <td>{moment(item.createdAt).format('DD/MM/YYYY HH:mm:ss')}</td>
+                                                            <td><button
+                                                                onClick={() => this.handleEditSpecialty(item)}
+                                                                className="btn-edit" ><i className="fas fa-pencil-alt"></i></button>
+                                                                <button
+                                                                    onClick={() => { this.handleDeleteSpecialty(item) }}
+                                                                    className="btn-delete"><i className="fas fa-trash-alt"></i></button></td>
+                                                        </tr>
+                                                    </>
+                                                )
+                                            })
+                                            :
+                                            <td>No data</td>
+                                        }
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="col-12">
+                                <Pagination
+                                    pageCount={pageCount}
+                                    handlePageClick={this.handlePageClick} // Không cần arrow function
                                 />
                             </div>
                         </div>
-                        <div className="col-12">
-                            <button className="btn-save-specialty"
-                                onClick={() => this.handleSaveSpecialty()}>Save</button>
-                        </div>
-
                     </div>
 
-                    <div className="row table-specialties">
-                        <div className="col-6">
-                            <div className="title-table"><span>Danh sách chuyên khóa</span></div>
-                        </div>
-                        <div className="col-6 line-search">
-                            <div className="inp-search">
-                                <input type="text" />
-                            </div>
-                            <div className="btn-search">
-                                <button
-                                    onClick={() => this.handleSearch()}>Tìm kiếm</button>
-                            </div>
-                        </div>
-                        <div className="12">
-                            <table class="table table-bordered table-hover  table-rounded">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th className="first col1">Stt</th>
-                                        <th className="col2">Name</th>
-                                        <th className="col3">Image</th>
-                                        <th className="col5">Create at</th>
-                                        <th className="col6">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {listSpecialties && listSpecialties.length > 0 ?
-                                        listSpecialties.map((item, index) => {
-                                            return (
-                                                <>
-                                                    <tr>
-                                                        <td className="first">{item.id}</td>
-                                                        <td>{item.name}</td>
-                                                        <td>
-                                                            <div className="bg-image"
-                                                                style={{ backgroundImage: `url(${item.image})` }}>
-                                                            </div>
-                                                        </td>
-                                                        <td>{moment(item.createdAt).format('DD/MM/YYYY HH:mm:ss')}</td>
-                                                        <td><button
-                                                            onClick={() => this.handleEditSpecialty(item)}
-                                                            className="btn-edit" ><i className="fas fa-pencil-alt"></i></button>
-                                                            <button
-                                                                onClick={() => { this.handleDeleteSpecialty(item) }}
-                                                                className="btn-delete"><i className="fas fa-trash-alt"></i></button></td>
-                                                    </tr>
-                                                </>
-                                            )
-                                        })
-                                        :
-                                        <td>No data</td>
-                                    }
-
-
-                                </tbody>
-                            </table>
-                        </div>
-                        <div className="col-12">
-                            <Pagination
-                                pageCount={pageCount}
-                                handlePageClick={this.handlePageClick} // Không cần arrow function
-                            />
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+                </div >
+            </>
         );
     }
 }

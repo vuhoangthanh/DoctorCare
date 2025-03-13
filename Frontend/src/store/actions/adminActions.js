@@ -357,11 +357,14 @@ export const getRequiredDoctorInfo = (data) => {
             let responseProvince = await getAllCodeService("PROVINCE");
             let responseSpecialty = await getAllSpecialty({
                 page: data.page,
-                size: data.size
+                size: data.size,
+                filterName: data.filterName
             });
             let responseClinic = await getAllClinic({
                 page: data.page,
-                size: data.size
+                size: data.size,
+                filterName: data.filterName,
+                filterAddress: data.filterAddress
             });
             if (responsePrice && responsePrice.error === null
                 && responsePayment && responsePayment.error === null

@@ -68,7 +68,12 @@ public class SecurityConfiguration {
                                 "/api/v1/allcodes",
 
                                 // book-appointment
-                                "/api/v1/patient-book-appointment", "/api/v1/verify-book-appointment"
+                                "/api/v1/patient-book-appointment", "/api/v1/verify-book-appointment",
+
+                                //swagger
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html"
                 };
                 http
                                 .csrf(c -> c.disable())

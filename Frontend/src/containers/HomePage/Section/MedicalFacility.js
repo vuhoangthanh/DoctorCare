@@ -43,7 +43,7 @@ class MedicalFacility extends Component {
             <>
                 <div className="curve-clinic">
                     <span>
-                        <svg fill="#d8f4ff" class="shape" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 145.1"><path d="M0 0v27.6l43.6 14.3c138.4 34.9 279 60.8 420.8 77.6 35.5 4.2 162.5 18.6 330.9 22.5 59.1 1.3 198.1 10.2 377.9-10.2 218.5-24.9 191-29.9 320.7-30.6 137-.8 304.9 14.7 345.2 18.4 33.9 3.1 61.9 6.1 81 8.2V0H0z"></path></svg>
+                        <svg fill="#d8f4ff" className="shape" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 145.1"><path d="M0 0v27.6l43.6 14.3c138.4 34.9 279 60.8 420.8 77.6 35.5 4.2 162.5 18.6 330.9 22.5 59.1 1.3 198.1 10.2 377.9-10.2 218.5-24.9 191-29.9 320.7-30.6 137-.8 304.9 14.7 345.2 18.4 33.9 3.1 61.9 6.1 81 8.2V0H0z"></path></svg>
                     </span>
                 </div>
                 <div className="section-share section-medical-facility">
@@ -78,7 +78,7 @@ class MedicalFacility extends Component {
                                     })}
                             </Slider>
                             <div className="btn-more1">
-                                <Link className="custom-link" to={`/clinic`}> <span className="btn-section"><FormattedMessage id="home-page.more-information" /></span><i class="fas fa-long-arrow-alt-right"></i></Link>
+                                <Link className="custom-link" to={`/clinic`}> <span className="btn-section"><FormattedMessage id="home-page.more-information" /></span><i className="fas fa-long-arrow-alt-right"></i></Link>
                             </div>
                         </div>
                     </div>

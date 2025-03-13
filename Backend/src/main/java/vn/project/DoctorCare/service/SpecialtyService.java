@@ -90,4 +90,43 @@ public class SpecialtyService {
         }
         return null;
     }
+
+    public Specialty findById(long id) {
+        Optional<Specialty> specialty = this.specialtyRepository.findById(id);
+        if (specialty.isPresent()) {
+            return specialty.get();
+        }
+        return null;
+    }
+
+    public Specialty handleUpdateSpecialty(Specialty reqSpecialty) {
+        Specialty specialty = this.findById(reqSpecialty.getId());
+        if (specialty != null) {
+            specialty.setName(reqSpecialty.getName());
+            specialty.setDescriptionHtml(reqSpecialty.getDescriptionHtml());
+            specialty.setDescriptionMarkdown(reqSpecialty.getDescriptionMarkdown());
+            specialty.setCreatedAt(reqSpecialty.getCreatedAt());
+            specialty.setImage(reqSpecialty.getImage());
+
+            return this.specialtyRepository.save(specialty);
+        }
+        return specialty;
+    }
+
+    public ResSpecialtyDTO convertToResSpecialtyDTO(Specialty specialty) {
+        ResSpecialtyDTO resSpecialtyDTO = new ResSpecialtyDTO();
+
+        resSpecialtyDTO.setId(specialty.getId());
+        resSpecialtyDTO.setName(specialty.getName());
+        resSpecialtyDTO.setImage(specialty.getImage());
+        resSpecialtyDTO.setDescriptionHtml(specialty.getDescriptionHtml());
+        resSpecialtyDTO.setDescriptionMarkdown(specialty.getDescriptionMarkdown());
+        resSpecialtyDTO.setCreatedAt(specialty.getCreatedAt());
+
+        return resSpecialtyDTO;
+    }
+
+    public void handleDeleteSpecialty(long id) {
+        this.specialtyRepository.deleteById(id);
+    }
 }

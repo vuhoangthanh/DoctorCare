@@ -19,6 +19,16 @@ import vn.project.DoctorCare.domain.RestResponse;
 @RestControllerAdvice
 public class GlobalException {
 
+    // handle all exception
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<RestResponse<Object>> handleAllException(Exception ex) {
+        RestResponse<Object> res = new RestResponse<Object>();
+        res.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        res.setMessage(ex.getMessage());
+        res.setError("Internal Server Error");
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(res);
+    }
+
     // bắt idinvalid, not token
     @ExceptionHandler(value = {
             UsernameNotFoundException.class,
@@ -59,6 +69,8 @@ public class GlobalException {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(res);
     }
+
+
 
     // bắt validation
     @ExceptionHandler(value = MethodArgumentNotValidException.class)

@@ -14,7 +14,7 @@ class HandBook extends Component {
         return (
             <>
                 <div className="curve-handbook">
-                    <svg class="review-article--shape" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1919 354"><g data-name="lay-2"><path d="M1919 0H0v354a1159 1159 0 01312-107c100.46-19 174.31-18.87 307-18 56.07.37 143.31 2.3 469 31 115.32 10.16 230.93 17.34 346 30 31.46 3.46 158.44 17.63 322 11 112.61-4.56 143.25-15 163-32.25z" fill="#fff" data-name="lay-1"></path></g></svg>                </div>
+                    <svg className="review-article--shape" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1919 354"><g data-name="lay-2"><path d="M1919 0H0v354a1159 1159 0 01312-107c100.46-19 174.31-18.87 307-18 56.07.37 143.31 2.3 469 31 115.32 10.16 230.93 17.34 346 30 31.46 3.46 158.44 17.63 322 11 112.61-4.56 143.25-15 163-32.25z" fill="#fff" data-name="lay-1"></path></g></svg>                </div>
                 <div className="section-share section-handbook">
                     <div className="section-container">
                         <div className="section-header">

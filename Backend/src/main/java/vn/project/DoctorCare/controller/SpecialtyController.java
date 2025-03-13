@@ -3,23 +3,19 @@ package vn.project.DoctorCare.controller;
 import com.turkraft.springfilter.boot.Filter;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import vn.project.DoctorCare.domain.Specialty;
 import vn.project.DoctorCare.domain.User;
 import vn.project.DoctorCare.domain.response.ResSpecialtiesByIdDTO;
 import vn.project.DoctorCare.domain.response.ResultPaginationDTO;
+import vn.project.DoctorCare.domain.response.speicalty.ResSpecialtyDTO;
 import vn.project.DoctorCare.service.SpecialtyService;
 
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -56,5 +52,19 @@ public class SpecialtyController {
         ResSpecialtiesByIdDTO resSpecialtiesByIdDTO = this.specialtyService.fetchSpecialtyById(id, location);
         return ResponseEntity.status(HttpStatus.OK).body(resSpecialtiesByIdDTO);
     }
+
+    @PutMapping("/specialties")
+    public ResponseEntity<ResSpecialtyDTO> updateSpecialty(@RequestBody Specialty reqSpecialty) {
+
+        Specialty specialty = this.specialtyService.handleUpdateSpecialty(reqSpecialty);
+        return ResponseEntity.status(HttpStatus.OK).body(this.specialtyService.convertToResSpecialtyDTO(specialty));
+    }
+
+    @DeleteMapping("/specialties")
+    public ResponseEntity<Void> deleteSpecialty(@RequestParam("id") long id) {
+        this.specialtyService.handleDeleteSpecialty(id);
+        return ResponseEntity.status(HttpStatus.OK).body(null);
+    }
+
 
 }

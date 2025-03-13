@@ -330,7 +330,7 @@ class UserRedux extends Component {
                                 </div>
                             </div>
                             <div className="col-12 mt-3">
-                                <button className={this.state.action === CRUD_ACTIONS.EDIT ? "btn btn-warning" : "btn btn-primary"}
+                                <button className={this.state.action === CRUD_ACTIONS.EDIT ? "edit" : "add"}
                                     onClick={() => this.handleSaveUser()}
                                 >
                                     {this.state.action === CRUD_ACTIONS.EDIT ?
@@ -343,19 +343,44 @@ class UserRedux extends Component {
 
                         </div>
 
+                        <div className="row line-search">
+                            <div className="col-3">
+                                <span>Email: </span>
+                                <input type="text" placeholder="Nhập dữ liệu"
+                                    value={this.state.filterEmail}
+                                    onChange={(event) => { this.onChangeInput(event, 'filterEmail') }}
+                                />
+                            </div>
+                            <div className="col-3">
+                                <span>Name: </span>
+                                <input type="text" placeholder="Nhập dữ liệu"
+                                    value={this.state.filterName}
+                                    onChange={(event) => { this.onChangeInput(event, 'firstName') }}
+                                />
+                            </div>
+                            <div className="col-3">
+                                <span>Address: </span>
+                                <input type="text" placeholder="Nhập dữ liệu"
+                                    value={this.state.filterAddress}
+                                    onChange={(event) => { this.onChangeInput(event, 'filterAddress') }}
+                                />
+                            </div>
+                            <div className="col-3">
+                                <button className="refresh-search"
+                                    onClick={() => this.handleSearch()}>Làm lại
+                                </button>
+                                <button
+                                    onClick={() => this.handleSearch()}>Tìm kiếm
+                                </button>
+
+                            </div>
+                        </div>
+
                         <div className="row list-user">
-                            <div className="col-6 title-table">
+                            <div className="col-12 title-table">
                                 <span>Danh sách người dùng</span>
                             </div>
-                            <div className="col-6 line-search">
-                                <div className="inp-search">
-                                    <input type="text" />
-                                </div>
-                                <div className="btn-search">
-                                    <button
-                                        onClick={() => this.handleSearch()}>Tìm kiếm</button>
-                                </div>
-                            </div>
+
                             <div className=" col-12 mb-5 mt-5">
                                 <TableManageUser
                                     handleEditUserFromParent={this.handleEditUserFromParent}

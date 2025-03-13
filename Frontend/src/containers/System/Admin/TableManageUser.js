@@ -89,10 +89,10 @@ class TableManageUser extends Component {
         let { page, size } = this.props
         return (
             <React.Fragment>
-                <table id="tableManageUser" class="table table-bordered table-hover  table-rounded">
-                    <thead class="table-light">
+                <table id="tableManageUser" className="table table-bordered table-hover  table-rounded">
+                    <thead className="table-light">
                         <tr>
-                            <th class="first">Stt</th>
+                            <th className="first">Stt</th>
                             <th>Email</th>
                             <th>FirstName</th>
                             <th>LastName</th>
@@ -108,7 +108,7 @@ class TableManageUser extends Component {
 
                                 return (
                                     <tr key={index}>
-                                        <td class="first">{item.id}</td>
+                                        <td className="first">{item.id}</td>
                                         <td>{item.email}</td>
                                         <td>{item.firstName}</td>
                                         <td>{item.lastName}</td>

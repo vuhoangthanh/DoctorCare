@@ -32,6 +32,9 @@ class ManageClinic extends Component {
 
             listClinics: [],
 
+            filterName: '',
+            filterAddress: '',
+
             page: 1,
             size: 5,
             pageCount: 2
@@ -58,8 +61,6 @@ class ManageClinic extends Component {
             this.handleCallClinic();
         }
         if (prevProps.allRequiredDoctorInfo.pageCountClinic.pages < this.state.page) {
-            console.log("prev", prevProps.allRequiredDoctorInfo.pageCountClinic.pages)
-            console.log("thí", this.state.page)
             this.setState({
                 page: this.state.pageCount
             })
@@ -69,7 +70,10 @@ class ManageClinic extends Component {
     handleCallClinic = () => {
         this.props.fetchAllScheduleTimeRedux({
             page: this.state.page,
-            size: this.state.size
+            size: this.state.size,
+            filterName: this.state.filterName,
+            filterAddress: this.state.filterAddress,
+
         }, () => {
             this.setState({
                 pageCount: this.props.allRequiredDoctorInfo.pageCountClinic.pages
@@ -85,6 +89,13 @@ class ManageClinic extends Component {
     handleShowModal = () => {
         this.setState({
             isOpenModalClinic: true,
+        })
+    }
+    handleOnChangeInput = (event, id) => {
+        let stateCopy = { ...this.state }
+        stateCopy[id] = event.target.value;
+        this.setState({
+            ...stateCopy
         })
     }
 
@@ -123,7 +134,6 @@ class ManageClinic extends Component {
 
 
     handleEditClinic = (clinic) => {
-        console.log("hel", clinic)
         this.setState({
             isOpenModalEditClinic: true,
             clinicEdit: clinic
@@ -158,6 +168,17 @@ class ManageClinic extends Component {
             toast.error("Delete clinic error");
 
         }
+    }
+    handleSearch = () => {
+        this.handleCallClinic();
+    }
+    handleRefreshFilter = () => {
+        this.setState({
+            filterName: '',
+            filterAddress: ''
+        }, () => {
+            this.handleCallClinic();
+        })
 
     }
 
@@ -180,24 +201,42 @@ class ManageClinic extends Component {
                 <div className="manage-specialty-container">
                     <div className="ms-title">Quản lý phòng khám</div>
                     <div className="container">
+                        <div className="row line-search">
+                            <div className="col-4">
+                                <span>Name: </span>
+                                <input type="text" placeholder="Nhập dữ liệu"
+                                    value={this.state.filterName}
+                                    onChange={(event) => this.handleOnChangeInput(event, 'filterName')} />
+                            </div>
+                            <div className="col-4">
+                                <span>Address: </span>
+                                <input type="text" placeholder="Nhập dữ liệu"
+                                    value={this.state.filterAddress}
+                                    onChange={(event) => this.handleOnChangeInput(event, 'filterAddress')} />
+                            </div>
+                            <div className="col-4">
+                                <button className="refresh-search"
+                                    onClick={() => this.handleRefreshFilter()}>Làm lại
+                                </button>
+                                <button
+                                    onClick={() => this.handleSearch()}>Tìm kiếm
+                                </button>
 
+                            </div>
+                        </div>
                         <div className="row table-clinics">
                             <div className="col-6">
                                 <div className="title-table"><span>Danh sách phòng khám</span></div>
                             </div>
-                            <div className="col-6 line-search">
-                                <div className="inp-search">
-                                    <input type="text" />
-                                </div>
-                                <div className="btn-search">
+                            <div className="col-6 line-add">
+
+                                <div className="btn-show-modal-add">
                                     <button
-                                        onClick={() => this.handleSearch()}>Tìm kiếm
+                                        onClick={() => this.handleShowModal()}><i className="fas fa-plus"></i>Thêm
                                     </button>
                                 </div>
-                                <div class="btn-show-modal-add">
-                                    <button
-                                        onClick={() => this.handleShowModal()}>Thêm
-                                    </button>
+                                <div className="refresh">
+                                    <i className="fas fa-sync"></i>
                                 </div>
                             </div>
 

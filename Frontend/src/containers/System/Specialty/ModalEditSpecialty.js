@@ -9,13 +9,13 @@ import {
     Button, Modal, ModalHeader, ModalBody, ModalFooter,
 } from 'reactstrap';
 import { emitter } from '../../../utils/emitter';
-import { createNewClinic } from '../../../services/userService'
+import { createNewSpecialty } from '../../../services/userService'
 import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from "../../../utils"
 import _ from 'lodash';
-import './ModalAddClinic.scss'
+import './ModalAddSpecialty.scss'
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
-class ModalEditClinic extends Component {
+class ModalEditSpecialty extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -24,7 +24,6 @@ class ModalEditClinic extends Component {
             imageBase64: '',
             descriptionHTML: '',
             descriptionMarkdown: '',
-            address: '',
         }
     }
     async componentDidMount() {
@@ -34,21 +33,20 @@ class ModalEditClinic extends Component {
 
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.currentClinic !== this.props.currentClinic) {
+        if (prevProps.currentSpecialty !== this.props.currentSpecialty) {
             this.handleCallData();
         }
     }
 
     handleCallData = () => {
-        let clinic = this.props.currentClinic;
-        if (clinic && !_.isEmpty(clinic)) {
+        let specialty = this.props.currentSpecialty;
+        if (specialty && !_.isEmpty(specialty)) {
             this.setState({
-                id: clinic.id,
-                name: clinic.name,
-                imageBase64: clinic.image,
-                descriptionHTML: clinic.descriptionHtml,
-                descriptionMarkdown: clinic.descriptionMarkdown,
-                address: clinic.address
+                id: specialty.id,
+                name: specialty.name,
+                imageBase64: specialty.image,
+                descriptionHTML: specialty.descriptionHtml,
+                descriptionMarkdown: specialty.descriptionMarkdown,
             })
         }
     }
@@ -88,16 +86,14 @@ class ModalEditClinic extends Component {
                 imageBase64: '',
                 descriptionHTML: '',
                 descriptionMarkdown: '',
-                address: '',
             })
         })
     }
-    handleEditClinic = async () => {
-        this.props.editClinic({
+    handleEditSpecialty = async () => {
+        this.props.editSpecialty({
             id: this.state.id,
             name: this.state.name,
             image: this.state.imageBase64,
-            address: this.state.address,
             descriptionHtml: this.state.descriptionHTML,
             descriptionMarkdown: this.state.descriptionMarkdown
         });
@@ -110,33 +106,26 @@ class ModalEditClinic extends Component {
                 <Modal
                     isOpen={this.props.isOpen}
                     toggle={() => { this.toggle() }}
-                    className={'modal-clinic-container'}
+                    className={'modal-specialty-container'}
                     size="xl"
                     centered
                 >
-                    <ModalHeader toggle={() => { this.toggle() }}>Edit clinic</ModalHeader>
+                    <ModalHeader toggle={() => { this.toggle() }}>Edit specialty</ModalHeader>
                     <ModalBody>
                         <div className="add-new-specialty row">
                             <div className="col-6 form-group">
-                                <label className="required">Tên phòng khám</label>
+                                <label className="required">Tên chuyên khoa</label>
                                 <input type="text" className="form-control"
                                     value={this.state.name}
                                     onChange={(event) => this.handleOnChangeInput(event, 'name')} />
                             </div>
                             <div className="col-6">
                                 <label className="required">Ảnh chuyên khoa</label>
-                                <input type="file"
-                                    className="form-control"
+                                <input type="file" className="form-control"
                                     onChange={(event) => this.handleOnChangeImage(event)} />
                             </div>
-                            <div className="col-6 form-group">
-                                <label className="required">Địa chỉ phòng khám</label>
-                                <input type="text" className="form-control"
-                                    value={this.state.address}
-                                    onChange={(event) => this.handleOnChangeInput(event, 'address')} />
-                            </div>
                             <div className="col-12 mt-3">
-                                <div className="manage-clinic-editor">
+                                <div className="manage-specialty-editor">
                                     <MdEditor
                                         style={{
                                             height: '300px', borderRadius: "8px",
@@ -148,6 +137,10 @@ class ModalEditClinic extends Component {
                                     />
                                 </div>
                             </div>
+                            <div className="col-12">
+                                <button className="btn-save-specialty"
+                                    onClick={() => this.handleSaveSpecialty()}>Save</button>
+                            </div>
 
                         </div>
                     </ModalBody>
@@ -155,7 +148,7 @@ class ModalEditClinic extends Component {
                         <Button
                             color="primary"
                             className="px-3 edit"
-                            onClick={() => { this.handleEditClinic() }}>
+                            onClick={() => { this.handleEditSpecialty() }}>
                             Edit
                         </Button>{' '}
                         <Button color="secondary" className="px-3 close" onClick={() => { this.toggle() }}>
@@ -179,4 +172,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ModalEditClinic);
+export default connect(mapStateToProps, mapDispatchToProps)(ModalEditSpecialty);
