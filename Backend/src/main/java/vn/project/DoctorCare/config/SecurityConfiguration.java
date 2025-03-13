@@ -40,6 +40,7 @@ public class SecurityConfiguration {
                 return new BCryptPasswordEncoder();
         }
 
+
         @Bean
         public SecurityFilterChain filterChain(HttpSecurity http,
                         CustomAuthenticationEntryPoint customAuthenticationEntryPoint) throws Exception {
@@ -60,6 +61,7 @@ public class SecurityConfiguration {
 
                                 // schedule
                                 "/api/v1/schedules",
+                                //new
                                 "/api/v1/all-schedules",
 
                                 // allcode

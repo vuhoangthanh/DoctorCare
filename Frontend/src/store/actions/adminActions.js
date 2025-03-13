@@ -369,7 +369,6 @@ export const getRequiredDoctorInfo = (data) => {
                 && responseSpecialty && responseSpecialty.error === null
                 && responseClinic && responseClinic.error === null
             ) {
-                console.log("fsads", responseSpecialty.data.result);
                 let data = {
                     responsePrice: responsePrice.data,
                     responsePayment: responsePayment.data,

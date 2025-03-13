@@ -26,7 +26,12 @@ class HomeHeader extends Component {
                     <div className="home-header-content">
                         <div className="left-content">
                             <i className="fas fa-bars"></i>
-                            <img className="header-logo" src={logo} onClick={() => this.returnToHome()} />
+                            <span className="header-logo">
+                                <svg width="200" height="70" viewBox="0 0 300 80" xmlns="http://www.w3.org/2000/svg">
+                                    <text x="10" y="50" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="#36A9E1">Doctors</text>
+                                    <text x="160" y="50" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="#2D3E50">care</text>
+                                </svg>
+                            </span>
                         </div>
                         <div className="center-content">
                             <div className="child-content">
@@ -100,10 +105,12 @@ class HomeHeader extends Component {
                             </div>
                         </div>
                         <div className="curve-header-parent">
-                            <svg fill="white" class="curve-header" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 256.3"><path d="M1920 0c-89.9 15.9-179 36.3-266.9 61.3-69.9 19.9-85.6 27.5-216.5 67.4-117.9 35.9-176.9 53.9-228.8 65.4-35.1 7.8-138.8 29.4-275.7 34.7-188.7 7.4-331.4-20.3-371.8-28.6-90.5-18.7-153.6-40.7-253.3-75.6C179.2 79.9 74.9 34.8 0 0v256.3h1920V0z"></path></svg>
+                            <svg fill="white" className="curve-header" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 256.3"><path d="M1920 0c-89.9 15.9-179 36.3-266.9 61.3-69.9 19.9-85.6 27.5-216.5 67.4-117.9 35.9-176.9 53.9-228.8 65.4-35.1 7.8-138.8 29.4-275.7 34.7-188.7 7.4-331.4-20.3-371.8-28.6-90.5-18.7-153.6-40.7-253.3-75.6C179.2 79.9 74.9 34.8 0 0v256.3h1920V0z"></path></svg>
                         </div>
+
                     </div>
                 }
+
             </React.Fragment >
         );
     }

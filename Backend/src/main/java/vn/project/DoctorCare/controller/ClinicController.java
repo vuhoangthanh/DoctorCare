@@ -3,8 +3,7 @@ package vn.project.DoctorCare.controller;
 import com.turkraft.springfilter.boot.Filter;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import vn.project.DoctorCare.domain.Clinic;
 import vn.project.DoctorCare.domain.User;
@@ -16,10 +15,6 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -53,6 +48,20 @@ public class ClinicController {
         Clinic clinic = this.clinicService.handleAddClinic(reqClinic);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(clinic);
+    }
+
+    @PutMapping("/clinics")
+    public ResponseEntity<Clinic> updateClinic(@RequestBody Clinic reqClinic) {
+
+        Clinic clinic = this.clinicService.handleUpdateClinic(reqClinic);
+        return ResponseEntity.status(HttpStatus.OK).body(clinic);
+    }
+
+    @DeleteMapping("/clinics")
+    public ResponseEntity<Void> deleteClinic(@RequestParam("id") long id) {
+
+        this.clinicService.HandleDeleteClinic(id);
+        return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 
 }

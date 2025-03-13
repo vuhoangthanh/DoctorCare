@@ -45,6 +45,7 @@ class UserManage extends Component {
         }
     }
     handleAddNewUser = () => {
+        console.log("hello", this.state)
         this.setState({
             isOpenModalUser: true,
         })

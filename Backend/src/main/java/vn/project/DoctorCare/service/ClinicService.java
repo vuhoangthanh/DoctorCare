@@ -70,13 +70,16 @@ public class ClinicService {
 
         if (clinic.isPresent()) {
             ResClinicByIdDTO resClinicByIdDTO = new ResClinicByIdDTO();
+
             resClinicByIdDTO.setId(clinic.get().getId());
             resClinicByIdDTO.setAddress(clinic.get().getAddress());
             resClinicByIdDTO.setDescriptionHtml(clinic.get().getDescriptionHtml());
             resClinicByIdDTO.setDescriptionMarkdown(clinic.get().getDescriptionMarkdown());
             resClinicByIdDTO.setName(clinic.get().getName());
             resClinicByIdDTO.setImage(clinic.get().getImage());
+            resClinicByIdDTO.setCreatedAt(clinic.get().getCreatedAt());
             resClinicByIdDTO.setDoctorInfos(this.doctorInfoService.findByClinicId(clinic.get().getId()));
+
             return resClinicByIdDTO;
         }
         return null;
@@ -85,5 +88,33 @@ public class ClinicService {
     public Clinic handleAddClinic(Clinic clinic) {
 
         return this.clinicRepository.save(clinic);
+    }
+
+    public Clinic findById(long id) {
+        Optional<Clinic> clinic = this.clinicRepository.findById(id);
+        if (clinic.isPresent()) {
+            return clinic.get();
+        }
+        return null;
+    }
+    public Clinic handleUpdateClinic(Clinic reqClinic){
+        Clinic clinic = this.findById(reqClinic.getId());
+
+        if(clinic != null){
+
+            clinic.setId(reqClinic.getId());
+            clinic.setAddress(reqClinic.getAddress());
+            clinic.setDescriptionHtml(reqClinic.getDescriptionHtml());
+            clinic.setDescriptionMarkdown(reqClinic.getDescriptionMarkdown());
+            clinic.setName(reqClinic.getName());
+            clinic.setImage(reqClinic.getImage());
+
+            return this.clinicRepository.save(clinic);
+        }
+        return clinic;
+    }
+
+    public void HandleDeleteClinic(long id) {
+        this.clinicRepository.deleteById(id);
     }
 }

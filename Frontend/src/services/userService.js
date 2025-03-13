@@ -90,6 +90,12 @@ const createNewClinic = (data) => {
 const getAllClinic = (data) => {
     return axios.get(`/api/v1/clinics?page=${data.page}&size=${data.size}`)
 }
+const putClinic = (data) => {
+    return axios.put(`/api/v1/clinics`, data)
+}
+const deleteClinic = (data) => {
+    return axios.delete(`/api/v1/clinics?id=${data.id}`)
+}
 const getClinicById = (data) => {
     return axios.get(`/api/v1/clinic-by-id?id=${data.id}`)
 }
@@ -126,5 +132,7 @@ export {
     getClinicById,
     getAllPatientForDoctor,
     postSendRemedy,
-    getAllUsersPage
+    getAllUsersPage,
+    putClinic,
+    deleteClinic
 }

@@ -7,10 +7,13 @@ import './ManageClinic.scss'
 import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from "../../../utils"
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
-import { createNewSpecialty, createNewClinic, getAllClinic } from '../../../services/userService'
+import { createNewSpecialty, createNewClinic, getAllClinic, getClinicById, putClinic, deleteClinic } from '../../../services/userService'
 import { toast } from "react-toastify";
 import * as actions from "../../../store/actions"
 import Pagination from '../Pagination/Pagination';
+import ModalAddClinic from './ModalAddClinic';
+import { emitter } from '../../../utils/emitter';
+import ModalEditClinic from './ModalEditClinic';
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
@@ -23,11 +26,14 @@ class ManageClinic extends Component {
             descriptionHTML: '',
             descriptionMarkdown: '',
             address: '',
+            isOpenModalClinic: false,
+            isOpenModalEditClinic: false,
+            clinicEdit: {},
 
             listClinics: [],
 
             page: 1,
-            size: 2,
+            size: 5,
             pageCount: 2
         }
     }
@@ -36,68 +42,72 @@ class ManageClinic extends Component {
             page: this.state.page,
             size: this.state.size
         });
-        // console.log("uphazz", this.props.allRequiredDoctorInfo.pageCountClinic.pages)
     }
 
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.allRequiredDoctorInfo !== this.props.allRequiredDoctorInfo) {
+        if (prevProps.allRequiredDoctorInfo.responseClinic !== this.props.allRequiredDoctorInfo.responseClinic
+        ) {
+
             this.setState({
                 listClinics: this.props.allRequiredDoctorInfo.responseClinic,
                 pageCount: this.props.allRequiredDoctorInfo.pageCountClinic.pages
             })
-
         }
-    }
-
-
-    handleOnChangeInput = (event, id) => {
-        let stateCopy = { ...this.state }
-        stateCopy[id] = event.target.value;
-        this.setState({
-            ...stateCopy
-        })
-    }
-
-    handleEditorChange = ({ html, text }) => {
-        this.setState({
-            descriptionMarkdown: text,
-            descriptionHTML: html
-        })
-    }
-
-    handleOnChangeImage = async (event) => {
-        let data = event.target.files;
-        let file = data[0];
-        if (file) {
-            let base64 = await CommonUtils.getBase64(file);
+        if (prevState.page !== this.state.page || prevState.size !== this.state.size) {
+            this.handleCallClinic();
+        }
+        if (prevProps.allRequiredDoctorInfo.pageCountClinic.pages < this.state.page) {
+            console.log("prev", prevProps.allRequiredDoctorInfo.pageCountClinic.pages)
+            console.log("thí", this.state.page)
             this.setState({
-                imageBase64: base64
+                page: this.state.pageCount
             })
         }
     }
-    handleSaveClinic = async () => {
-        let response = await createNewClinic({
-            name: this.state.name,
-            image: this.state.imageBase64,
-            address: this.state.address,
-            descriptionHtml: this.state.descriptionHTML,
-            descriptionMarkdown: this.state.descriptionMarkdown
 
-        })
-        if (response && response.error === null) {
-            toast.success("Save Specialty success!");
+    handleCallClinic = () => {
+        this.props.fetchAllScheduleTimeRedux({
+            page: this.state.page,
+            size: this.state.size
+        }, () => {
             this.setState({
-                name: '',
-                imageBase64: '',
-                address: '',
-                descriptionHTML: '',
-                descriptionMarkdown: ''
+                pageCount: this.props.allRequiredDoctorInfo.pageCountClinic.pages
             })
+        });
+    }
+    toggleClinicModal = () => {
+        this.setState({
+            isOpenModalClinic: !this.state.isOpenModalClinic,
+        })
+    }
 
+    handleShowModal = () => {
+        this.setState({
+            isOpenModalClinic: true,
+        })
+    }
+
+    toggleClinicEditModal = () => {
+        this.setState({
+            isOpenModalEditClinic: !this.state.isOpenModalEditClinic,
+        })
+    }
+
+
+
+    handleSaveClinic = async (data) => {
+        let response = await createNewClinic(data)
+
+        if (response && response.error !== null) {
+            toast.error(response.message);
         } else {
-            toast.error("Save Specialty error!");
-
+            toast.success("Save clinic success");
+            this.handleCallClinic();
+            this.setState({
+                isOpenModalClinic: false
+            })
+            emitter.emit('EVENT_CLEAR_MODAL_DATA')
         }
     }
 
@@ -111,124 +121,141 @@ class ManageClinic extends Component {
         });
     };
 
-    handleEditClinic = () => {
+
+    handleEditClinic = (clinic) => {
+        console.log("hel", clinic)
+        this.setState({
+            isOpenModalEditClinic: true,
+            clinicEdit: clinic
+        })
+    }
+
+    doEditClinic = async (clinic) => {
+        try {
+            let response = await putClinic(clinic);
+            if (response && response.error !== null) {
+                toast.error("Edit clinic error");
+            } else {
+                toast.success("Edit clinic success");
+                this.handleCallClinic();
+                this.setState({
+                    isOpenModalEditClinic: false
+                })
+            }
+        } catch (e) {
+            console.log(e)
+        }
+    }
+    handleDeleteClinic = async (clinic) => {
+        let response = await deleteClinic({ id: clinic.id })
+        if (response && response.error === null) {
+            toast.success("Delete clinic success");
+            this.props.fetchAllScheduleTimeRedux({
+                page: this.state.page,
+                size: this.state.size
+            });
+        } else {
+            toast.error("Delete clinic error");
+
+        }
 
     }
-    handleDeleteClinic = () => {
 
-    }
     render() {
         let { language } = this.props;
         let { listClinics, pageCount } = this.state;
-        console.log("count", pageCount)
         return (
-            <div className="manage-specialty-container">
-                <div className="ms-title">Quản lý phòng khám</div>
-                <div className="container">
-                    <div className="add-new-specialty row">
-                        <div className="col-6 form-group">
-                            <label className="required">Tên phòng khám</label>
-                            <input type="text" className="form-control"
-                                value={this.state.name}
-                                onChange={(event) => this.handleOnChangeInput(event, 'name')} />
-                        </div>
-                        <div className="col-6">
-                            <label className="required">Ảnh chuyên khoa</label>
-                            <input type="file" className="form-control"
-                                onChange={(event) => this.handleOnChangeImage(event)} />
-                        </div>
-                        <div className="col-6 form-group">
-                            <label className="required">Địa chỉ phòng khám</label>
-                            <input type="text" className="form-control"
-                                value={this.state.address}
-                                onChange={(event) => this.handleOnChangeInput(event, 'address')} />
-                        </div>
-                        <div className="col-12 mt-3">
-                            <div className="manage-clinic-editor">
-                                <MdEditor
-                                    style={{
-                                        height: '300px', borderRadius: "8px",
-                                        overflow: "hidden"
-                                    }}
-                                    renderHTML={text => mdParser.render(text)}
-                                    onChange={this.handleEditorChange}
-                                    value={this.state.descriptionMarkdown}
+            <>
+                < ModalAddClinic
+                    isOpen={this.state.isOpenModalClinic}
+                    toggleFormParent={this.toggleClinicModal}
+                    handleSaveClinic={this.handleSaveClinic}
+                />
+                <ModalEditClinic
+                    isOpen={this.state.isOpenModalEditClinic}
+                    toggleFormParent={this.toggleClinicEditModal}
+                    currentClinic={this.state.clinicEdit}
+                    editClinic={this.doEditClinic}
+                />
+                <div className="manage-specialty-container">
+                    <div className="ms-title">Quản lý phòng khám</div>
+                    <div className="container">
+
+                        <div className="row table-clinics">
+                            <div className="col-6">
+                                <div className="title-table"><span>Danh sách phòng khám</span></div>
+                            </div>
+                            <div className="col-6 line-search">
+                                <div className="inp-search">
+                                    <input type="text" />
+                                </div>
+                                <div className="btn-search">
+                                    <button
+                                        onClick={() => this.handleSearch()}>Tìm kiếm
+                                    </button>
+                                </div>
+                                <div class="btn-show-modal-add">
+                                    <button
+                                        onClick={() => this.handleShowModal()}>Thêm
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div className="12">
+                                <table className="table table-bordered table-hover  table-rounded">
+                                    <thead className="table-light">
+                                        <tr>
+                                            <th className="first col1">Stt</th>
+                                            <th className="col2">Name</th>
+                                            <th className="col3">Image</th>
+                                            <th className="col4">Address</th>
+                                            <th className="col5">Create at</th>
+                                            <th className="col6">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        {listClinics && listClinics.length > 0 ?
+                                            listClinics.map((item, index) => {
+                                                return (
+                                                    <>
+                                                        <tr>
+                                                            <td className="first">{item.id}</td>
+                                                            <td>{item.name}</td>
+                                                            <td>
+                                                                <div className="bg-image"
+                                                                    style={{ backgroundImage: `url(${item.image})` }}>
+                                                                </div>
+                                                            </td>
+                                                            <td>{item.address}</td>
+                                                            <td>{moment(item.createdAt).format('DD/MM/YYYY HH:mm:ss')}</td>
+                                                            <td><button
+                                                                onClick={() => this.handleEditClinic(item)}
+                                                                className="btn-edit" ><i className="fas fa-pencil-alt"></i></button>
+                                                                <button
+                                                                    onClick={() => { this.handleDeleteClinic(item) }}
+                                                                    className="btn-delete"><i className="fas fa-trash-alt"></i></button></td>
+                                                        </tr>
+                                                    </>
+                                                )
+                                            })
+                                            :
+                                            <td>No data</td>
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="col-12">
+                                <Pagination
+                                    pageCount={pageCount}
+                                    handlePageClick={this.handlePageClick} // Không cần arrow function
                                 />
                             </div>
                         </div>
-                        <div className="col-12">
-                            <button className="btn-save-specialty"
-                                onClick={() => this.handleSaveClinic()}>Save</button>
-                        </div>
-
-                    </div>
-                    <div className="row table-clinics">
-                        <div className="col-6">
-                            <div className="title-table"><span>Danh sách phòng khám</span></div>
-                        </div>
-                        <div className="col-6 line-search">
-                            <div className="inp-search">
-                                <input type="text" />
-                            </div>
-                            <div className="btn-search">
-                                <button
-                                    onClick={() => this.handleSearch()}>Tìm kiếm</button>
-                            </div>
-                        </div>
-                        <div className="12">
-                            <table class="table table-bordered table-hover  table-rounded">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th className="first col1">Stt</th>
-                                        <th className="col2">Name</th>
-                                        <th className="col3">Image</th>
-                                        <th className="col4">Address</th>
-                                        <th className="col5">Create at</th>
-                                        <th className="col6">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                    {listClinics && listClinics.length > 0 ?
-                                        listClinics.map((item, index) => {
-                                            return (
-                                                <>
-                                                    <tr>
-                                                        <td className="first">{item.id}</td>
-                                                        <td>{item.name}</td>
-                                                        <td>
-                                                            <div className="bg-image"
-                                                                style={{ backgroundImage: `url(${item.image})` }}>
-                                                            </div>
-                                                        </td>
-                                                        <td>{item.address}</td>
-                                                        <td>{moment(item.createdAt).format('DD/MM/YYYY HH:mm:ss')}</td>
-                                                        <td><button
-                                                            onClick={() => this.handleEditClinic(item)}
-                                                            className="btn-edit" ><i className="fas fa-pencil-alt"></i></button>
-                                                            <button
-                                                                onClick={() => { this.handleDeleteClinic(item) }}
-                                                                className="btn-delete"><i className="fas fa-trash-alt"></i></button></td>
-                                                    </tr>
-                                                </>
-                                            )
-                                        })
-                                        :
-                                        <td>No data</td>
-                                    }
-
-                                </tbody>
-                            </table>
-                        </div>
-                        <div className="col-12">
-                            <Pagination
-                                pageCount={pageCount}
-                                handlePageClick={this.handlePageClick} // Không cần arrow function
-                            />
-                        </div>
                     </div>
                 </div>
-            </div>
+            </>
         );
     }
 }

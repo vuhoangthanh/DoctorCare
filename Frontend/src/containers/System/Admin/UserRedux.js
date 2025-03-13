@@ -344,8 +344,17 @@ class UserRedux extends Component {
                         </div>
 
                         <div className="row list-user">
-                            <div className="col-12 title-table">
+                            <div className="col-6 title-table">
                                 <span>Danh sách người dùng</span>
+                            </div>
+                            <div className="col-6 line-search">
+                                <div className="inp-search">
+                                    <input type="text" />
+                                </div>
+                                <div className="btn-search">
+                                    <button
+                                        onClick={() => this.handleSearch()}>Tìm kiếm</button>
+                                </div>
                             </div>
                             <div className=" col-12 mb-5 mt-5">
                                 <TableManageUser

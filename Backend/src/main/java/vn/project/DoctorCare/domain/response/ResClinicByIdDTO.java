@@ -1,5 +1,6 @@
 package vn.project.DoctorCare.domain.response;
 
+import java.time.Instant;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -22,6 +23,16 @@ public class ResClinicByIdDTO {
     private String descriptionMarkdown;
 
     private List<ResDoctorInfoByClinicDTO> doctorInfos;
+
+    private Instant createdAt;
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
+    }
 
     public long getId() {
         return id;
