@@ -107,4 +107,22 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 
+    @PostMapping("/register")
+    @ApiMessage("register")
+    public ResponseEntity<ResCreateUserDTO> register(@Valid @RequestBody User reqUser) throws IdInvalidException {
+
+        boolean isEmailExist = this.userService.isEmailExist(reqUser.getEmail());
+        if (isEmailExist) {
+            throw new IdInvalidException(
+                    "Email " + reqUser.getEmail() + " đã tồn tại, vui lòng sử dụng email khác");
+        }
+
+        // hash password
+        String hashPassword = this.passwordEncoder.encode(reqUser.getPassword());
+        reqUser.setPassword(hashPassword);
+
+        User user = this.userService.handleRegister(reqUser);
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.userService.convertToResCreateUserDTO(user));
+    }
+
 }

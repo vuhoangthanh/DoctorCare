@@ -17,6 +17,7 @@ class Clinic extends Component {
 
             page: 1,
             size: 4,
+            filter: '',
             clinics: [],
             pageCount: 2
         }
@@ -24,7 +25,9 @@ class Clinic extends Component {
     async componentDidMount() {
         this.handleGetClinics({
             page: this.state.page,
-            size: this.state.size
+            size: this.state.size,
+            filterName: this.state.filter,
+            filterAddress: this.state.filter
         })
     }
 
@@ -36,7 +39,9 @@ class Clinic extends Component {
     async handleGetClinics(data) {
         let response = await getAllClinic({
             page: data.page,
-            size: data.size
+            size: data.size,
+            filterName: this.state.filter,
+            filterAddress: this.state.filter
         })
 
         if (response && response.error === null) {
@@ -52,7 +57,9 @@ class Clinic extends Component {
         })
         await this.handleGetClinics({
             page: +event.selected + 1 ? +event.selected + 1 : this.state.page,
-            size: this.state.size
+            size: this.state.size,
+            filterName: this.state.filter,
+            filterAddress: this.state.filter
         });
     };
 

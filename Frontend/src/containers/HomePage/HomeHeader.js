@@ -26,7 +26,7 @@ class HomeHeader extends Component {
                     <div className="home-header-content">
                         <div className="left-content">
                             <i className="fas fa-bars"></i>
-                            <span className="header-logo">
+                            <span className="header-logo" onClick={() => this.returnToHome()}>
                                 <svg width="200" height="70" viewBox="0 0 300 80" xmlns="http://www.w3.org/2000/svg">
                                     <text x="10" y="50" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="#36A9E1">Doctors</text>
                                     <text x="160" y="50" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="#2D3E50">care</text>

@@ -17,6 +17,7 @@ class Specialty extends Component {
 
             page: 1,
             size: 4,
+            filter: '',
             specialties: [],
             pageCount: 2
         }
@@ -24,7 +25,8 @@ class Specialty extends Component {
     async componentDidMount() {
         this.handleGetSpecialties({
             page: this.state.page,
-            size: this.state.size
+            size: this.state.size,
+            filterName: this.state.filter
         })
     }
 
@@ -36,7 +38,8 @@ class Specialty extends Component {
     async handleGetSpecialties(data) {
         let response = await getAllSpecialty({
             page: data.page,
-            size: data.size
+            size: data.size,
+            filterName: this.state.filter
         })
 
         if (response && response.error === null) {
@@ -53,7 +56,8 @@ class Specialty extends Component {
         })
         this.handleGetSpecialties({
             page: +event.selected + 1 ? +event.selected + 1 : this.state.page,
-            size: this.state.size
+            size: this.state.size,
+            filterName: this.state.filter
         });
     };
 

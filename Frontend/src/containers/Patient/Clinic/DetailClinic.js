@@ -5,7 +5,7 @@ import moment from 'moment'
 import { FormattedMessage } from 'react-intl';
 import './DetailClinic.scss'
 import HomeHeader from '../../HomePage/HomeHeader';
-
+import { Link } from 'react-router-dom';
 import DoctorSchedule from '../Doctor/DoctorSchedule';
 import DoctorExtraInfo from '../Doctor/DoctorExtraInfo';
 import ProfileDoctor from '../Doctor/ProfileDoctor';
@@ -55,22 +55,40 @@ class DetailClinic extends Component {
 
 
     }
+
+    setExpanded = (test) => {
+        this.setState({
+            expanded: test
+        })
+    }
     render() {
         let { language } = this.props;
         let { arrDoctorId, dataDetailClinic } = this.state;
         return (
             <div className="detail-clinic-container">
                 <HomeHeader />
+                <div className="link-navigation row">
+                    <div className="col-12">
+                        <Link className="custom-link-navigation" to={`/home`}><i className="fas fa-home"></i> Trang chủ/</Link>
+                        <Link className="custom-link-navigation" to={`/clinic`}>Cơ sở y tế/</Link>
+                        {dataDetailClinic && !_.isEmpty(dataDetailClinic)
+                            &&
+                            <span>{dataDetailClinic.name}</span>
+                        }</div>
+                </div>
                 <div className="detail-clinic-body">
                     <div className="description-clinic">
                         {dataDetailClinic && !_.isEmpty(dataDetailClinic)
                             &&
                             <>
                                 <div>{dataDetailClinic.name}</div>
-                                < div dangerouslySetInnerHTML={{ __html: dataDetailClinic.descriptionHtml }}>
+                                < div className={`content ${this.state.expanded ? "expanded" : ""}`} dangerouslySetInnerHTML={{ __html: dataDetailClinic.descriptionHtml }}>
                                 </div>
                             </>
                         }
+                        <span className="toggle-btn" onClick={() => this.setExpanded(!this.state.expanded)}>
+                            {this.state.expanded ? "Thu gọn" : "Xem thêm..."}
+                        </span>
                     </div>
                     {arrDoctorId && arrDoctorId.length > 0 &&
                         arrDoctorId.map((item, index) => {

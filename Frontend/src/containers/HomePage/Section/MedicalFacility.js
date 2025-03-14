@@ -15,14 +15,17 @@ class MedicalFacility extends Component {
             dataClinics: [],
 
             page: '',
-            size: ''
+            size: '',
+            filter: ''
         }
     }
     async componentDidMount() {
         let { page, size } = this.state
         let response = await getAllClinic({
             page: page,
-            size: size
+            size: size,
+            filterName: this.state.filter,
+            filterAddress: this.state.filter
         });
         if (response && response.error === null) {
             this.setState({

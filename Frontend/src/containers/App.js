@@ -18,6 +18,7 @@ import DetailSpecialty from './Patient/Specialty/DetailSpecialty';
 import DetailClinic from './Patient/Clinic/DetailClinic';
 import Clinic from './Patient/Clinic/Clinic';
 import Specialty from './Patient/Specialty/Specialty';
+import Register from './Auth/Register';
 
 import { CustomToastCloseButton } from '../components/CustomToast';
 import CustomScrollbars from '../components/CustomScrollbars';
@@ -57,6 +58,7 @@ class App extends Component {
                                 <Switch>
                                     {/* <Route path={path.HOME} exact component={(Home)} /> */}
                                     <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
+                                    <Route path={path.REGISTER} component={Register} />
                                     <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
                                     <Route path={path.DOCTOR} component={userIsAuthenticated(Doctor)} />
 

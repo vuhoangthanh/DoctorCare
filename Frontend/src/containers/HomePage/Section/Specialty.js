@@ -15,7 +15,8 @@ class Specialty extends Component {
             dataSpecialty: [],
 
             page: '',
-            size: ''
+            size: '',
+            filter: ''
         }
     }
     async componentDidMount() {
@@ -23,7 +24,8 @@ class Specialty extends Component {
 
         let response = await getAllSpecialty({
             page: page,
-            size: size
+            size: size,
+            filterName: this.state.filter
         });
         if (response && response.error === null) {
             this.setState({

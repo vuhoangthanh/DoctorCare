@@ -15,6 +15,7 @@ import vn.project.DoctorCare.domain.response.ResUpdateUserDTO;
 import vn.project.DoctorCare.domain.response.ResUserDTO;
 import vn.project.DoctorCare.domain.response.ResultPaginationDTO;
 import vn.project.DoctorCare.repository.UserRepository;
+import vn.project.DoctorCare.util.constant.Constant;
 
 @Service
 public class UserService {
@@ -156,6 +157,11 @@ public class UserService {
 
     public User getUserByRefreshTokenAndEmail(String token, String email) {
         return this.userRepository.findByRefreshTokenAndEmail(token, email);
+    }
+
+    public User handleRegister(User user) {
+        user.setRoleId(Constant.ROLE_ID_PATIENT);
+        return this.userRepository.save(user);
     }
 
 }
