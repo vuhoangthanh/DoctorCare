@@ -6,6 +6,7 @@ import * as action from '../../../store/actions'
 import { LANGUAGES } from "../../../utils"
 import { FormattedMessage } from 'react-intl';
 import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 
 class OutStandingDoctor extends Component {
 
@@ -71,7 +72,10 @@ class OutStandingDoctor extends Component {
                             }
                         </Slider>
                         <div className="btn-more">
-                            <button className="btn-section"><FormattedMessage id="home-page.more-information" /><i className="fas fa-long-arrow-alt-right"></i></button>
+                            <Link className="custom-link" to={`/all-doctor`}>
+                                <button className="btn-section"><FormattedMessage id="home-page.more-information" /><i className="fas fa-long-arrow-alt-right"></i></button>
+                            </Link>
+
                         </div>
                     </div>
                 </div >

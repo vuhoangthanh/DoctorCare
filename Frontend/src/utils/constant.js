@@ -12,6 +12,7 @@ export const path = {
 
     ALL_CLINIC: '/clinic',
     ALL_SPECIALty: '/specialty',
+    ALL_DOCTOR: '/all-doctor',
 
     DOCTOR: '/doctor',
 

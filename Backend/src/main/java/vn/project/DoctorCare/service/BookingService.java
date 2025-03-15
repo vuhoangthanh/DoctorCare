@@ -135,6 +135,46 @@ public class BookingService {
         return result;
     }
 
+    public List<ResBookingByDoctorDTO> fetchBookingByDateAndStatusId(String date) {
+
+        List<Optional<Booking>> bookings = this.bookingRepository.findByDateAndStatusId(date, Constant.STATUS_CONFIRMED);
+
+        List<ResBookingByDoctorDTO> result = new ArrayList<ResBookingByDoctorDTO>();
+
+        for (Optional<Booking> booking : bookings) {
+            if (booking.isPresent()) {
+                ResBookingByDoctorDTO resPatientFromBookingDTO = new ResBookingByDoctorDTO();
+
+                resPatientFromBookingDTO.setId(booking.get().getId());
+                resPatientFromBookingDTO.setStatusId(booking.get().getStatusId());
+                resPatientFromBookingDTO.setDoctorId(booking.get().getDoctorId());
+                resPatientFromBookingDTO.setPatientId(booking.get().getPatientId());
+                resPatientFromBookingDTO.setDate(booking.get().getDate());
+                resPatientFromBookingDTO.setTimeType(booking.get().getTimeType());
+                resPatientFromBookingDTO.setToken(booking.get().getToken());
+                resPatientFromBookingDTO.setTimeTypeDataPatient(booking.get().getTimeTypeDataPatient());
+
+                if (booking.get().getPatientData() != null) {
+                    User currentPatient = booking.get().getPatientData();
+                    ResBookingByDoctorDTO.UserDTO patient = new ResBookingByDoctorDTO.UserDTO(
+                            currentPatient.getFirstName(),
+                            currentPatient.getLastName(),
+                            currentPatient.getEmail(),
+                            currentPatient.getGender(),
+                            currentPatient.getAddress(),
+                            currentPatient.getPositionId(),
+                            currentPatient.getPositionData(),
+                            currentPatient.getGenderData());
+                    resPatientFromBookingDTO.setPatient(patient);
+                }
+                result.add(resPatientFromBookingDTO);
+            }
+        }
+        return result;
+    }
+
+
+
     public Booking fetchBookingForRemedy(long doctorId, long patientId, String timeType) {
         Optional<Booking> booking = this.bookingRepository.findByDoctorIdAndPatientIdAndTimeTypeAndStatusId(doctorId,
                 patientId, timeType, Constant.STATUS_CONFIRMED);
@@ -171,5 +211,9 @@ public class BookingService {
             return resBookingDTO;
         }
         return null;
+    }
+
+    public void handleDeleteBooking(long id){
+        this.bookingRepository.deleteById(id);
     }
 }

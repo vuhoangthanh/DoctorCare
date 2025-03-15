@@ -69,17 +69,18 @@ class Specialty extends Component {
             <>
                 <HomeHeader isShowBanner={false} />
                 <div className="specialty-container">
-                    <div className="link-navigation row">
-                        <div className="col-12">
-                            <Link className="custom-link-navigation" to={`/home`}><i className="fas fa-home"></i> Trang chủ/</Link>
-                            <span>Chuyên khoa</span>
-                        </div>
-                    </div>
+
 
                     <div className="specialty-body">
-                        <div className="title-specialty">
-                            <div className="title-specialty-up">Chuyên khoa</div>
-                            <div className="title-specialty-down">Tìm và đặt lịch tại các chuyên khoa chất lượng cao trong hệ thống của chúng tôi</div>
+                        <div className="banner-title">
+                            <div className="link-navigation">
+                                <Link className="custom-link-navigation" to={`/home`}><i className="fas fa-home"></i> Trang chủ/</Link>
+                                <span>Chuyên khoa</span>
+                            </div>
+                            <div className="title-specialty">
+                                <div className="title-specialty-up">Chuyên khoa</div>
+                                <div className="title-specialty-down">Tìm và đặt lịch tại các chuyên khoa chất lượng cao trong hệ thống của chúng tôi</div>
+                            </div>
                         </div>
                         <div className="container father-specialty">
                             <div className="row">

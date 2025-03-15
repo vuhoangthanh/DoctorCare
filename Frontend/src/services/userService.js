@@ -36,8 +36,8 @@ const getAllCodeService = (inputData) => {
 const getTopDoctorService = (limit) => {
     return axios.get(`/api/v1/top-doctors?limit=${limit}`)
 }
-const getAllDoctorService = () => {
-    return axios.get(`/api/v1/doctors`)
+const getAllDoctorService = (data) => {
+    return axios.get(`/api/v1/doctors?page=${data.page}&size=${data.size}`)
 }
 const saveDetailDoctorService = (data) => {
     return axios.post(`/api/v1/doctors-infor`, data)
@@ -107,9 +107,20 @@ const getClinicById = (data) => {
 const getAllPatientForDoctor = (data) => {
     return axios.get(`/api/v1/bookings?doctorId=${data.doctorId}&date=${data.date}`)
 }
+const getAllPatientForDate = (data) => {
+    return axios.get(`/api/v1/date-bookings?date=${data.date}`)
+}
+
+const deleteBooking = (data) => {
+    return axios.delete(`/api/v1/bookings?id=${data.id}`)
+}
+
 
 const postSendRemedy = (data) => {
     return axios.post(`/api/v1/remedies`, data)
+}
+const register = (data) => {
+    return axios.post(`/api/v1/register`, data)
 }
 export {
     handleLoginApi,
@@ -141,5 +152,8 @@ export {
     putClinic,
     deleteClinic,
     deleteSpecialty,
-    putSpecialty
+    putSpecialty,
+    register,
+    getAllPatientForDate,
+    deleteBooking
 }

@@ -19,6 +19,7 @@ import DetailClinic from './Patient/Clinic/DetailClinic';
 import Clinic from './Patient/Clinic/Clinic';
 import Specialty from './Patient/Specialty/Specialty';
 import Register from './Auth/Register';
+import AllDoctor from './Patient/Doctor/AllDoctor';
 
 import { CustomToastCloseButton } from '../components/CustomToast';
 import CustomScrollbars from '../components/CustomScrollbars';
@@ -56,7 +57,7 @@ class App extends Component {
                         <div className="content-container">
                             <CustomScrollbars style={{ height: '100vh', width: '100%' }}>
                                 <Switch>
-                                    {/* <Route path={path.HOME} exact component={(Home)} /> */}
+                                    <Route path={path.HOME} exact component={(Home)} />
                                     <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
                                     <Route path={path.REGISTER} component={Register} />
                                     <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
@@ -69,6 +70,7 @@ class App extends Component {
 
                                     <Route path={path.ALL_CLINIC} component={Clinic} />
                                     <Route path={path.ALL_SPECIALty} component={Specialty} />
+                                    <Route path={path.ALL_DOCTOR} component={AllDoctor} />
 
                                     <Route path={path.VERIFY_EMAIL_BOOKING} component={VerifyEmail} />
 

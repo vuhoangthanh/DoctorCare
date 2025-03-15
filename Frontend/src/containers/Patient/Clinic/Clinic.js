@@ -71,17 +71,18 @@ class Clinic extends Component {
             <>
                 <HomeHeader isShowBanner={false} />
                 <div className="clinic-container">
-                    <div className="link-navigation row">
-                        <div className="col-12">
-                            <Link className="custom-link-navigation" to={`/home`}><i className="fas fa-home"></i> Trang chủ/</Link>
-                            <span>Cơ sở y tế</span>
-                        </div>
-                    </div>
-
                     <div className="clinic-body">
                         <div className="title-clinic">
-                            <div className="title-clinic-up">Cơ sở y tế</div>
-                            <div className="title-clinic-down">Tìm và đặt lịch tại các cơ sở y tế chất lượng cao trong hệ thống của chúng tôi</div>
+                            <div className="banner-title">
+                                <div className="link-navigation">
+                                    <Link className="custom-link-navigation" to={`/home`}><i className="fas fa-home"></i> Trang chủ/</Link>
+                                    <span>Cơ sở y tế</span>
+                                </div>
+                                <div className="title-clinic">
+                                    <div className="title-clinic-up">Cơ sở y tế</div>
+                                    <div className="title-clinic-down">Tìm và đặt lịch tại các cơ sở y tế chất lượng cao trong hệ thống của chúng tôi</div>
+                                </div>
+                            </div>
                         </div>
                         <div className="container father-clinic">
                             <div className="row">

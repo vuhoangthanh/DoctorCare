@@ -94,12 +94,12 @@ class TableManageUser extends Component {
                         <tr>
                             <th className="first">Stt</th>
                             <th>Email</th>
-                            <th>FirstName</th>
-                            <th>LastName</th>
-                            <th>Gender</th>
-                            <th>Address</th>
-                            <th>Created At</th>
-                            <th>Actions</th>
+                            <th><FormattedMessage id="manage-user.first-name" /></th>
+                            <th><FormattedMessage id="manage-user.last-name" /></th>
+                            <th><FormattedMessage id="manage-user.gender" /></th>
+                            <th><FormattedMessage id="manage-user.address" /></th>
+                            <th><FormattedMessage id="manage-user.created-at" /></th>
+                            <th><FormattedMessage id="manage-user.action" /></th>
                         </tr>
                     </thead>
                     <tbody>

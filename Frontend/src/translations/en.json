@@ -53,7 +53,12 @@
         "role": "Role",
         "avatar": "Avatar",
         "save": "Save",
-        "edit": "Save changes"
+        "edit": "Save changes",
+        "refresh": "Refresh",
+        "search": "Search",
+        "title-table": "User list",
+        "created-at": "Created at",
+        "action": "Actions"
     },
     "home-page": {
         "skilled": "Experienced and Highly Skilled",
@@ -73,7 +78,25 @@
         "title": "Manage doctor's examination plan",
         "choose-doctor": "Choose doctor",
         "choose-date": "Choose date",
-        "save": "Save information"
+        "save": "Save",
+        "search": "Search",
+        "title-table": "Schedule list",
+        "no": "No",
+        "name": "Name",
+        "date": "Date",
+        "time": "Time",
+        "create-at": "Created at"
+    },
+    "manage-patient": {
+        "title": "Patient management",
+        "choose-date": "Choose date",
+        "title-table": "Schedule list",
+        "no": "No",
+        "time": "Date",
+        "name": "Name",
+        "address": "Address",
+        "gender": "Gender",
+        "action": "Actions"
     },
     "patient": {
         "detail-doctor": {

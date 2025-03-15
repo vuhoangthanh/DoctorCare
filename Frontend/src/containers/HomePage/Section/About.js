@@ -18,17 +18,21 @@ class About extends Component {
                 </div>
                 <div className="section-about-content">
                     <div className="content-left">
-                        <iframe width="100%" height="400px"
-                            src="https://www.youtube.com/embed/oJnhtosaPlA"
-                            title="Vietsub || Hiểu Ta - Nga Lâu (OST Kiếm Lai)"
-                            frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            referrerPolicy="strict-origin-when-cross-origin"
-                            allowFullScreen>
-                        </iframe>
+                        <div className="video">
+                            <iframe width="100%" height="400px"
+                                src="https://www.youtube.com/embed/oJnhtosaPlA"
+                                title="Vietsub || Hiểu Ta - Nga Lâu (OST Kiếm Lai)"
+                                frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerPolicy="strict-origin-when-cross-origin"
+                                allowFullScreen>
+                            </iframe>
+                        </div>
                     </div>
 
                     <div className="content-right">
-                        <p>hêllroeo</p>
+                        <p>
+                            “The fact that SimplyBook.me was HIPAA compliant—which is an absolute must-have as a medical practice—as well as reasonably priced, easy to use, infinitely customizable, had a feature for seemingly every need, and was easy to integrate into our website was what sold us on SimplyBook.me,” states Jared.
+                        </p>
                     </div>
                 </div>
             </div>

@@ -1,7 +1,6 @@
 package vn.project.DoctorCare.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,10 +20,7 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import vn.project.DoctorCare.util.annotation.ApiMessage;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -45,6 +41,15 @@ public class BookingController {
 
         return ResponseEntity.status(HttpStatus.OK).body(resBookingByDoctorDTOs);
     }
+    @GetMapping("/date-bookings")
+    public ResponseEntity<List<ResBookingByDoctorDTO>> findBookingByDateAndStatusId(
+            @RequestParam("date") String date) {
+
+        List<ResBookingByDoctorDTO> resBookingByDoctorDTOs = this.bookingService
+                .fetchBookingByDateAndStatusId(date);
+
+        return ResponseEntity.status(HttpStatus.OK).body(resBookingByDoctorDTOs);
+    }
 
     @PostMapping("/remedies")
     public ResponseEntity<ResBookingDTO> updateDoneBooking(@RequestBody Map<String, Object> reqData) {
@@ -59,5 +64,12 @@ public class BookingController {
                 reqEmailRemedyDTO);
 
         return ResponseEntity.status(HttpStatus.OK).body(resBookingDTO);
+    }
+
+    @DeleteMapping("/bookings")
+    @ApiMessage("delete booking")
+    public ResponseEntity<Void> deleteBooking(@RequestParam("id") long id) {
+        this.bookingService.handleDeleteBooking(id);
+        return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 }

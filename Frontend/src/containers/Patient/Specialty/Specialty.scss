@@ -1,60 +1,66 @@
 .specialty-container {
-    .link-navigation {
-        padding    : 0 100px;
-        padding-top: 15px;
 
-
-        i {
-            color: #06adef;
-        }
-
-        .custom-link-navigation {
-            cursor         : pointer;
-            font-family    : Mulish, sans-serif;
-            font-size      : 14px;
-            color          : #06adef;
-            margin-left    : 5px;
-            text-decoration: none;
-            font-weight    : 600;
-
-            &:hover {
-                opacity        : 0.7;
-                text-decoration: underline;
-            }
-        }
-
-        span {
-            font-family    : Mulish, sans-serif;
-            font-size      : 14px;
-            color          : #06adef;
-            margin-left    : 5px;
-            text-decoration: none;
-            font-weight    : 600;
-        }
-    }
 
     .specialty-body {
         // background-color: white;
         background-color: #f1f6ff;
-        margin-top      : 10px;
 
-        .title-specialty {
+        .banner-title {
             background-color: #06adef;
-            height          : 20vh;
-            display         : flex;
-            justify-content : center;
-            align-items     : center;
-            flex-direction  : column;
+            height          : 23vh;
+            padding-bottom  : 30px;
 
-            .title-specialty-up {
-                font-size  : 35px;
-                color      : white;
-                font-weight: 700;
+            .link-navigation {
+                padding        : 0 100px;
+                padding-top    : 15px;
+                display        : flex;
+                justify-content: flex-start;
+
+                i {
+                    color: white;
+                }
+
+                .custom-link-navigation {
+                    cursor         : pointer;
+                    font-family    : Mulish, sans-serif;
+                    font-size      : 14px;
+                    color          : white;
+                    margin-left    : 5px;
+                    text-decoration: none;
+                    font-weight    : 600;
+
+                    &:hover {
+                        opacity        : 0.9;
+                        text-decoration: underline;
+                    }
+                }
+
+                span {
+                    font-family    : Mulish, sans-serif;
+                    font-size      : 14px;
+                    color          : white;
+                    margin-left    : 5px;
+                    text-decoration: none;
+                    font-weight    : 600;
+                }
             }
 
-            .title-specialty-down {
-                font-size: 17px;
-                color    : white;
+            .title-specialty {
+                display        : flex;
+                justify-content: center;
+                align-items    : center;
+                flex-direction : column;
+
+                .title-specialty-up {
+                    font-size  : 35px;
+                    color      : white;
+                    font-weight: 700;
+                }
+
+                .title-specialty-down {
+                    font-size: 17px;
+                    color    : white;
+                }
             }
         }
 

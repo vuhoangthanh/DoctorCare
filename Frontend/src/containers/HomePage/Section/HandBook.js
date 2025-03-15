@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
+import { FormattedMessage } from 'react-intl';
+import { Link } from 'react-router-dom';
 import Slider from "react-slick";
 
 
@@ -19,7 +20,6 @@ class HandBook extends Component {
                     <div className="section-container">
                         <div className="section-header">
                             <span className="title-section">Cẩm nang <span className="highlight">phổ biến</span></span>
-                            <button className="btn-section">Xem thêm</button>
                         </div>
                         <div className="section-body">
                             <Slider {...this.props.settings}>
@@ -48,6 +48,11 @@ class HandBook extends Component {
                                     <div>Cẩm nang 6</div>
                                 </div>
                             </Slider>
+                            <div className="btn-more">
+                                <Link className="custom-link" to={`/all-doctor`}>
+                                    <button className="btn-section"><FormattedMessage id="home-page.more-information" /><i className="fas fa-long-arrow-alt-right"></i></button>
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </div>

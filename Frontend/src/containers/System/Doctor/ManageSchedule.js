@@ -22,19 +22,25 @@ class ManageDoctor extends Component {
             currentDateSearch: new Date(new Date().setHours(0, 0, 0, 0)),
             rangeTime: [],
             schedules: [],
-            result: {}
+            result: {},
+
+            page: '',
+            size: ''
         }
     }
 
     componentDidMount() {
-        this.props.fetchAllDoctorsRedux();
+        this.props.fetchAllDoctorsRedux({
+            page: this.state.page,
+            size: this.state.size
+        });
         this.props.fetchAllScheduleTimeRedux();
         this.handleGetTimeByDoctorAndDate(this.state.listDoctors);
 
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.allDoctors !== this.props.allDoctors) {
-            let dataSelect = this.buildDataInputSelect(this.props.allDoctors)
+            let dataSelect = this.buildDataInputSelect(this.props.allDoctors.result)
             this.setState({
                 listDoctors: dataSelect
             }, () => {
@@ -293,7 +299,7 @@ class ManageDoctor extends Component {
                     </div>
                     <div className="row list-schedule">
                         <div className="col-6">
-                            <div className="title-table"><span>Danh sách lịch bác sĩ</span></div>
+                            <div className="title-table"><span><FormattedMessage id="manage-schedule.title-table" /></span></div>
                         </div>
                         <div className="col-6 line-search">
                             <div className="inp-search">
@@ -306,19 +312,19 @@ class ManageDoctor extends Component {
                             </div>
                             <div className="btn-search">
                                 <button
-                                    onClick={() => this.handleSearch()}>Tìm kiếm</button>
+                                    onClick={() => this.handleSearch()}><FormattedMessage id="manage-schedule.search" /></button>
                             </div>
                         </div>
                         <div className="col-12 mt-3">
                             <table id="tableManageUser" className="table table-bordered table-hover  table-rounded">
                                 <thead className="table-light">
                                     <tr>
-                                        <th className="first">Stt</th>
-                                        <th>Name</th>
-                                        <th>Date</th>
-                                        <th>Time</th>
-                                        <th>Create at</th>
-                                        <th>Actions</th>
+                                        <th className="first"><FormattedMessage id="manage-schedule.no" /></th>
+                                        <th><FormattedMessage id="manage-schedule.name" /></th>
+                                        <th><FormattedMessage id="manage-schedule.date" /></th>
+                                        <th><FormattedMessage id="manage-schedule.time" /></th>
+                                        <th><FormattedMessage id="manage-schedule.create-at" /></th>
+                                        {/* <th>Actions</th> */}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -386,7 +392,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchAllDoctorsRedux: () => dispatch(actions.fetchAllDoctors()),
+        fetchAllDoctorsRedux: (data) => dispatch(actions.fetchAllDoctors(data)),
         fetchAllScheduleTimeRedux: () => dispatch(actions.fetchAllScheduleTime()),
 
     };

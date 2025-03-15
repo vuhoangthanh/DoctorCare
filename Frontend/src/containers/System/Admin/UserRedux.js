@@ -206,7 +206,9 @@ class UserRedux extends Component {
             page: page
         })
     }
+    handleSearch = () => {
 
+    }
     render() {
         let genders = this.state.genderArr;
         let positions = this.state.positionArr;
@@ -352,25 +354,25 @@ class UserRedux extends Component {
                                 />
                             </div>
                             <div className="col-3">
-                                <span>Name: </span>
+                                <span><FormattedMessage id="manage-user.first-name" />: </span>
                                 <input type="text" placeholder="Nhập dữ liệu"
                                     value={this.state.filterName}
                                     onChange={(event) => { this.onChangeInput(event, 'firstName') }}
                                 />
                             </div>
                             <div className="col-3">
-                                <span>Address: </span>
+                                <span><FormattedMessage id="manage-user.address" />: </span>
                                 <input type="text" placeholder="Nhập dữ liệu"
                                     value={this.state.filterAddress}
                                     onChange={(event) => { this.onChangeInput(event, 'filterAddress') }}
                                 />
                             </div>
                             <div className="col-3">
-                                <button className="refresh-search"
-                                    onClick={() => this.handleSearch()}>Làm lại
+                                <button className="refresh-search" onClick={() => this.handleSearch()}>
+                                    <FormattedMessage id="manage-user.refresh" />
                                 </button>
-                                <button
-                                    onClick={() => this.handleSearch()}>Tìm kiếm
+                                <button onClick={() => this.handleSearch()}>
+                                    <FormattedMessage id="manage-user.search" />
                                 </button>
 
                             </div>

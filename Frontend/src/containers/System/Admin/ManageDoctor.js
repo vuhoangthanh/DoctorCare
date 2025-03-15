@@ -56,21 +56,26 @@ class ManageDoctor extends Component {
     }
 
     componentDidMount() {
-        this.props.fetchAllDoctorsRedux();
+        this.props.fetchAllDoctorsRedux({
+            page: this.state.page,
+            size: this.state.size
+        });
         this.props.getRequiredDoctorInfo({
             page: this.state.page,
             size: this.state.size,
             filterName: this.state.filter,
             filterAddress: this.state.filter
         });
+        console.log("mmmmm", this.props)
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.allDoctors !== this.props.allDoctors) {
-            let dataSelect = this.buildDataInputSelect(this.props.allDoctors, 'USERS')
+            let dataSelect = this.buildDataInputSelect(this.props.allDoctors.result, 'USERS')
             this.setState({
                 listDoctors: dataSelect
             })
+            console.log("listhos", this.state.lisDoctors)
         }
 
         if (prevProps.allRequiredDoctorInfo !== this.props.allRequiredDoctorInfo) {
@@ -92,7 +97,7 @@ class ManageDoctor extends Component {
         }
 
         if (prevProps.language !== this.props.language) {
-            let dataSelect = this.buildDataInputSelect(this.props.allDoctors, 'USERS')
+            let dataSelect = this.buildDataInputSelect(this.props.allDoctors.result, 'USERS')
 
             let { responsePayment, responsePrice, responseProvince } = this.props.allRequiredDoctorInfo;
             let dataSelectPrice = this.buildDataInputSelect(responsePrice, 'PRICE')
@@ -522,7 +527,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchAllDoctorsRedux: () => dispatch(actions.fetchAllDoctors()),
+        fetchAllDoctorsRedux: (data) => dispatch(actions.fetchAllDoctors(data)),
         saveDetailDoctorRedux: (data) => dispatch(actions.saveDetailDoctor(data)),
         editDetailDoctorRedux: (data) => dispatch(actions.editDetailDoctor(data)),
         getRequiredDoctorInfo: (data) => dispatch(actions.getRequiredDoctorInfo(data)),

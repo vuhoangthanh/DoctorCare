@@ -23,17 +23,23 @@ instance.interceptors.response.use(
         };
     }
 );
-if (JSON.parse(localStorage.getItem("persist:user")).token !== "null") {
-    instance.defaults.headers.common["Authorization"] = `Bearer ${JSON.parse(JSON.parse(localStorage.getItem("persist:user")).token).accessToken}`;
+// if (JSON.parse(localStorage.getItem("persist:user")).token !== "null") {
+//     instance.defaults.headers.common["Authorization"] = `Bearer ${JSON.parse(JSON.parse(localStorage.getItem("persist:user")).token).accessToken}`;
+// }
+
+const userData = localStorage.getItem("persist:user");
+
+if (userData) {
+    try {
+        const parsedData = JSON.parse(userData);
+        if (parsedData.token && parsedData.token !== "null") {
+            const tokenObj = JSON.parse(parsedData.token);
+            instance.defaults.headers.common["Authorization"] = `Bearer ${tokenObj.accessToken}`;
+        }
+    } catch (error) {
+        console.error("Lỗi khi parse dữ liệu user:", error);
+    }
 }
-
-// if (localStorage.getItem("persist:user")) {
-
-// }
-// if (JSON.parse(localStorage.getItem("persist:user")).token !== null) {
-//     // let token = localStorage.getItem("persist:user") ? `${JSON.parse(JSON.parse(localStorage.getItem("persist:user")).token).accessToken}` : ""
-//     instance.defaults.headers.common["Authorization"] = `Bearer ${token} ? ${token}: ""`;
-// }
 
 
 

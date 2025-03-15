@@ -7,12 +7,14 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import vn.project.DoctorCare.domain.User;
 import vn.project.DoctorCare.domain.response.ResDoctorDTO;
 import vn.project.DoctorCare.domain.response.ResDoctorDetailDTO;
 import vn.project.DoctorCare.domain.response.ResTopDoctorsDTO;
+import vn.project.DoctorCare.domain.response.ResultPaginationDTO;
 import vn.project.DoctorCare.repository.DoctorRepository;
 
 @Service
@@ -30,11 +32,30 @@ public class DoctorService {
         return doctors;
     }
 
-    public List<ResDoctorDTO> fetchAllDoctors() {
-        List<User> users = this.doctorRepository.findAllByRoleId("R2");
+    public ResultPaginationDTO fetchAllDoctors(Specification<User> spec, Pageable pageable) {
+        Specification<User> statusCondition = (root, query, criteriaBuilder) ->
+                criteriaBuilder.equal(root.get("roleId"), "R2");
+
+        Specification<User> finalSpec = Specification.where(spec).and(statusCondition);
+
+        Page<User> pageDoctor = this.doctorRepository.findAll(finalSpec, pageable);
+
+        List<User> listDoctor = pageDoctor.getContent();
+
+        ResultPaginationDTO resultPaginationDTO = new ResultPaginationDTO();
+        ResultPaginationDTO.Meta meta = new ResultPaginationDTO.Meta();
+
+        meta.setPage(pageable.getPageNumber());
+        meta.setPageSize(pageable.getPageSize());
+        meta.setPages(pageDoctor.getTotalPages());
+        meta.setTotal(pageDoctor.getTotalElements());
+
+        resultPaginationDTO.setMeta(meta);
+
+//        List<User> users = this.doctorRepository.findAllByRoleId("R2");
 
         List<ResDoctorDTO> listResDoctorDTOs = new ArrayList<ResDoctorDTO>();
-        for (User user : users) {
+        for (User user : listDoctor) {
             ResDoctorDTO resDoctorDTO = new ResDoctorDTO();
 
             resDoctorDTO.setId(user.getId());
@@ -52,7 +73,9 @@ public class DoctorService {
 
             listResDoctorDTOs.add(resDoctorDTO);
         }
-        return listResDoctorDTOs;
+
+        resultPaginationDTO.setResult(listResDoctorDTOs);
+        return resultPaginationDTO;
     }
 
     public ResDoctorDetailDTO fetchDetailDoctorById(long id) {

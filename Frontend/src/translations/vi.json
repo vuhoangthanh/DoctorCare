@@ -53,7 +53,12 @@
         "role": "Vai trò",
         "avatar": "Ảnh đại diện",
         "save": "Lưu",
-        "edit": "Lưu thay đổi"
+        "edit": "Lưu thay đổi",
+        "refresh": " Làm mới",
+        "search": "Tìm kiếm",
+        "title-table": "Danh sách người dùng",
+        "created-at": "Ngày tạo",
+        "action": "Hành động"
     },
     "home-page": {
         "skilled": "giàu kinh nghiệm chuyên môn cao ",
@@ -72,7 +77,25 @@
         "title": "Quản lý kết hoạch khám bệnh của bác sĩ",
         "choose-doctor": "Chọn bác sĩ",
         "choose-date": "chọn ngày",
-        "save": "Lưu thông tin"
+        "save": "Lưu thông tin",
+        "title-table": "Danh sách lịch khám",
+        "search": "Tìm kiếm",
+        "no": "Stt",
+        "name": "Tên",
+        "date": "Ngày",
+        "time": "Thời gian",
+        "create-at": "Ngày tạo"
+    },
+    "manage-patient": {
+        "title": "Quản lý bệnh nhân khám bệnh",
+        "choose-date": "Chọn ngày khám",
+        "title-table": "Danh sách lịch hẹn",
+        "no": "Stt",
+        "time": "Thời gian",
+        "name": "Họ và tên",
+        "address": "Địa chỉ",
+        "gender": "Giới tính",
+        "action": "Hành động"
     },
     "patient": {
         "detail-doctor": {

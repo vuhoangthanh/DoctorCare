@@ -238,10 +238,13 @@ export const fetchTopDoctorsFailed = () => ({
     type: actionTypes.FETCH_TOP_DOCTORS_FAILED
 });
 
-export const fetchAllDoctors = () => {
+export const fetchAllDoctors = (data) => {
     return async (dispatch, getState) => {
         try {
-            let response = await getAllDoctorService();
+            let response = await getAllDoctorService({
+                page: data.page,
+                size: data.size
+            });
 
             if (response && response.error === null) {
                 dispatch(fetchAllDoctorsSuccess(response.data))

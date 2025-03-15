@@ -73,7 +73,6 @@ class DoctorExtraInfo extends Component {
                                     displayType={'text'}
                                     thousandSeparator={true}
                                     suffix={'VND'} />
-
                             }
                             {extraInfo && extraInfo.priceTypeData && language === LANGUAGES.EN &&
                                 <NumberFormat

@@ -60,11 +60,12 @@ class ManageClinic extends Component {
         if (prevState.page !== this.state.page || prevState.size !== this.state.size) {
             this.handleCallClinic();
         }
-        if (prevProps.allRequiredDoctorInfo.pageCountClinic.pages < this.state.page) {
+        if (prevProps.allRequiredDoctorInfo && prevProps.allRequiredDoctorInfo.pageCountClinic && prevProps.allRequiredDoctorInfo.pageCountClinic.pages < this.state.page) {
             this.setState({
                 page: this.state.pageCount
             })
         }
+
     }
 
     handleCallClinic = () => {

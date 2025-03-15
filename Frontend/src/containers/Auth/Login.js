@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from "connected-react-router";
-
+import { Link, withRouter } from 'react-router-dom';
 // import * as actions from "../store/actions";
 import * as actions from "../../store/actions";
 import './Login.scss';
 import { FormattedMessage } from 'react-intl';
 import { divide } from 'lodash';
 import { handleLoginApi } from '../../services/userService';
+
 
 class Login extends Component {
     constructor(props) {
@@ -100,11 +101,21 @@ class Login extends Component {
                         <div className="col-12" style={{ color: 'red' }}>
                             {this.state.errMessage}
                         </div>
+
+                        <div className="col-12" style={{ color: 'red' }}>
+                            {this.state.errMessage}
+                        </div>
                         <div className="col-12">
                             <button className="btn-login" onClick={() => { this.handleLogin() }}>Login</button>
                         </div>
-                        <div className="col-12">
+                        <div className="col-6">
                             <span className="forgot-password">Forgot your password?</span>
+                        </div>
+                        <div className="col-6 register">
+                            <Link to={"/register"} className="register-link">
+                                <span>Register</span>
+                            </Link>
+
                         </div>
                         <div className="col-12 text-center mt-3">
                             <span className="text-other-login">Or Login with:</span>

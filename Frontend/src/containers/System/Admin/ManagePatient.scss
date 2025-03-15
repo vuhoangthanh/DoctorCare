@@ -1,0 +1,131 @@
+div._loading_overlay_wrapper {
+    position        : unset;
+    background-color: #F8F9FA;
+
+
+    ._loading_overlay_overlay {
+        z-index: 100000000;
+    }
+}
+
+.manage-patient-container {
+    background-color: #F8F9FA;
+    padding-bottom  : 30px;
+    margin-top      : 0px !important;
+    height          : 100vh;
+
+    .m-p-title {
+        text-transform: uppercase;
+        padding       : 20px 0 !important;
+        margin-top    : 0px !important;
+        text-transform: uppercase;
+        padding-top   : 20px !important;
+        font-weight   : 600;
+        font-size     : 20px !important;
+        text-align    : center;
+        color         : #06adef !important;
+    }
+
+    .manage-patient-body {
+        // padding: 0 20px;
+
+        .line-search {
+            height          : 80px;
+            border-radius   : 10px;
+            border          : none;
+            display         : flex;
+            align-items     : center;
+            margin-bottom   : 20px;
+            background-color: white;
+            padding         : 30px;
+
+            font-size  : 14px;
+            font-family: 'Roboto', sans-serif;
+
+            .datepicker {
+                width        : 200px;
+                border-radius: 10px;
+                margin-left  : 10px;
+            }
+        }
+
+        .table-manage-patient {
+            background-color: white;
+            border          : none;
+            border-radius   : 10px;
+            padding         : 30px;
+
+            .title-table {
+                margin-bottom: 20px;
+
+                span {
+                    font-size  : 18px;
+                    font-weight: bold;
+
+                    color: #333;
+                }
+            }
+
+            button {
+                border : none;
+                outline: none;
+                cursor : pointer;
+            }
+
+            .mp-btn-confirm {
+                margin-right : 10px;
+                height       : 30px;
+                border-radius: 3px;
+                background   : rgb(67, 239, 67);
+            }
+
+            .mp-btn-remedy {
+                margin-right : 10px;
+                height       : 30px;
+                border-radius: 3px;
+                background   : orange;
+            }
+
+            .table {
+                // border-spacing   : 0;
+                border: 1px solid #dee2e6;
+
+                .first {
+                    text-align: center;
+                }
+
+                thead {
+
+                    th {
+                        border        : 1px solid #dee2e6 !important;
+                        text-align    : left;
+                        vertical-align: middle;
+                    }
+
+
+                }
+
+
+                tbody {
+                    tr {
+                        background-color: white;
+
+                        &:hover {
+                            background-color: #f0f0f0 !important;
+                        }
+                    }
+
+                    td {
+                        font-size     : 13px;
+                        border        : 1px solid #dee2e6 !important;
+                        text-align    : left;
+                        vertical-align: middle;
+                        padding       : 8px;
+                        font-family   : 'Roboto', sans-serif;
+                    }
+                }
+
+            }
+        }
+    }
+}

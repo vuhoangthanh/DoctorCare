@@ -1,5 +1,8 @@
 package vn.project.DoctorCare.controller;
 
+import com.turkraft.springfilter.boot.Filter;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,6 +15,7 @@ import vn.project.DoctorCare.domain.User;
 import vn.project.DoctorCare.domain.response.ResDoctorDTO;
 import vn.project.DoctorCare.domain.response.ResDoctorDetailDTO;
 import vn.project.DoctorCare.domain.response.ResTopDoctorsDTO;
+import vn.project.DoctorCare.domain.response.ResultPaginationDTO;
 import vn.project.DoctorCare.service.DoctorService;
 import vn.project.DoctorCare.service.MarkdownService;
 import vn.project.DoctorCare.util.annotation.ApiMessage;
@@ -52,9 +56,11 @@ public class DoctorController {
     }
 
     @GetMapping("/doctors")
-    public ResponseEntity<List<ResDoctorDTO>> getAllDoctors() {
+    @ApiMessage("get all doctors")
+    public ResponseEntity<ResultPaginationDTO> getAllDoctors(@Filter Specification<User> spec,
+                                                             Pageable pageable) {
 
-        List<ResDoctorDTO> doctors = this.doctorService.fetchAllDoctors();
+        ResultPaginationDTO doctors = this.doctorService.fetchAllDoctors(spec, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(doctors);
     }
 

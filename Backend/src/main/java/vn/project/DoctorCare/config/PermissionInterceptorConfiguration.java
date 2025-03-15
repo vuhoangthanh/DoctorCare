@@ -45,7 +45,11 @@ public class PermissionInterceptorConfiguration implements WebMvcConfigurer {
                 "/swagger-ui.html",
 
                 //register
-                "/api/v1/register"
+                "/api/v1/register",
+
+                //booking
+                "/api/v1/bookings",
+                "/api/v1/date-bookings"
 
 
         };
