@@ -105,7 +105,8 @@
                 }
 
                 &.section-handbook {
-                    background-image: url('../../assets/handbook/handbook.webp');
+                    background-image   : url('../../assets/handbook/handbook.webp');
+                    // margin-top      : -200px;
                 }
             }
 
@@ -386,8 +387,9 @@
 }
 
 .curve-handbook {
-    width   : 100vw;
-    overflow: hidden;
+    width     : 100vw;
+    overflow  : hidden;
+    margin-top: -100px;
 
     .review-article--shape {
         // width               : 150%;
@@ -403,26 +405,27 @@
 }
 
 .back-to-top {
-    position        : fixed;
-    bottom          : 20px;
-    right           : 20px;
-    background-color: #0099ff;
-    color           : red;
-    border          : none;
-    border-radius   : 50px;
-    padding         : 10px 15px;
-    font-size       : 20px;
-    cursor          : pointer;
-    opacity         : 0;
-    visibility      : hidden;
-    transition      : opacity 0.3s, visibility 0.3s;
-}
+    position           : fixed;
+    bottom             : 25px;
+    right              : 25px;
+    background-color   : #0099ff;
+    color              : red;
+    border             : none;
+    border-radius      : 50%;
+    // padding         : 10px 15px;
+    width              : 60px;
+    height             : 60px;
+    font-size          : 20px;
+    cursor             : pointer;
+    opacity            : 0;
+    visibility         : hidden;
+    transition         : opacity 0.3s, visibility 0.3s;
 
-.back-to-top.show {
-    opacity   : 1;
-    visibility: visible;
-}
+    i {
+        color: white
+    }
 
-.back-to-top:hover {
-    background-color: #007acc;
+    &:hover {
+        background-color: #007acc;
+    }
 }

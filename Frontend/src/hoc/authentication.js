@@ -21,6 +21,7 @@ export const userIsNotAuthenticated = connectedRouterRedirect({
     authenticatedSelector: state => !state.user.isLoggedIn,
     wrapperDisplayName: 'UserIsNotAuthenticated',
     redirectPath: (state, ownProps) => locationHelper.getRedirectQueryParam(ownProps) || "/system/user-redux",
+    // redirectPath: (state, ownProps) => locationHelper.getRedirectQueryParam(ownProps) || "/doctor/manage-schedule",
     // redirectPath: (state, ownProps) => locationHelper.getRedirectQueryParam(ownProps) || state.user.userInfo?.roleId === 'R3' ? '/home' : '',
 
     allowRedirectBack: false

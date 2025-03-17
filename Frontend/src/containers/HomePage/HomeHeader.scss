@@ -1,5 +1,5 @@
 .home-header-container {
-    height          : 60px;
+    height          : 65px;
     width           : 100%;
     padding         : 0 40px;
     background-color: #f1f6ff;
@@ -13,25 +13,28 @@
         display: flex;
 
         .left-content {
-            width      : 20%;
-            display    : flex;
-            align-items: center;
+            width         : 30%;
+            // width      : 20%;
+            display       : flex;
+            align-items   : center;
 
             i {
                 color    : grey;
-                font-size: 25px;
+                font-size: 125px;
                 cursor   : pointer;
             }
 
             .header-logo {
                 cursor        : pointer;
                 margin-top    : 5px;
+                margin-left   : 154px;
                 // transform  : scale(0.5, 0.5);
             }
         }
 
         .center-content {
-            width          : 55%;
+            // width          : 55%;
+            width          : 40%;
             display        : flex;
             justify-content: space-between;
             align-items    : center;
@@ -45,20 +48,57 @@
         }
 
         .right-content {
-            width          : 25%;
+            // width          : 25%;
+            width          : 30%;
             display        : flex;
             justify-content: flex-end;
             align-items    : center;
-            cursor         : pointer;
+            padding-right  : 154px;
 
             .support {
-                padding-right: 30px;
-                display      : flex;
-                align-items  : center;
+                padding-right  : 10px;
+                display        : flex;
+                align-items    : center;
+                margin         : 4px 10px;
+                font-weight    : 600;
+                font-family    : Mulish, sans-serif;
+                font-size      : 16px;
+                text-decoration: none;
+                color          : #0b3052;
+                cursor         : pointer;
+                outline        : none;
 
-                i {
-                    font-size   : 15px;
-                    margin-right: 10px;
+                .link-login-header {
+                    font-weight    : 600;
+                    font-family    : Mulish, sans-serif;
+                    font-size      : 16px;
+                    text-decoration: none;
+                    color          : #0b3052;
+                    outline        : none;
+                }
+
+                button {
+                    line-height     : 1;
+                    padding         : 12px 35px;
+                    border-radius   : 50px;
+                    outline         : 0;
+                    border          : none;
+                    cursor          : pointer;
+                    background-color: #ff3259;
+                    margin-left     : 10px;
+                    color           : white;
+                    font-weight     : 600;
+                    font-family     : Mulish, sans-serif;
+                    outline         : none;
+
+                    .link-register-header,
+                    .link-logout-header {
+                        font-family    : Mulish, sans-serif;
+                        color          : white;
+                        font-weight    : 600;
+                        text-decoration: none;
+                        outline        : none;
+                    }
                 }
             }
 
@@ -106,114 +146,74 @@
     background-size    : cover;
     background-repeat  : no-repeat;
     background-position: 100% 100%;
-    height             : 100vh;
+    height             : 115vh;
     width              : 100vw;
     display            : flex;
     flex-direction     : column;
 
     .content-up {
-        padding-top        : 40px;
-        height             : 65%;
-        // background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(238, 237, 237, 0.1));
-
-        .title1 {
-            text-align   : center;
-            font-size    : 30px;
-            text-shadow  : 1px 1px 1px #333;
-            color        : white;
-            margin-bottom: 5px;
-        }
-
-        .title2 {
-            text-align   : center;
-            font-size    : 30px;
-            text-shadow  : 1px 1px 1px #333;
-            color        : white;
-            margin-bottom: 40px;
-        }
-
-        .search {
-            width           : fit-content;
-            display         : flex;
-            justify-content : center;
-            align-items     : center;
-            margin          : 0 auto;
-            padding         : 10px;
-            border-radius   : 25px;
-            background-color: rgba(0, 0, 0, 0.3);
-
-            i {
-                margin: 0 5px;
-                color : white;
-            }
-
-            input {
-                height      : 30px;
-                width       : 380px;
-                background  : transparent;
-                border      : none;
-                outline     : none;
-                padding-left: 5px;
-                color       : white;
-
-
-            }
-
-            input::placeholder {
-                color: white;
-            }
-        }
-    }
-
-    .content-down {
-        height         : 35%;
-        padding-bottom : 10px;
+        padding-top    : 40px;
+        height         : 100%;
         display        : flex;
-        align-items    : center;
         justify-content: center;
-        // background: linear-gradient(rgba(255, 255, 255, 0.11), rgba(238, 238, 238, 0.9), rgb(242, 241, 241));
+        flex-direction : column;
+        align-items    : flex-start;
+        padding        : 0 200px;
+        padding-top    : 200px;
 
-        .options {
-            text-align     : center;
-            display        : flex;
-            gap            : 40px;
-            justify-content: center;
-            // align-items: center;
+        .text-banner {
+            color         : #0b3052;
+            letter-spacing: 1px;
+            line-height   : 1.2;
 
-            .option-child {
-                width: 120px;
+            .h1-text {
+                display       : flex;
+                flex-direction: column;
+                font-weight   : 300;
+                font-size     : 35px;
+            }
 
-                .icon-child {
-                    background-color: white;
-                    width           : 55px;
-                    height          : 55px;
-                    padding         : 10px;
-                    border-radius   : 50%;
-                    text-align      : center;
-                    margin          : 0 auto;
+            .devider {
+                font-size  : 45px;
+                font-weight: 700;
+            }
+        }
 
-                    i {
-                        font-size: 30px;
-                    }
+        .btn-register-banner {
+            button {
+                max-height      : 100px;
+                background-color: #06adef;
+                border-radius   : 50px;
+                padding         : 12px 35px;
+                border          : none;
+                cursor          : pointer;
+                margin-top      : 25px;
+
+                span {
+                    color      : white;
+                    font-size  : 17px;
+                    font-weight: 600;
+                    font-family: Mulish, sans-serif;
                 }
 
-                .text-child {
-                    // font-size  : 13px;
-                    // font-weight: 500;
-                    // cursor     : pointer;
+                i {
+                    margin-right: 13px;
+                    font-size   : 16px;
+                    color       : white
+                }
 
-
-                    &:hover {
-                        // color: white;
-                    }
+                &:hover {
+                    background-color: #04a3e1;
                 }
             }
         }
+
     }
+
 
     .curve-header-parent {
-        background-color: transparent !important;
-        margin-top      : 200px;
+        background-color   : transparent !important;
+        // margin-top      : 200px;
 
 
         .curve-header {
@@ -222,4 +222,14 @@
     }
 
 
+}
+
+.back-to-top.show {
+    opacity   : 1;
+    visibility: visible;
+    z-index   : 999900000000;
+}
+
+.back-to-top:hover {
+    background-color: #007acc;
 }

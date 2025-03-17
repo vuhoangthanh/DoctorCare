@@ -33,18 +33,17 @@ class TableManageUser extends Component {
             page: 1,
             size: 10,
             pageCount: '',
-            total: 0
+            total: 0,
+
+            filterName: '',
+            filterEmail: '',
+            filterAddress: ''
         }
     }
 
     componentDidMount() {
-        this.props.fetchUserRedux({
-            page: this.state.page,
-            size: this.state.size
-        });
-        this.setState({
-            pageCount: this.props.meta.pages
-        })
+
+        this.handleCallUser();
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -58,15 +57,36 @@ class TableManageUser extends Component {
                 pageCount: this.props.meta.pages
             })
         }
+        if (prevProps.handleSearch !== this.props.handleSearch) {
+            this.handleSearch();
+        }
     }
 
     handleDeleteUser = (user, page, size) => {
 
-        this.props.deleteAUserRedux(user.id, page, size);
+        this.props.deleteAUserRedux({
+            userId: user.id,
+            page: page,
+            size: size,
+            filterName: this.state.filterName,
+            filterAddress: this.state.filterAddress,
+            filterEmail: this.state.filterEmail
+        });
     }
-
+    handleCallUser = () => {
+        this.props.fetchUserRedux({
+            page: this.state.page,
+            size: this.state.size,
+            filterName: this.state.filterName,
+            filterEmail: this.state.filterEmail,
+            filterAddress: this.state.filterAddress
+        }, () => {
+            this.setState({
+                pageCount: this.props.meta.pages
+            })
+        });
+    }
     handleEditUser = (user) => {
-        console.log('check edit', user)
         this.props.handleEditUserFromParent(user)
     }
 
@@ -77,13 +97,26 @@ class TableManageUser extends Component {
         this.props.currentPageChange(+event.selected + 1)
         this.props.fetchUserRedux({
             page: +event.selected + 1 ? +event.selected + 1 : this.state.page,
-            size: this.state.size
+            size: this.state.size,
+            filterName: this.state.filterName,
+            filterAddress: this.state.filterAddress,
+            filterEmail: this.state.filterEmail
         });
     };
+    handleSearch = () => {
+        let { filterName, filterAddress, filterEmail } = this.props.handleSearch
+        this.setState({
+            filterName: filterName,
+            filterEmail: filterEmail,
+            filterAddress: filterAddress
+        }, () => {
+            this.handleCallUser();
+        })
 
-
+    }
 
     render() {
+        console.log("hello", this.state)
         let arrUsers = this.state.usersRedux
         let { pageCount } = this.state
         let { page, size } = this.props

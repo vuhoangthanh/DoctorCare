@@ -170,7 +170,7 @@ class ManagePatient extends Component {
                                                         <td>
                                                             <button className="mp-btn-confirm"
                                                                 onClick={() => this.handleBtnConfirm(item)}>Xác nhận</button>
-                                                            <button className="mp-btn-confirm"
+                                                            <button className="mp-btn-delete"
                                                                 onClick={() => this.handleBtnDelete(item)}>Xoá</button>
                                                         </td>
                                                     </tr>

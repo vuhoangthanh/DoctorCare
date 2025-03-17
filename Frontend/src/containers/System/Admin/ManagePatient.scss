@@ -54,6 +54,7 @@ div._loading_overlay_wrapper {
             border          : none;
             border-radius   : 10px;
             padding         : 30px;
+            height          : 70vh;
 
             .title-table {
                 margin-bottom: 20px;
@@ -76,7 +77,16 @@ div._loading_overlay_wrapper {
                 margin-right : 10px;
                 height       : 30px;
                 border-radius: 3px;
-                background   : rgb(67, 239, 67);
+                background   : #06adef !important;
+                color        : white;
+            }
+
+            .mp-btn-delete {
+                margin-right : 10px;
+                height       : 30px;
+                border-radius: 3px;
+                background   : rgb(251, 45, 45) !important;
+                color        : white;
             }
 
             .mp-btn-remedy {

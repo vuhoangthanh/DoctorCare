@@ -36,9 +36,11 @@ class UserRedux extends Component {
             page: 1,
             size: 10,
 
+            filterName: '',
+            filterEmail: '',
+            filterAddress: '',
 
-
-
+            dataFilter: {}
         }
     }
 
@@ -137,7 +139,10 @@ class UserRedux extends Component {
                 avatar: this.state.avatar,
 
                 page: this.state.page,
-                size: this.state.size
+                size: this.state.size,
+                filterName: this.state.filterName,
+                filterAddress: this.state.filterAddress,
+                filterEmail: this.state.filterEmail,
             })
         }
         if (action === CRUD_ACTIONS.EDIT) {
@@ -156,7 +161,12 @@ class UserRedux extends Component {
                 avatar: this.state.avatar,
 
                 page: this.state.page,
-                size: this.state.size
+                size: this.state.size,
+
+                filterName: this.state.filterName,
+                filterAddress: this.state.filterAddress,
+                filterEmail: this.state.filterEmail,
+
             })
         }
 
@@ -207,8 +217,27 @@ class UserRedux extends Component {
         })
     }
     handleSearch = () => {
-
+        this.setState({
+            dataFilter: {
+                filterName: this.state.filterName,
+                filterEmail: this.state.filterEmail,
+                filterAddress: this.state.filterAddress
+            }
+        })
     }
+    handleRefresh = () => {
+        this.setState({
+            dataFilter: {
+                filterName: '',
+                filterEmail: '',
+                filterAddress: ''
+            },
+            filterName: '',
+            filterEmail: '',
+            filterAddress: ''
+        })
+    }
+
     render() {
         let genders = this.state.genderArr;
         let positions = this.state.positionArr;
@@ -357,7 +386,7 @@ class UserRedux extends Component {
                                 <span><FormattedMessage id="manage-user.first-name" />: </span>
                                 <input type="text" placeholder="Nhập dữ liệu"
                                     value={this.state.filterName}
-                                    onChange={(event) => { this.onChangeInput(event, 'firstName') }}
+                                    onChange={(event) => { this.onChangeInput(event, 'filterName') }}
                                 />
                             </div>
                             <div className="col-3">
@@ -368,7 +397,7 @@ class UserRedux extends Component {
                                 />
                             </div>
                             <div className="col-3">
-                                <button className="refresh-search" onClick={() => this.handleSearch()}>
+                                <button className="refresh-search" onClick={() => this.handleRefresh()}>
                                     <FormattedMessage id="manage-user.refresh" />
                                 </button>
                                 <button onClick={() => this.handleSearch()}>
@@ -389,7 +418,8 @@ class UserRedux extends Component {
                                     action={this.state.action}
                                     currentPageChange={this.handleCurrentPage}
                                     page={this.state.page}
-                                    size={this.state.size} />
+                                    size={this.state.size}
+                                    handleSearch={this.state.dataFilter} />
                             </div>
                         </div>
                     </div>
@@ -423,7 +453,6 @@ const mapDispatchToProps = dispatch => {
         getPositionStart: () => dispatch(actions.fetchPositionStart()),
         getRoleStart: () => dispatch(actions.fetchRoleStart()),
         addNewUser: (data) => dispatch(actions.addNewUser(data)),
-        fetchUserRedux: (data) => dispatch(actions.fetchAllUsersStart(data)),
         editAUserRedux: (data) => dispatch(actions.editAUser(data))
         // processLogout: () => dispatch(actions.processLogout()),
         // changeLanguageAppRedux: (language) => dispatch(actions.changeLanguageApp(language))

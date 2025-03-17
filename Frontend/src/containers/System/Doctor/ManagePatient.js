@@ -4,7 +4,7 @@ import Select from 'react-select';
 import moment from 'moment'
 import { FormattedMessage } from 'react-intl';
 import DatePicker from '../../../components/Input/DatePicker';
-import { getAllPatientForDoctor, postSendRemedy } from '../../../services/userService';
+import { getAllPatientForDate, postSendRemedy, deleteBooking } from '../../../services/userService';
 import './ManagePatient.scss'
 import { LANGUAGES } from '../../../utils';
 import RemedyModal from './RemedyModal';
@@ -28,13 +28,12 @@ class ManagePatient extends Component {
     }
 
     getDataPatient = async () => {
-        let { user } = this.props;
+
         let { currentDate } = this.state;
         let formattedDate = new Date(currentDate).getTime();
 
 
-        let response = await getAllPatientForDoctor({
-            doctorId: user.id,
+        let response = await getAllPatientForDate({
             date: formattedDate
         })
         if (response && response.error === null) {
@@ -104,6 +103,18 @@ class ManagePatient extends Component {
             toast.success("Send Remedy erorr!")
         }
     }
+    handleBtnDelete = async (item) => {
+
+        let response = await deleteBooking({
+            id: item.id
+        })
+        if (response && response.error === null) {
+            this.getDataPatient();
+            toast.success("Delete schedule success!")
+        } else {
+            toast.error("Delete schedule error!")
+        }
+    }
 
     render() {
         let { language } = this.props;
@@ -114,31 +125,36 @@ class ManagePatient extends Component {
                     active={this.state.isShowLoading}
                     spinner
                     text='Loading...'>
-                    <div className="manage-patient-container">
+                    <div className="manage-patient-container container">
                         <div className="m-p-title">
                             <FormattedMessage id="manage-patient.title" />
                         </div>
                         <div className="manage-patient-body row">
-                            <div className="col-4 form-group">
+                            <div className="col-12 form-group line-search">
                                 <label>   <FormattedMessage id="manage-patient.choose-date" /></label>
                                 <DatePicker
                                     onChange={this.handleOnChangeDatePicker}
-                                    className="form-control"
+                                    className="form-control datepicker"
                                     value={this.state.currentDate}
                                 // minDate={yesterday}
                                 />
                             </div>
                             <div className="col-12 table-manage-patient">
-                                <table >
-                                    <tbody>
+                                <div className="title-table">
+                                    <span>   <FormattedMessage id="manage-patient.title-table" /></span>
+                                </div>
+                                <table id="tableManageUser" className="table table-bordered table-hover  table-rounded">
+                                    <thead className="table-light">
                                         <tr>
-                                            <th><FormattedMessage id="manage-patient.no" /></th>
-                                            <th><FormattedMessage id="manage-patient.time" /></th>
-                                            <th><FormattedMessage id="manage-patient.name" /></th>
-                                            <th><FormattedMessage id="manage-patient.address" /></th>
-                                            <th><FormattedMessage id="manage-patient.gender" /></th>
-                                            <th><FormattedMessage id="manage-patient.action" /></th>
+                                            <th className="first">   <FormattedMessage id="manage-patient.no" /></th>
+                                            <th>   <FormattedMessage id="manage-patient.no" /></th>
+                                            <th>   <FormattedMessage id="manage-patient.name" /></th>
+                                            <th>   <FormattedMessage id="manage-patient.address" /></th>
+                                            <th>   <FormattedMessage id="manage-patient.gender" /></th>
+                                            <th>   <FormattedMessage id="manage-patient.action" /></th>
                                         </tr>
+                                    </thead>
+                                    <tbody>
                                         {dataPatient && dataPatient.length > 0 ?
                                             dataPatient.map((item, index) => {
                                                 let time = language === LANGUAGES.VI ? item.timeTypeDataPatient.valueVi : item.timeTypeDataPatient.valueEn;
@@ -146,7 +162,7 @@ class ManagePatient extends Component {
                                                 let genderEn = item.patient.genderData && item.patient.genderData.valueEn ? item.patient.genderData.valueEn : '';
                                                 return (
                                                     <tr key={index}>
-                                                        <td>{index + 1}</td>
+                                                        <td className="first">{index + 1}</td>
                                                         <td>{time}</td>
                                                         <td>{item.patient.firstName}</td>
                                                         <td>{item.patient.address}</td>
@@ -154,7 +170,8 @@ class ManagePatient extends Component {
                                                         <td>
                                                             <button className="mp-btn-confirm"
                                                                 onClick={() => this.handleBtnConfirm(item)}>Xác nhận</button>
-
+                                                            <button className="mp-btn-delete"
+                                                                onClick={() => this.handleBtnDelete(item)}>Xoá</button>
                                                         </td>
                                                     </tr>
                                                 )
@@ -186,7 +203,6 @@ class ManagePatient extends Component {
 const mapStateToProps = state => {
     return {
         language: state.app.language,
-        user: state.user.userInfo
     };
 };
 

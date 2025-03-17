@@ -124,5 +124,4 @@ public class UserController {
         User user = this.userService.handleRegister(reqUser);
         return ResponseEntity.status(HttpStatus.CREATED).body(this.userService.convertToResCreateUserDTO(user));
     }
-
 }

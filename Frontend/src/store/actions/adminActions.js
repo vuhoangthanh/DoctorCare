@@ -98,7 +98,10 @@ export const addNewUser = (data) => {
                 dispatch(saveUserSuccess())
                 dispatch(fetchAllUsersStart({
                     page: data.page,
-                    size: data.size
+                    size: data.size,
+                    filterEmail: data.filterEmail,
+                    filterName: data.filterName,
+                    filterAddress: data.filterAddress
                 }));
             } else {
                 dispatch(saveUserFailed());
@@ -123,7 +126,10 @@ export const fetchAllUsersStart = (data) => {
         try {
             let response = await getAllUsers({
                 page: data.page,
-                size: data.size
+                size: data.size,
+                filterName: data.filterName,
+                filterAddress: data.filterAddress,
+                filterEmail: data.filterEmail
             });
             if (response && response.error === null) {
 
@@ -150,21 +156,29 @@ export const fetchAllUsersFailed = () => ({
 });
 
 
-export const deleteAUser = (userId, page, size) => {
+export const deleteAUser = (data) => {
     return async (dispatch, getState) => {
         try {
-            let response = await deleteUserService(userId);
+            let response = await deleteUserService(data.userId);
             if (response && response.error === null) {
                 toast.success("Delete the user succeed");
                 dispatch(deleteUserSuccess(response.data))
-                console.log("tst", page, size)
                 dispatch(fetchAllUsersStart({
-                    page: page,
-                    size: size
+                    page: data.page,
+                    size: data.size,
+                    filterEmail: data.filterEmail,
+                    filterName: data.filterName,
+                    filterAddress: data.filterAddress
                 }));
             } else {
                 toast.error("Delete the user error");
-                dispatch(fetchAllUsersStart());
+                dispatch(fetchAllUsersStart({
+                    page: data.page,
+                    size: data.size,
+                    filterEmail: data.filterEmail,
+                    filterName: data.filterName,
+                    filterAddress: data.filterAddress
+                }));
             }
         } catch (e) {
             dispatch(fetchAllUsersStart());
@@ -190,7 +204,10 @@ export const editAUser = (user) => {
                 dispatch(editUserSuccess())
                 dispatch(fetchAllUsersStart({
                     page: user.page,
-                    size: user.size
+                    size: user.size,
+                    filterEmail: user.filterEmail,
+                    filterName: user.filterName,
+                    filterAddress: user.filterAddress
                 })
                 );
             } else {

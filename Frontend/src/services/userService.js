@@ -5,11 +5,11 @@ const handleLoginApi = (userEmail, userPassword) => {
 }
 
 const getAllUsers = (data) => {
-    return axios.get(`/api/v1/users?page=${data.page}&size=${data.size}`)
+    return axios.get(`/api/v1/users?page=${data.page}&size=${data.size}&filter=email~'${data.filterEmail}' and firstName~ '${data.filterName}' and address ~'${data.filterAddress}'`)
 }
 
 const getAllUsersPage = (data) => {
-    return axios.get(`/api/v1/users?page=${data.page}&size=${data.size}`)
+    return axios.get(`/api/v1/users?page=${data.page}&size=${data.size}&filter=email~'${data.filterEmail}' and firstName~ '${data.filterName}' and address ~'${data.filterAddress}'`)
 }
 
 const createNewUserService = (data) => {

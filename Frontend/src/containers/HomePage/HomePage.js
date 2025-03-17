@@ -29,17 +29,7 @@ class HomePage extends Component {
         window.removeEventListener("scroll", this.handleScroll);
     }
 
-    handleScroll = () => {
-        if (window.scrollY > 300) {
-            this.setState({ visible: true });
-        } else {
-            this.setState({ visible: false });
-        }
-    };
 
-    scrollToTop = () => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    };
 
     render() {
         let settings = {
@@ -61,14 +51,7 @@ class HomePage extends Component {
                 <About />
                 <HomeFooter />
 
-                {/* Nút Back to Top */}
-                <button
-                    className="back-to-top show"
-                    // className={`back-to-top ${this.state.visible ? "show" : ""}`}
-                    onClick={this.scrollToTop} // ✅ Đúng cú pháp
-                >
-                    ⬆
-                </button>
+
             </div>
         );
     }
