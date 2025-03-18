@@ -40,15 +40,14 @@ class VerifyEmail extends Component {
         }
     }
 
-
     async componentDidUpdate(prevProps, prevState, snapshot) {
-
 
     }
 
     render() {
         let { language } = this.props;
         let { statusVerify, status } = this.state;
+
         return (
             <>
                 <HomeHeader />
@@ -67,8 +66,6 @@ class VerifyEmail extends Component {
                                 </div>
                             }
                         </div>
-
-
                     }
                 </div>
             </>

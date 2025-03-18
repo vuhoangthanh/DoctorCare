@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import vn.project.DoctorCare.domain.AllCode;
 import vn.project.DoctorCare.domain.Booking;
+import vn.project.DoctorCare.domain.Statistic;
 import vn.project.DoctorCare.domain.User;
 import vn.project.DoctorCare.domain.request.ReqBookingRemedyDTO;
 import vn.project.DoctorCare.domain.request.ReqEmailRemedyDTO;
@@ -23,10 +24,12 @@ public class BookingService {
 
     private final BookingRepository bookingRepository;
     private final EmailService emailService;
+    private final StatisticService statisticService;
 
-    public BookingService(BookingRepository bookingRepository, EmailService emailService) {
+    public BookingService(BookingRepository bookingRepository, EmailService emailService, StatisticService statisticService) {
         this.bookingRepository = bookingRepository;
         this.emailService = emailService;
+        this.statisticService = statisticService;
     }
 
     public Booking handleAddBooking(ReqPatientBookingDTO reqPatientBookingDTO) {
@@ -214,6 +217,18 @@ public class BookingService {
     }
 
     public void handleDeleteBooking(long id){
+        Booking booking = this.bookingRepository.findById(id).get();
+        Statistic statistic = this.statisticService.fetchStatisticByDate(booking.getDate());
+        if(statistic != null){
+            statistic.setCancelledBookings(statistic.getCancelledBookings() + 1);
+            this.statisticService.handleUpdateStatistic(statistic);
+        }else{
+            Statistic newStatistic = new Statistic();
+            newStatistic.setCancelledBookings(1);
+            newStatistic.setDate(booking.getDate());
+
+            this.statisticService.handleAddStatistic(newStatistic);
+        }
         this.bookingRepository.deleteById(id);
     }
 }

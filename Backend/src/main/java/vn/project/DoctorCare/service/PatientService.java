@@ -6,6 +6,8 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import vn.project.DoctorCare.domain.Booking;
+import vn.project.DoctorCare.domain.Statistic;
 import vn.project.DoctorCare.domain.User;
 import vn.project.DoctorCare.domain.request.ReqPatientBookingDTO;
 import vn.project.DoctorCare.repository.PatientRepository;
@@ -17,12 +19,14 @@ public class PatientService {
     private final PatientRepository patientRepository;
     private final BookingService bookingService;
     private final EmailService emailService;
+    private final StatisticService statisticService;
 
     public PatientService(PatientRepository patientRepository, BookingService bookingService,
-            EmailService emailService) {
+            EmailService emailService, StatisticService statisticService) {
         this.patientRepository = patientRepository;
         this.bookingService = bookingService;
         this.emailService = emailService;
+        this.statisticService = statisticService;
     }
 
     public String buildUrlEmail(long doctorId, String token) {
@@ -58,7 +62,19 @@ public class PatientService {
                 // handle add booking
                 reqPatientBookingDTO.setPatientId(currentPatient.get().getId());
                 reqPatientBookingDTO.setToken(token);
-                this.bookingService.handleAddBooking(reqPatientBookingDTO);
+                Booking booking =this.bookingService.handleAddBooking(reqPatientBookingDTO);
+                Statistic statistic = this.statisticService.fetchStatisticByDate(booking.getDate());
+
+                if(statistic != null){
+                    statistic.setTotalBookings(statistic.getTotalBookings() + 1);
+                    this.statisticService.handleUpdateStatistic(statistic);
+                }else{
+                    Statistic newStatistic = new Statistic();
+                    newStatistic.setDate(booking.getDate());
+                    newStatistic.setTotalBookings(1);
+                    this.statisticService.handleAddStatistic(newStatistic);
+                }
+
                 try {
                     emailService.sendSimpleMessage(currentPatient.get().getEmail(), name, time, doctorName, address,
                             redirectLink, language);
@@ -80,7 +96,18 @@ public class PatientService {
         // handle add booking
         reqPatientBookingDTO.setPatientId(patient.getId());
         reqPatientBookingDTO.setToken(token);
-        this.bookingService.handleAddBooking(reqPatientBookingDTO);
+        Booking booking = this.bookingService.handleAddBooking(reqPatientBookingDTO);
+        //handle add statistic
+        Statistic statistic = this.statisticService.fetchStatisticByDate(booking.getDate());
+        if(statistic != null){
+            statistic.setTotalBookings(statistic.getTotalBookings() + 1);
+            this.statisticService.handleUpdateStatistic(statistic);
+        }else{
+            Statistic newStatistic = new Statistic();
+            newStatistic.setDate(booking.getDate());
+            newStatistic.setTotalBookings(1);
+            this.statisticService.handleAddStatistic(newStatistic);
+        }
 
         try {
             emailService.sendSimpleMessage(reqPatient.getEmail(), name, time, doctorName, address, redirectLink,

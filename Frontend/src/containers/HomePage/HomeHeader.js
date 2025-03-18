@@ -40,7 +40,7 @@ class HomeHeader extends Component {
     }
     render() {
         let { processLogout, language } = this.props;
-
+        console.log("hmm", this.props.location.search)
         return (
             <React.Fragment>
                 <div className="home-header-container">

@@ -96,7 +96,6 @@ class DoctorSchedule extends Component {
                     allAvailableTime: response.data ? response.data : []
                 })
             }
-
         }
     }
 

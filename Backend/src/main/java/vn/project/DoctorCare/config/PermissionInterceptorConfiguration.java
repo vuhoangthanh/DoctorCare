@@ -49,7 +49,10 @@ public class PermissionInterceptorConfiguration implements WebMvcConfigurer {
 
                 //booking
                 "/api/v1/bookings",
-                "/api/v1/date-bookings"
+                "/api/v1/date-bookings",
+
+                //statistic
+                "/api/v1/statistics"
 
 
         };
