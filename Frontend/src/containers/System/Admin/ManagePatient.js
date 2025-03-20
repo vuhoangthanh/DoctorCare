@@ -87,7 +87,8 @@ class ManagePatient extends Component {
             patientId: dataModal.patientId,
             timeType: dataModal.timeType,
             language: this.props.language,
-            patientName: dataModal.patientName
+            patientName: dataModal.patientName,
+            date: new Date(this.state.currentDate).getTime()
         })
         if (response && response.error === null) {
             this.setState({
@@ -100,7 +101,7 @@ class ManagePatient extends Component {
             this.setState({
                 isShowLoading: false
             })
-            toast.success("Send Remedy erorr!")
+            toast.error("Send Remedy erorr!")
         }
     }
     handleBtnDelete = async (item) => {

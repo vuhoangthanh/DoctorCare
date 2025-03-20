@@ -5,9 +5,19 @@ public class ReqBookingRemedyDTO {
     private long patientId;
     private String statusId;
     private String timeType;
+    private String date;
+
 
     public long getDoctorId() {
         return doctorId;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getDate() {
+        return date;
     }
 
     public void setDoctorId(long doctorId) {

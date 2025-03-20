@@ -22,7 +22,7 @@ public class StatisticController {
     }
 
     @GetMapping("/statistics")
-    @ApiMessage("fetch statictis")
+    @ApiMessage("fetch statistic")
     public ResponseEntity<ResultPaginationDTO> fetchStatictis(
                                         @Filter Specification<Statistic> spec,
                                         Pageable pageable

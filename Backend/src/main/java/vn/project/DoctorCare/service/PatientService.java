@@ -63,17 +63,7 @@ public class PatientService {
                 reqPatientBookingDTO.setPatientId(currentPatient.get().getId());
                 reqPatientBookingDTO.setToken(token);
                 Booking booking =this.bookingService.handleAddBooking(reqPatientBookingDTO);
-                Statistic statistic = this.statisticService.fetchStatisticByDate(booking.getDate());
 
-                if(statistic != null){
-                    statistic.setTotalBookings(statistic.getTotalBookings() + 1);
-                    this.statisticService.handleUpdateStatistic(statistic);
-                }else{
-                    Statistic newStatistic = new Statistic();
-                    newStatistic.setDate(booking.getDate());
-                    newStatistic.setTotalBookings(1);
-                    this.statisticService.handleAddStatistic(newStatistic);
-                }
 
                 try {
                     emailService.sendSimpleMessage(currentPatient.get().getEmail(), name, time, doctorName, address,

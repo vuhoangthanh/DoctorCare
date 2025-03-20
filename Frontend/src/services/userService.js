@@ -122,6 +122,10 @@ const postSendRemedy = (data) => {
 const register = (data) => {
     return axios.post(`/api/v1/register`, data)
 }
+
+const getAllStatistic = () => {
+    return axios.get(`/api/v1/statistics`)
+}
 export {
     handleLoginApi,
     getAllUsers,
@@ -155,5 +159,6 @@ export {
     putSpecialty,
     register,
     getAllPatientForDate,
-    deleteBooking
+    deleteBooking,
+    getAllStatistic
 }

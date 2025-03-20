@@ -16,7 +16,8 @@ public class Statistic {
     private int completedBookings;
     private int totalBookings;
     private int cancelledBookings;
-    private double revenue;
+    private double revenueVi;
+    private double revenueEn;
 
     private Instant createdAt;
     private Instant updatedAt;
@@ -79,12 +80,20 @@ public class Statistic {
         this.cancelledBookings = cancelledBookings;
     }
 
-    public double getRevenue() {
-        return revenue;
+    public double getRevenueVi() {
+        return revenueVi;
     }
 
-    public void setRevenue(double revenue) {
-        this.revenue = revenue;
+    public void setRevenueVi(double revenueVi) {
+        this.revenueVi = revenueVi;
+    }
+
+    public double getRevenueEn() {
+        return revenueEn;
+    }
+
+    public void setRevenueEn(double revenueEn) {
+        this.revenueEn = revenueEn;
     }
 
     public Instant getCreatedAt() {

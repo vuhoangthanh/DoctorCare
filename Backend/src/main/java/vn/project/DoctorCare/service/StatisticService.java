@@ -69,16 +69,17 @@ public class StatisticService {
              statistic.setCompletedBookings(reqStatistic.getCompletedBookings());
              statistic.setCancelledBookings(reqStatistic.getCancelledBookings());
              statistic.setTotalBookings(reqStatistic.getTotalBookings());
-             statistic.setRevenue(reqStatistic.getRevenue());
+             statistic.setRevenueVi(reqStatistic.getRevenueVi());
+             statistic.setRevenueEn(reqStatistic.getRevenueEn());
              statistic.setCreatedAt(reqStatistic.getCreatedAt());
              statistic.setDate(reqStatistic.getDate());
              statistic.setCreatedBy(reqStatistic.getCreatedBy());
              statistic.setUpdatedAt(reqStatistic.getUpdatedAt());
              statistic.setUpdatedBy(reqStatistic.getUpdatedBy());
 
-             this.handleUpdateStatistic(statistic);
-            return this.statisticRepository.save(statistic);
+            this.statisticRepository.save(statistic);
+            return statistic;
         }
-        return this.statisticRepository.save(statistic);
+        return statistic;
     }
 }

@@ -23,6 +23,7 @@
     },
     "menu": {
         "admin": {
+            "dashboard": "Dashboard",
             "manage-user": "User",
             "manage-doctor": "Mange doctors",
             "manage-admin": "Manage admin",

@@ -8,6 +8,7 @@ import ManageDoctor from '../containers/System/Admin/ManageDoctor';
 import ManageSpecialty from '../containers/System/Specialty/ManageSpecialty';
 import ManageClinic from '../containers/System/Clinic/ManageClinic';
 import ManagePatient from '../containers/System/Admin/ManagePatient';
+import Dashboard from '../containers/System/Admin/Dashboard';
 
 class System extends Component {
     render() {
@@ -20,6 +21,8 @@ class System extends Component {
                     <div className="system-list">
                         <Switch>
                             {/* <Route path="/system/user-manage" component={UserManage} /> */}
+
+                            <Route path="/system/dashboard" component={Dashboard} />
                             <Route path="/system/user-redux" component={UserRedux} />
                             <Route path="/system/manage-doctor" component={ManageDoctor} />
                             <Route path="/system/manage-specialty" component={ManageSpecialty} />

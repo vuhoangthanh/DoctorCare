@@ -16,6 +16,7 @@ import vn.project.DoctorCare.domain.request.ReqEmailRemedyDTO;
 import vn.project.DoctorCare.domain.request.ReqPatientBookingDTO;
 import vn.project.DoctorCare.domain.response.ResBookingByDoctorDTO;
 import vn.project.DoctorCare.domain.response.ResBookingDTO;
+import vn.project.DoctorCare.domain.response.ResDoctorDetailDTO;
 import vn.project.DoctorCare.repository.BookingRepository;
 import vn.project.DoctorCare.util.constant.Constant;
 
@@ -25,19 +26,21 @@ public class BookingService {
     private final BookingRepository bookingRepository;
     private final EmailService emailService;
     private final StatisticService statisticService;
+    private final DoctorService doctorService;
 
-    public BookingService(BookingRepository bookingRepository, EmailService emailService, StatisticService statisticService) {
+    public BookingService(BookingRepository bookingRepository, EmailService emailService, StatisticService statisticService, DoctorService doctorService) {
         this.bookingRepository = bookingRepository;
         this.emailService = emailService;
         this.statisticService = statisticService;
+        this.doctorService = doctorService;
     }
 
     public Booking handleAddBooking(ReqPatientBookingDTO reqPatientBookingDTO) {
 
-        Optional<Booking> currentBooking = this.bookingRepository.findById(reqPatientBookingDTO.getPatientId());
-        if (currentBooking.isPresent()) {
-            return currentBooking.get();
-        }
+//        Optional<Booking> currentBooking = this.bookingRepository.findById(reqPatientBookingDTO.getPatientId());
+//        if (currentBooking.isPresent()) {
+//            return currentBooking.get();
+//        }
 
         Booking reqBooking = new Booking();
         reqBooking.setStatusId(Constant.STATUS_NEW);
@@ -93,6 +96,19 @@ public class BookingService {
         if (booking.isPresent()) {
             booking.get().setStatusId(Constant.STATUS_CONFIRMED);
             Booking resBooking = booking.get();
+
+            Statistic statistic = this.statisticService.fetchStatisticByDate(booking.get().getDate());
+
+            if(statistic != null){
+                statistic.setTotalBookings(statistic.getTotalBookings() + 1);
+                this.statisticService.handleUpdateStatistic(statistic);
+            }else{
+                Statistic newStatistic = new Statistic();
+                newStatistic.setDate(booking.get().getDate());
+                newStatistic.setTotalBookings(1);
+                this.statisticService.handleAddStatistic(newStatistic);
+            }
+
             return this.bookingRepository.save(resBooking);
         }
 
@@ -178,9 +194,9 @@ public class BookingService {
 
 
 
-    public Booking fetchBookingForRemedy(long doctorId, long patientId, String timeType) {
-        Optional<Booking> booking = this.bookingRepository.findByDoctorIdAndPatientIdAndTimeTypeAndStatusId(doctorId,
-                patientId, timeType, Constant.STATUS_CONFIRMED);
+    public Booking fetchBookingForRemedy(long doctorId, long patientId, String timeType,String date) {
+        Optional<Booking> booking = this.bookingRepository.findByDoctorIdAndPatientIdAndTimeTypeAndStatusIdAndDate(doctorId,
+                patientId, timeType, Constant.STATUS_CONFIRMED, date);
         if (booking.isPresent()) {
 
             return booking.get();
@@ -191,7 +207,7 @@ public class BookingService {
     public ResBookingDTO handleUpdateDoneBooking(ReqBookingRemedyDTO reqBookingRemedyDTO,
             ReqEmailRemedyDTO reqEmailRemedyDTO) {
         Booking booking = this.fetchBookingForRemedy(reqBookingRemedyDTO.getDoctorId(),
-                reqBookingRemedyDTO.getPatientId(), reqBookingRemedyDTO.getTimeType());
+                reqBookingRemedyDTO.getPatientId(), reqBookingRemedyDTO.getTimeType(), reqBookingRemedyDTO.getDate());
 
         if (booking != null) {
 
@@ -203,6 +219,22 @@ public class BookingService {
                     currentBooking.getTimeType(),
                     currentBooking.getToken(), currentBooking.getCreatedAt(), currentBooking.getUpdatedAt(),
                     currentBooking.getCreatedBy(), currentBooking.getUpdatedBy());
+
+            Statistic statistic = this.statisticService.fetchStatisticByDate(booking.getDate());
+            if(statistic != null){
+                ResDoctorDetailDTO resDoctorDetailDTO = this.doctorService.fetchDetailDoctorById(booking.getDoctorId());
+
+                statistic.setRevenueVi(statistic.getRevenueVi() + Double.parseDouble(resDoctorDetailDTO.getDoctorInfo().getPriceTypeData().getValueVi()));
+                statistic.setRevenueEn(statistic.getRevenueEn() + Double.parseDouble(resDoctorDetailDTO.getDoctorInfo().getPriceTypeData().getValueEn()));
+                statistic.setCompletedBookings(statistic.getCompletedBookings() + 1);
+                this.statisticService.handleUpdateStatistic(statistic);
+            }else{
+                Statistic newStatistic = new Statistic();
+                newStatistic.setCompletedBookings(1);
+                newStatistic.setDate(booking.getDate());
+
+                this.statisticService.handleAddStatistic(newStatistic);
+            }
 
             try {
                 this.emailService.sendRemedyMessage(reqEmailRemedyDTO.getEmail(), reqEmailRemedyDTO.getImgBase64(),

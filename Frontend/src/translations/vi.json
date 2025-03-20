@@ -23,6 +23,7 @@
     },
     "menu": {
         "admin": {
+            "dashboard": "Trang chủ",
             "manage-user": "Người dùng",
             "manage-doctor": "Quản lý bác sĩ",
             "manage-admin": "Quản lý admin",
