@@ -25,14 +25,17 @@ class ManageDoctor extends Component {
             result: {},
 
             page: '',
-            size: ''
+            size: '',
+            filter: ''
         }
     }
 
     componentDidMount() {
         this.props.fetchAllDoctorsRedux({
             page: this.state.page,
-            size: this.state.size
+            size: this.state.size,
+            filterName: this.state.filter,
+            filterPosition: this.state.filter
         });
         this.props.fetchAllScheduleTimeRedux();
         this.handleGetTimeByDoctorAndDate(this.state.listDoctors);
@@ -171,7 +174,6 @@ class ManageDoctor extends Component {
     }
     handleGetTimeByDoctorAndDate = async (doctors) => {
         // await this.props.fetchAllDoctorsRedux();
-        console.log("ds", this.state.currentDateSearch)
         let formattedDate = new Date(this.state.currentDateSearch).getTime();
         let result = []
         if (doctors && doctors.length > 0) {

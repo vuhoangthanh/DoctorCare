@@ -13,6 +13,7 @@ import { getAllCodeService, getClinicById, getAllDoctorService } from '../../../
 import _ from 'lodash';
 import { LANGUAGES } from '../../../utils';
 import Pagination from '../../System/Pagination/Pagination';
+import { injectIntl } from "react-intl";
 
 class AllDoctor extends Component {
     constructor(props) {
@@ -25,29 +26,32 @@ class AllDoctor extends Component {
             doctors: [],
             pageCount: 2,
 
-            arrDoctorId: []
+            arrDoctorId: [],
+            name: '',
+            filterName: '',
+            filterPosition: '',
+            selectedPosition: 'P0'
         }
     }
     async componentDidMount() {
-        this.handleGetClinics({
+        this.handleGetDoctors({
             page: this.state.page,
             size: this.state.size,
-            filterName: this.state.filter,
-            filterAddress: this.state.filter
+            filterName: this.state.filterName,
+            filterAddress: this.state.filterPosition
         })
     }
 
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
-
     }
 
-    async handleGetClinics(data) {
+    async handleGetDoctors(data) {
         let response = await getAllDoctorService({
             page: data.page,
             size: data.size,
-            filterName: this.state.filter,
-            filterAddress: this.state.filter
+            filterName: data.filterName,
+            filterPosition: this.state.filterPosition
         })
         console.log(response)
 
@@ -76,16 +80,64 @@ class AllDoctor extends Component {
         this.setState({
             page: +event.selected + 1
         })
-        await this.handleGetClinics({
+        await this.handleGetDoctors({
             page: +event.selected + 1 ? +event.selected + 1 : this.state.page,
             size: this.state.size,
-            filterName: this.state.filter,
+            filterName: this.state.filterName,
             filterAddress: this.state.filter
         });
     };
+
+    handleOnchangeInput = (event, id) => {
+
+        let copyState = { ...this.state };
+        copyState[id] = event.target.value;
+
+        this.setState({
+            ...copyState
+        });
+        console.log("gmm", this.state.name)
+    }
+
+    handleSearchDoctor = () => {
+        this.setState({
+            filterName: this.state.name,
+            filterPosition: this.state.selectedPosition
+        }, async () => {
+            await this.handleGetDoctors({
+                page: this.state.page,
+                size: this.state.size,
+                filterName: this.state.filterName,
+                filterPosition: this.state.filterPosition
+            });
+        })
+
+    }
+    handleOnChangeSelected = (event) => {
+        this.setState({
+            selectedPosition: event.target.value
+        })
+    }
+
+
+    handleRefreshAllDoctor = () => {
+        this.setState({
+            filterName: '',
+            filterPosition: '',
+            name: ''
+        }, async () => {
+            await this.handleGetDoctors({
+                page: this.state.page,
+                size: this.state.size,
+                filterName: this.state.filterName,
+                filterPosition: this.state.filterPosition
+            });
+        })
+    }
     render() {
         let { language } = this.props;
         let { doctors, pageCount, arrDoctorId } = this.state;
+        const { intl } = this.props;
         return (
             <div className="all-doctor-container">
                 <HomeHeader />
@@ -103,10 +155,24 @@ class AllDoctor extends Component {
 
                 <div className="all-doctor-body">
                     <div className="col-12 filter-clinic">
-                        <input type="text" placeholder="Nhập thông tin..." />
-                        <button >Tìm kiếm</button>
+                        <select className="select-position" onChange={(event) => { this.handleOnChangeSelected(event) }}>
+                            <option className="option" value="P0">{language === LANGUAGES.VI ? "Bác sĩ" : "Doctor"}</option>
+                            <option className="option" value="P1">{language === LANGUAGES.VI ? "Thạc sĩ" : "Master of Science"}</option>
+                            <option className="option" value="P2">{language === LANGUAGES.VI ? "Tiến sĩ" : "Doctor of Philosophy"}</option>
+                            <option className="option" value="P3">{language === LANGUAGES.VI ? "Phó giao sư" : "Associate Professor"}</option>
+                            <option className="option" value="P4">{language === LANGUAGES.VI ? "Giáo sư" : "Professor"}</option>
+                        </select>
+                        <input
+                            type="text"
+                            placeholder="Nhập thông tin..."
+                            onChange={(event) => { this.handleOnchangeInput(event, "name") }}
+                            value={this.state.name}
+                        />
+                        <button onClick={() => this.handleSearchDoctor()}>Tìm kiếm</button>
+                        <button className="refresh-all-doctor" onClick={() => this.handleRefreshAllDoctor()}>Làm mới</button>
+
                     </div>
-                    {arrDoctorId && arrDoctorId.length > 0 &&
+                    {arrDoctorId && arrDoctorId.length > 0 ?
                         arrDoctorId.map((item, index) => {
                             return (
                                 <div className="each-doctor" key={index}>
@@ -136,6 +202,8 @@ class AllDoctor extends Component {
                                 </div>
                             )
                         })
+                        :
+                        "Không tìm thấy bác sĩ nào"
                     }
                 </div>
             </div >

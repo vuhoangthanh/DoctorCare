@@ -19,15 +19,20 @@ class Clinic extends Component {
             size: 4,
             filter: '',
             clinics: [],
-            pageCount: 2
+            pageCount: 2,
+
+            address: '',
+            name: '',
+            filterName: '',
+            filterAddress: '',
         }
     }
     async componentDidMount() {
         this.handleGetClinics({
             page: this.state.page,
             size: this.state.size,
-            filterName: this.state.filter,
-            filterAddress: this.state.filter
+            filterName: this.state.filterName,
+            filterAddress: this.state.filterAddress
         })
     }
 
@@ -40,8 +45,8 @@ class Clinic extends Component {
         let response = await getAllClinic({
             page: data.page,
             size: data.size,
-            filterName: this.state.filter,
-            filterAddress: this.state.filter
+            filterName: data.filterName,
+            filterAddress: data.filterAddress
         })
 
         if (response && response.error === null) {
@@ -58,15 +63,53 @@ class Clinic extends Component {
         await this.handleGetClinics({
             page: +event.selected + 1 ? +event.selected + 1 : this.state.page,
             size: this.state.size,
-            filterName: this.state.filter,
-            filterAddress: this.state.filter
+            filterName: this.state.filterName,
+            filterAddress: this.state.filterAddress
         });
     };
+    handleOnchangeInput = (event, id) => {
 
+        let copyState = { ...this.state };
+        copyState[id] = event.target.value;
+
+        this.setState({
+            ...copyState
+        });
+
+    }
+
+    handleSearchClinic = () => {
+        this.setState({
+            filterName: this.state.name,
+            filterAddress: this.state.address,
+            // filterPosition: this.state.selectedPosition
+        }, async () => {
+            await this.handleGetClinics({
+                page: this.state.page,
+                size: this.state.size,
+                filterName: this.state.filterName,
+                filterAddress: this.state.filterAddress
+            });
+        })
+    }
+    handleRefreshClinic = () => {
+        this.setState({
+            filterName: '',
+            filterAddress: '',
+            name: '',
+            address: ''
+        }, async () => {
+            await this.handleGetClinics({
+                page: this.state.page,
+                size: this.state.size,
+                filterName: this.state.filterName,
+                filterAddress: this.state.filterAddress
+            });
+        })
+    }
     render() {
         let { language } = this.props;
         let { clinics, pageCount } = this.state;
-        console.log("sf", clinics, pageCount)
         return (
             <>
                 <HomeHeader isShowBanner={false} />
@@ -87,8 +130,19 @@ class Clinic extends Component {
                         <div className="container father-clinic">
                             <div className="row">
                                 <div className="col-12 filter-clinic">
-                                    <input type="text" placeholder="Nhập thông tin..." />
-                                    <button >Tìm kiếm</button>
+                                    <span>Địa chỉ</span>
+                                    <input type="text" placeholder="Nhập thông tin..."
+                                        onChange={(event) => { this.handleOnchangeInput(event, "address") }}
+                                        value={this.state.address}
+                                    />
+                                    <span>Tên cơ sở y tế</span>
+                                    <input type="text" placeholder="Nhập thông tin..."
+                                        onChange={(event) => { this.handleOnchangeInput(event, "name") }}
+                                        value={this.state.name}
+                                    />
+                                    <button onClick={() => this.handleSearchClinic()}>Tìm kiếm</button>
+                                    <button className="refresh-clinic" onClick={() => this.handleRefreshClinic()}>Làm mới</button>
+
                                 </div>
                             </div>
                             <div className="row list-clinic">

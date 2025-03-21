@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.boot.actuate.autoconfigure.metrics.SystemMetricsAutoConfiguration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,9 +21,11 @@ import vn.project.DoctorCare.repository.DoctorRepository;
 @Service
 public class DoctorService {
     private final DoctorRepository doctorRepository;
+    private final SystemMetricsAutoConfiguration systemMetricsAutoConfiguration;
 
-    public DoctorService(DoctorRepository doctorRepository) {
+    public DoctorService(DoctorRepository doctorRepository, SystemMetricsAutoConfiguration systemMetricsAutoConfiguration) {
         this.doctorRepository = doctorRepository;
+        this.systemMetricsAutoConfiguration = systemMetricsAutoConfiguration;
     }
 
     public List<ResTopDoctorsDTO> fetchTopDoctors(int limit) {
@@ -52,7 +55,6 @@ public class DoctorService {
 
         resultPaginationDTO.setMeta(meta);
 
-//        List<User> users = this.doctorRepository.findAllByRoleId("R2");
 
         List<ResDoctorDTO> listResDoctorDTOs = new ArrayList<ResDoctorDTO>();
         for (User user : listDoctor) {

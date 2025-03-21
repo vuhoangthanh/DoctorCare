@@ -38,7 +38,10 @@ class ProfileDoctor extends Component {
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.props.doctorId !== prevProps.doctorId) {
-            this.getInfoDoctor(this.props.doctorId)
+            let data = await this.getInfoDoctor(this.props.doctorId)
+            this.setState({
+                dataProfile: data
+            })
         }
 
     }
@@ -66,6 +69,7 @@ class ProfileDoctor extends Component {
     render() {
         let { language, isShowDescriptionDoctor, dataTime, isShowPrice, isShowLinkDetail, doctorId } = this.props;
         let { dataProfile } = this.state;
+
 
         let nameVi = '', nameEn = '';
         if (dataProfile && dataProfile.positionData) {

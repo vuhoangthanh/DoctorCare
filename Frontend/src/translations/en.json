@@ -28,7 +28,7 @@
             "manage-doctor": "Mange doctors",
             "manage-admin": "Manage admin",
             "crud": "CRUD user",
-            "crud-redux": "CRUD Redux",
+            "crud-redux": "Manage user",
             "clinic": "Clinics",
             "manage-clinic": "Manage clinics",
             "specialty": "Specialties",
@@ -126,6 +126,13 @@
             "btn-cancel": "Cancel",
             "freeBooking": "Free appointment",
             "price": "Examination price: "
+        },
+        "all-doctor": {
+            "doctor": "Doctor",
+            "master": "Master of Science",
+            "doctor-philosophy": "Doctor of Philosophy",
+            "associate-professor": "Associate Professor",
+            "professor": "Professor"
         }
     },
     "admin": {

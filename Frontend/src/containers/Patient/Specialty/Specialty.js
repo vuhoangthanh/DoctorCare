@@ -19,14 +19,18 @@ class Specialty extends Component {
             size: 4,
             filter: '',
             specialties: [],
-            pageCount: 2
+            pageCount: 2,
+
+            name: '',
+            filterName: ''
         }
     }
     async componentDidMount() {
         this.handleGetSpecialties({
             page: this.state.page,
             size: this.state.size,
-            filterName: this.state.filter
+            filterName: this.state.filterName
+
         })
     }
 
@@ -39,7 +43,7 @@ class Specialty extends Component {
         let response = await getAllSpecialty({
             page: data.page,
             size: data.size,
-            filterName: this.state.filter
+            filterName: data.filterName
         })
 
         if (response && response.error === null) {
@@ -57,10 +61,43 @@ class Specialty extends Component {
         this.handleGetSpecialties({
             page: +event.selected + 1 ? +event.selected + 1 : this.state.page,
             size: this.state.size,
-            filterName: this.state.filter
+            filterName: this.state.filterName
         });
     };
+    handleOnchangeInput = (event, id) => {
 
+        let copyState = { ...this.state };
+        copyState[id] = event.target.value;
+
+        this.setState({
+            ...copyState
+        });
+
+    }
+
+    handleSearchSpecialty = () => {
+        this.setState({
+            filterName: this.state.name,
+        }, async () => {
+            await this.handleGetSpecialties({
+                page: this.state.page,
+                size: this.state.size,
+                filterName: this.state.filterName
+            });
+        })
+    }
+    handleRefreshSpecialty = () => {
+        this.setState({
+            filterName: '',
+            name: ''
+        }, async () => {
+            await this.handleGetSpecialties({
+                page: this.state.page,
+                size: this.state.size,
+                filterName: this.state.filterName
+            });
+        })
+    }
     render() {
         let { language } = this.props;
         let { specialties, pageCount } = this.state;
@@ -85,8 +122,11 @@ class Specialty extends Component {
                         <div className="container father-specialty">
                             <div className="row">
                                 <div className="col-12 filter-specialty">
-                                    <input type="text" placeholder="Nhập thông tin..." />
-                                    <button >Tìm kiếm</button>
+                                    <input type="text" placeholder="Nhập thông tin..."
+                                        onChange={(event) => { this.handleOnchangeInput(event, "name") }}
+                                        value={this.state.name} />
+                                    <button onClick={() => this.handleSearchSpecialty()}>Tìm kiếm</button>
+                                    <button className="refresh-specialty" onClick={() => this.handleRefreshSpecialty()}>Làm mới</button>
                                 </div>
                             </div>
                             <div className="row list-specialty">

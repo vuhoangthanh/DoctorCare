@@ -58,7 +58,9 @@ class ManageDoctor extends Component {
     componentDidMount() {
         this.props.fetchAllDoctorsRedux({
             page: this.state.page,
-            size: this.state.size
+            size: this.state.size,
+            filterName: this.state.filter,
+            filterPosition: this.state.filter
         });
         this.props.getRequiredDoctorInfo({
             page: this.state.page,
@@ -160,9 +162,7 @@ class ManageDoctor extends Component {
                     addressClinic: this.state.addressClinic,
                     note: this.state.note,
                     clinicId: this.state.selectedClinic && this.state.selectedClinic.value ? this.state.selectedClinic.value : '',
-                    specialtyId: this.state.selectedSpecialty.value,
-                }, () => {
-                    console.log("clinic", this.state.selectedClinic)
+                    specialtyId: this.state.selectedSpecialty && this.state.selectedSpecialty.value ? this.state.selectedSpecialty.value : '',
                 });
             }
         }

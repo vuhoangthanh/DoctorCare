@@ -37,7 +37,7 @@ const getTopDoctorService = (limit) => {
     return axios.get(`/api/v1/top-doctors?limit=${limit}`)
 }
 const getAllDoctorService = (data) => {
-    return axios.get(`/api/v1/doctors?page=${data.page}&size=${data.size}`)
+    return axios.get(`/api/v1/doctors?page=${data.page}&size=${data.size}&filter=firstName~ '${data.filterName}' and positionId ~'${data.filterPosition}'`)
 }
 const saveDetailDoctorService = (data) => {
     return axios.post(`/api/v1/doctors-infor`, data)

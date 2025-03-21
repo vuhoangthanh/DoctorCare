@@ -93,6 +93,12 @@
                     &:hover {
                         opacity: 0.7;
                     }
+
+                    &.refresh-specialty {
+                        background-color: white;
+                        border          : 1px solid #dee2e6;
+                        color           : black;
+                    }
                 }
 
                 input {

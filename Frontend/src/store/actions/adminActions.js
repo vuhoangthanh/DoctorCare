@@ -260,7 +260,10 @@ export const fetchAllDoctors = (data) => {
         try {
             let response = await getAllDoctorService({
                 page: data.page,
-                size: data.size
+                size: data.size,
+                filterName: data.filterName,
+                filterPosition: data.filterPosition
+
             });
 
             if (response && response.error === null) {
