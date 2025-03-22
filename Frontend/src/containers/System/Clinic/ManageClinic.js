@@ -230,7 +230,6 @@ class ManageClinic extends Component {
                                 <div className="title-table"><span>Danh sách phòng khám</span></div>
                             </div>
                             <div className="col-6 line-add">
-
                                 <div className="btn-show-modal-add">
                                     <button
                                         onClick={() => this.handleShowModal()}><i className="fas fa-plus"></i>Thêm
@@ -241,7 +240,7 @@ class ManageClinic extends Component {
                                 </div>
                             </div>
 
-                            <div className="12">
+                            <div className="col-12">
                                 <table className="table table-bordered table-hover  table-rounded">
                                     <thead className="table-light">
                                         <tr>

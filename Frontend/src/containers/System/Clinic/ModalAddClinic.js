@@ -134,7 +134,6 @@ class ModalAddClinic extends Component {
                                     />
                                 </div>
                             </div>
-
                         </div>
                     </ModalBody>
                     <ModalFooter className="modal-footer">

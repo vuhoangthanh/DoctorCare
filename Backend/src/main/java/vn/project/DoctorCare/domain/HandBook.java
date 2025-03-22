@@ -1,35 +1,40 @@
 package vn.project.DoctorCare.domain;
 
-import java.time.Instant;
-import java.util.List;
-
 import jakarta.persistence.*;
 import vn.project.DoctorCare.util.SecurityUtil;
 
+import java.time.Instant;
+
 @Entity
-@Table(name = "specialties")
-public class Specialty {
+@Table(name = "handbooks")
+public class HandBook {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String name;
+
+    @Column(columnDefinition = "MEDIUMTEXT")
+    private String title;
 
     @Column(columnDefinition = "LONGBLOB")
-    private String image;
+    private String thumbnail;
 
     @Column(columnDefinition = "LONGTEXT")
-    private String descriptionHtml;
+    private String contentMarkdown;
 
     @Column(columnDefinition = "LONGTEXT")
-    private String descriptionMarkdown;
+    private String contentHtml;
+
+    private long specialtyId;
 
     private Instant createdAt;
     private Instant updatedAt;
     private String createdBy;
     private String updatedBy;
 
-    @OneToMany(mappedBy = "specialtyData")
-    private List<HandBook> handBooksBySpecialty;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "specialtyId", referencedColumnName = "id", insertable = false, updatable = false)
+    private Specialty specialtyData;
 
     @PrePersist
     public void handleBeforeCreateAt() {
@@ -55,36 +60,44 @@ public class Specialty {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getImage() {
-        return image;
+    public String getThumbnail() {
+        return thumbnail;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 
-    public String getDescriptionHtml() {
-        return descriptionHtml;
+    public String getContentMarkdown() {
+        return contentMarkdown;
     }
 
-    public void setDescriptionHtml(String descriptionHtml) {
-        this.descriptionHtml = descriptionHtml;
+    public void setContentMarkdown(String contentMarkdown) {
+        this.contentMarkdown = contentMarkdown;
     }
 
-    public String getDescriptionMarkdown() {
-        return descriptionMarkdown;
+    public String getContentHtml() {
+        return contentHtml;
     }
 
-    public void setDescriptionMarkdown(String descriptionMarkdown) {
-        this.descriptionMarkdown = descriptionMarkdown;
+    public void setContentHtml(String contentHtml) {
+        this.contentHtml = contentHtml;
+    }
+
+    public long getSpecialtyId() {
+        return specialtyId;
+    }
+
+    public void setSpecialtyId(long specialtyId) {
+        this.specialtyId = specialtyId;
     }
 
     public Instant getCreatedAt() {
@@ -119,4 +132,11 @@ public class Specialty {
         this.updatedBy = updatedBy;
     }
 
+    public Specialty getSpecialtyData() {
+        return specialtyData;
+    }
+
+    public void setSpecialtyData(Specialty specialtyData) {
+        this.specialtyData = specialtyData;
+    }
 }

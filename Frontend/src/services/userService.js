@@ -126,6 +126,19 @@ const register = (data) => {
 const getAllStatistic = () => {
     return axios.get(`/api/v1/statistics`)
 }
+
+const getAllHandBook = (data) => {
+    return axios.get(`/api/v1/handbooks?page=${data.page}&size=${data.size}&filter=title ~ '${data.filterTitle}' and specialtyData.name~ '${data.filterSpecialty}'`)
+}
+const postHandBook = (data) => {
+    return axios.post(`/api/v1/handbooks`, data)
+}
+const deleteHandBook = (data) => {
+    return axios.delete(`/api/v1/handbooks?id=${data.id}`)
+}
+const putHandBook = (data) => {
+    return axios.put(`/api/v1/handbooks`, data)
+}
 export {
     handleLoginApi,
     getAllUsers,
@@ -160,5 +173,9 @@ export {
     register,
     getAllPatientForDate,
     deleteBooking,
-    getAllStatistic
+    getAllStatistic,
+    getAllHandBook,
+    postHandBook,
+    deleteHandBook,
+    putHandBook
 }

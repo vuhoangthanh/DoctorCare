@@ -84,7 +84,10 @@ public class SecurityConfiguration {
                                 "/api/v1/date-bookings",
 
                                 //statistic
-                                "/api/v1/statistics"
+                                "/api/v1/statistics",
+
+                                //handbooks
+                                "/api/v1/handbooks"
                 };
                 http
                                 .csrf(c -> c.disable())

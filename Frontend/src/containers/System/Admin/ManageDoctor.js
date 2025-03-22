@@ -54,7 +54,7 @@ class ManageDoctor extends Component {
 
         }
     }
-
+    buildDataInputSelect
     componentDidMount() {
         this.props.fetchAllDoctorsRedux({
             page: this.state.page,
@@ -77,7 +77,6 @@ class ManageDoctor extends Component {
             this.setState({
                 listDoctors: dataSelect
             })
-            console.log("listhos", this.state.lisDoctors)
         }
 
         if (prevProps.allRequiredDoctorInfo !== this.props.allRequiredDoctorInfo) {

@@ -149,6 +149,21 @@
             "note": "Ghi chú",
             "specialty": "Chọn chuyên khoa",
             "clinic": "Phòng khám"
+        },
+        "hand-book": {
+            "title-all": "Quản lý cẩm nang",
+            "title-table": "Danh sách cẩm nang",
+            "no": "Stt",
+            "created-at": "Ngày tạo",
+            "create-by": "Người tạo",
+            "title": "Tiêu đề",
+            "thumbnail": "Hình ảnh",
+            "specialty": "Chuyên khoa",
+            "btn-add": "Lưu",
+            "btn-close": "Đóng",
+            "btn-edit": "Cập nhật",
+            "actions": "Hành động",
+            "btn-add-outside": "Thêm mới"
         }
     }
 }

@@ -73,7 +73,7 @@
         "clinic": "Healthcare Facilities",
         "text-extra-clinic": "A modern healthcare system with advanced equipment and dedicated specialists, ready to provide high-quality medical services. Easily find the nearest facility for convenient consultations and treatment.",
         "modern": " Modern ",
-        "text-extra-doctor": "Our team of experienced and dedicated doctors is always ready to listen and provide professional consultation. With extensive expertise and a strong commitment to healthcare, our doctors ensure high-quality medical services, giving you peace of mind during your examination and treatment.s"
+        "text-extra-doctor": "Our team of experienced and dedicated doctors is always ready to listen and provide professional consultation. With extensive expertise and a strong commitment to healthcare, our doctors ensure high-quality medical services, giving you peace of mind during your examination and treatments."
     },
     "manage-schedule": {
         "title": "Manage doctor's examination plan",
@@ -150,6 +150,21 @@
             "note": "Note",
             "specialty": "Specialty",
             "clinic": "Clinic"
+        },
+        "hand-book": {
+            "title-all": "Manage HandBook",
+            "title-table": "Handbook list",
+            "no": "No",
+            "created-at": "Created at",
+            "create-by": "Author",
+            "title": "Title",
+            "thumbnail": "Thumbnail",
+            "specialty": "Specialty",
+            "btn-add": "Save",
+            "btn-close": "Close",
+            "btn-edit": "Update",
+            "actions": "Actions",
+            "btn-add-outside": "Add new"
         }
     }
 }
