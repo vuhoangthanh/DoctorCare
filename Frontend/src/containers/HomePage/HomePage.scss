@@ -67,6 +67,60 @@
 
     .section-body {
 
+        .card {
+            margin-top   : 10px;
+            border-radius: 20px;
+            overflow     : hidden;
+            cursor       : pointer;
+
+
+            .card-img-top {
+                background-position: center center;
+                background-repeat  : no-repeat;
+                background-size    : cover;
+
+                &.first {
+                    height: 365px;
+                }
+
+                &.second {
+                    border-radius: 15px;
+                    width        : 150px;
+                    height       : 120px;
+                    margin       : 10px 10px 0 0;
+                }
+            }
+
+            &.handbook-right {
+                display       : flex;
+                flex-direction: row;
+                height        : 256px;
+            }
+
+            .card-body {
+                font-family: Mulish, sans-serif;
+
+                .card-title {
+                    font-size  : 21px;
+                    font-weight: 700;
+                    margin     : 10px 0 15px 0;
+                }
+
+                .name-specialty {
+                    font-size: 16px;
+
+                }
+
+                .author {
+                    font-size: 13px;
+
+                    span {
+                        color: #06adef
+                    }
+                }
+            }
+        }
+
         .section-customize {
             padding  : 5px;
             cursor   : pointer;
@@ -197,6 +251,15 @@
                     text-align: center;
                     padding   : 0 10vw;
                 }
+
+                &.handbook {
+                    color      : #788291;
+                    font-family: Noto Sans, sans-serif;
+                    font-size  : 16px;
+                    font-weight: 400;
+
+                    padding: 0 10vw;
+                }
             }
         }
 
@@ -238,6 +301,8 @@
 
                     }
                 }
+
+
             }
 
             .btn-more1 {

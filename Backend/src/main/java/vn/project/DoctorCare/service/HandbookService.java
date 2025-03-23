@@ -56,13 +56,12 @@ public class HandbookService {
 
             listResHandBookDTOS.add(resHandBookDTO);
         }
-
         resultPaginationDTO.setResult(listResHandBookDTOS);
 
         return resultPaginationDTO;
     }
 
-    public HandBook fetchBookingById(Long id) {
+    public HandBook fetchHandBookById(Long id) {
         Optional<HandBook> handBook = this.handbookRepository.findById(id);
         if(handBook.isPresent()) {
             return handBook.get();
@@ -75,7 +74,7 @@ public class HandbookService {
     }
 
     public HandBook handleUpdateBooking(HandBook reqHandBook) {
-        HandBook handBook = this.fetchBookingById(reqHandBook.getId());
+        HandBook handBook = this.fetchHandBookById(reqHandBook.getId());
         if(handBook != null) {
             handBook.setContentHtml(reqHandBook.getContentHtml());
             handBook.setTitle(reqHandBook.getTitle());
@@ -88,7 +87,14 @@ public class HandbookService {
         return handBook;
     }
 
-    public void handleDeleteBooking(Long id) {
+    public void handleDeleteBooking(long id) {
         this.handbookRepository.deleteById(id);
     }
+
+    public List<HandBook> fetchHandBookBySpecialtyId(long id){
+        List<HandBook> listHandBook = this.handbookRepository.findBySpecialtyId(id);
+
+        return listHandBook;
+    }
+
 }

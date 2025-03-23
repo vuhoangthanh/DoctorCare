@@ -87,7 +87,9 @@ public class SecurityConfiguration {
                                 "/api/v1/statistics",
 
                                 //handbooks
-                                "/api/v1/handbooks"
+                                "/api/v1/handbooks",
+                                "/api/v1/handbook-by-id",
+                                "/api/v1/handbook-by-specialty"
                 };
                 http
                                 .csrf(c -> c.disable())

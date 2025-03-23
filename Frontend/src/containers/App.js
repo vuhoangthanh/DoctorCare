@@ -20,6 +20,9 @@ import Clinic from './Patient/Clinic/Clinic';
 import Specialty from './Patient/Specialty/Specialty';
 import Register from './Auth/Register';
 import AllDoctor from './Patient/Doctor/AllDoctor';
+import HandBook from './Patient/HandBook/HandBook';
+import DetailHandBook from './Patient/HandBook/DetailHandBook'
+
 
 import { CustomToastCloseButton } from '../components/CustomToast';
 import CustomScrollbars from '../components/CustomScrollbars';
@@ -67,10 +70,12 @@ class App extends Component {
                                     <Route path={path.DETAIL_DOCTOR} component={DetailDoctor} />
                                     <Route path={path.DETAIL_SPECIALTY} component={DetailSpecialty} />
                                     <Route path={path.DETAIL_CLINIC} component={DetailClinic} />
+                                    <Route path={path.DETAIL_HANDBOOK} component={DetailHandBook} />
 
                                     <Route path={path.ALL_CLINIC} component={Clinic} />
                                     <Route path={path.ALL_SPECIALty} component={Specialty} />
                                     <Route path={path.ALL_DOCTOR} component={AllDoctor} />
+                                    <Route path={path.ALL_HANDBOOK} component={HandBook} />
 
                                     <Route path={path.VERIFY_EMAIL_BOOKING} component={VerifyEmail} />
 

@@ -12,6 +12,8 @@ import vn.project.DoctorCare.domain.response.ResultPaginationDTO;
 import vn.project.DoctorCare.service.HandbookService;
 import vn.project.DoctorCare.util.annotation.ApiMessage;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1")
 public class HandBookController {
@@ -52,5 +54,20 @@ public class HandBookController {
 
         this.handbookService.handleDeleteBooking(id);
         return ResponseEntity.status(HttpStatus.OK).body(null);
+    }
+
+    @GetMapping("/handbook-by-id")
+    @ApiMessage("fetch handbook by id")
+    public ResponseEntity<HandBook> getHandbookById(@RequestParam("id") long id){
+
+        HandBook handBook =  this.handbookService.fetchHandBookById(id);
+        return ResponseEntity.ok(handBook);
+    }
+    @GetMapping("/handbook-by-specialty")
+    @ApiMessage("fetch handbook by id")
+    public ResponseEntity<List<HandBook>> getHandbookBySpecialtyId(@RequestParam("id") long id){
+
+        List<HandBook> handBooks =  this.handbookService.fetchHandBookBySpecialtyId(id);
+        return ResponseEntity.ok(handBooks);
     }
 }

@@ -1,0 +1,107 @@
+.detail-handbook-container {
+    .link-navigation {
+        padding        : 0 200px !important;
+        display        : flex;
+        justify-content: flex-start;
+        width          : 100vw;
+        margin-top     : 15px;
+
+        i {
+            color: #06adef;
+        }
+
+        .custom-link-navigation {
+            cursor         : pointer;
+            font-family    : Mulish, sans-serif;
+            font-size      : 14px;
+            color          : #06adef;
+            margin-left    : 5px;
+            text-decoration: none;
+            font-weight    : 600;
+
+            &:hover {
+                opacity        : 0.9;
+                text-decoration: underline;
+            }
+        }
+
+        span {
+            font-family    : Mulish, sans-serif;
+            font-size      : 14px;
+            color          : #06adef;
+            margin-left    : 5px;
+            text-decoration: none;
+            font-weight    : 600;
+        }
+    }
+
+    .detail-handbook-body {
+        padding: 30px 100px;
+
+        .handbook-main {
+            display        : flex;
+            flex-direction : column;
+            justify-content: flex-start;
+            align-items    : flex-start;
+
+            .title {
+                display        : flex;
+                justify-content: flex-start;
+                text-align     : start;
+                font-size      : 22px;
+                color          : black;
+            }
+
+            .author {
+                font-size: 12px;
+                margin   : 10px 0 20px 0;
+            }
+        }
+
+        .handbook-relate {
+            padding: 20px 0;
+
+            .title-relate {}
+
+            .list-handbook-relate {
+                display       : flex;
+                flex-direction: column;
+                gap           : 20px;
+
+                .handbook {
+                    border       : 1px solid #dee2e6;
+                    border-radius: 10px;
+                    overflow     : hidden;
+                    cursor       : pointer;
+
+                    .img-handbook {
+                        height             : 170px;
+                        background-position: center center;
+                        background-repeat  : no-repeat;
+                        background-size    : cover;
+
+                    }
+
+                    .handbook-body {
+                        padding: 5px 5px 5px 5px;
+
+                        .title-handbook {
+                            font-size  : 15px;
+                            font-weight: bold;
+                            height     : 80px;
+                            overflow   : hidden;
+                        }
+
+                        .author {
+                            span {
+                                font-size: 12px;
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+}

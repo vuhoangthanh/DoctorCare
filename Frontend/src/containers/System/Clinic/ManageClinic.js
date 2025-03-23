@@ -180,7 +180,6 @@ class ManageClinic extends Component {
         }, () => {
             this.handleCallClinic();
         })
-
     }
 
     render() {
@@ -222,6 +221,7 @@ class ManageClinic extends Component {
                                 <button
                                     onClick={() => this.handleSearch()}>Tìm kiếm
                                 </button>
+
 
                             </div>
                         </div>

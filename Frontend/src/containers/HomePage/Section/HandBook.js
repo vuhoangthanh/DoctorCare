@@ -3,15 +3,47 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import Slider from "react-slick";
-
-
-
+import { getAllHandBook } from '../../../services/userService'
+import moment from 'moment'
+import { withRouter } from 'react-router';
 
 class HandBook extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            handBook: [],
+        }
+    }
 
+    async componentDidMount() {
+        this.handleCallData();
+    }
 
+    handleCallData = async () => {
+        let response = await getAllHandBook({
+            page: '',
+            size: '',
+            filterTitle: '',
+            filterSpecialty: ''
+        })
+
+        if (response && response.error === null) {
+            this.setState({
+                handBook: response.data.result,
+            })
+        }
+
+    }
+
+    handleViewDetailHandBook = (handbook) => {
+        console.log("helf", handbook)
+        if (this.props.history) {
+            this.props.history.push(`/detail-handbook/${handbook.id}`)
+        }
+    }
     render() {
-
+        let { handBook } = this.state;
+        console.log("hel", this.state.handBook)
         return (
             <>
                 <div className="curve-handbook">
@@ -19,37 +51,58 @@ class HandBook extends Component {
                 <div className="section-share section-handbook">
                     <div className="section-container">
                         <div className="section-header">
-                            <span className="title-section">Cẩm nang <span className="highlight">phổ biến</span></span>
+                            <span className="title-section"><span className="highlight">Cẩm nang</span> sức khỏe - Kiến thức hữu ích cho cuộc sống </span>
+
+                            <span className="extra-info handbook">Cẩm nang sức khỏe cung cấp những thông tin hữu ích giúp bạn chăm sóc sức khỏe toàn diện, từ phòng ngừa bệnh tật đến duy trì lối sống lành mạnh. Với nội dung chính xác, dễ hiểu và thiết thực, chúng tôi mang đến cho bạn những kiến thức cần thiết để bảo vệ sức khỏe cho bản thân và gia đình.
+
+                            </span>
                         </div>
                         <div className="section-body">
-                            <Slider {...this.props.settings}>
-                                <div className="section-customize">
-                                    <div className="bg-image section-handbook"></div>
-                                    <div>Cẩm nang 1</div>
-                                </div>
-                                <div className="section-customize">
-                                    <div className="bg-image section-handbook"></div>
-                                    <div>Cẩm nang 2</div>
-                                </div>
-                                <div className="section-customize">
-                                    <div className="bg-image section-handbook"></div>
-                                    <div>Cẩm nang 3</div>
-                                </div>
-                                <div className="section-customize">
-                                    <div className="bg-image section-handbook"></div>
-                                    <div>Cẩm nang 4</div>
-                                </div>
-                                <div className="section-customize">
-                                    <div className="bg-image section-handbook"></div>
-                                    <div>Cẩm nang 5</div>
-                                </div>
-                                <div className="section-customize">
-                                    <div className="bg-image section-handbook"></div>
-                                    <div>Cẩm nang 6</div>
-                                </div>
-                            </Slider>
+                            <div className="row">
+                                {handBook && handBook.length > 0 && (
+                                    <>
+                                        <div className="col-md-7 mb-4 ">
+                                            <div className="card" onClick={() => this.handleViewDetailHandBook(handBook[0])}>
+                                                <div
+                                                    className="card-img-top first"
+                                                    style={{ backgroundImage: `url(${handBook[0].thumbnail})` }}
+                                                ></div>
+                                                <div className="card-body">
+                                                    <span className="name-specialty">{handBook[0].specialtyData.name}</span>
+                                                    <h5 className="card-title">{handBook[0].title}</h5>
+                                                    <span className="author"><span>Ngày đăng:</span> {moment(handBook[0].createdAt).format('DD/MM/YYYY - HH:mm:ss')} <br /><span>Tác giả:</span> {handBook[0].createdBy}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div className="col-md-5 d-flex flex-column ">
+                                            {handBook.slice(1, 3).map((item) => (
+                                                <div key={item.id} className="mb-3 parent-handbook" onClick={() => this.handleViewDetailHandBook(item)}>
+                                                    <div className="card  handbook-right">
+                                                        <div className="card-body">
+                                                            <span className="name-specialty">{item.specialtyData.name}</span>
+                                                            <h5 className="card-title h6">{item.title}</h5>
+                                                            <span className="author"><span>Ngày đăng:</span> {moment(item.createdAt).format('DD/MM/YYYY - HH:mm:ss')} <br /><span>Tác giả:</span> {item.createdBy}</span>
+                                                        </div>
+                                                        <div
+                                                            className="card-img-top second"
+                                                            style={{ backgroundImage: `url(${item.thumbnail})` }}
+                                                        >
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+
+
+
+                                    </>
+                                )}
+                            </div>
                             <div className="btn-more">
-                                <Link className="custom-link" to={`/all-doctor`}>
+                                <Link className="custom-link" to={`/handbook`}>
                                     <button className="btn-section"><FormattedMessage id="home-page.more-information" /><i className="fas fa-long-arrow-alt-right"></i></button>
                                 </Link>
                             </div>
@@ -73,4 +126,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HandBook);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HandBook));

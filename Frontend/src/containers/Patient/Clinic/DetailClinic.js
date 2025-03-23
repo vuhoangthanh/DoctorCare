@@ -74,7 +74,8 @@ class DetailClinic extends Component {
                         {dataDetailClinic && !_.isEmpty(dataDetailClinic)
                             &&
                             <span>{dataDetailClinic.name}</span>
-                        }</div>
+                        }
+                    </div>
                 </div>
                 <div className="detail-clinic-body">
                     <div className="description-clinic">

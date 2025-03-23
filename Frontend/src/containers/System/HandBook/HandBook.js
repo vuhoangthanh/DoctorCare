@@ -9,18 +9,18 @@ import ModalAddHandBook from './ModalAddHandBook'
 import { emitter } from '../../../utils/emitter';
 import { toast } from "react-toastify";
 import ModalEditHandBook from './HandleEditHandBook'
+import Pagination from '../Pagination/Pagination';
 
 class HandBook extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: '',
-            specialty: '',
 
             page: 1,
-            size: 12,
+            size: 5,
             filterTitle: '',
             filterSpecialty: '',
+            pageCount: '',
 
             handBooks: [],
             handBookEdit: {},
@@ -38,6 +38,14 @@ class HandBook extends Component {
 
     }
 
+    handleOnChangeInput = (event, id) => {
+        let stateCopy = { ...this.state }
+        stateCopy[id] = event.target.value;
+        this.setState({
+            ...stateCopy
+        })
+    }
+
     handleGetAllHandBook = async () => {
         let response = await getAllHandBook({
             page: this.state.page,
@@ -48,7 +56,8 @@ class HandBook extends Component {
 
         if (response && response.error === null) {
             this.setState({
-                handBooks: response.data.result
+                handBooks: response.data.result,
+                pageCount: response.data && response.data.meta ? response.data.meta.pages : ''
             })
         }
     }
@@ -117,12 +126,31 @@ class HandBook extends Component {
             console.log(e)
         }
     }
+    handlePageClick = async (event) => {
+        this.setState({
+            page: +event.selected + 1
+        }, () => {
+            this.handleGetAllHandBook();
+        }
+        )
 
+    };
+    handleSearch = () => {
+        this.handleGetAllHandBook();
+    }
+    handleRefreshFilter = () => {
+        this.setState({
+            filterSpecialty: '',
+            filterTitle: ''
 
+        }, () => {
+            this.handleGetAllHandBook();
+        })
+    }
     render() {
         let { language } = this.props;
-        let { handBooks } = this.state;
-        console.log('fss', handBooks)
+        let { handBooks, pageCount } = this.state;
+        console.log('fss', this.state)
         return (
             <>
                 <ModalAddHandBook
@@ -140,7 +168,27 @@ class HandBook extends Component {
                     <div className="mh-title"><FormattedMessage id="admin.hand-book.title-all" /></div>
                     <div className="container">
                         <div className="row line-search">
+                            <div className="col-4">
+                                <span>Chuyên khoa: </span>
+                                <input type="text" placeholder="Nhập dữ liệu"
+                                    value={this.state.filterSpecialty}
+                                    onChange={(event) => this.handleOnChangeInput(event, 'filterSpecialty')} />
+                            </div>
+                            <div className="col-4">
+                                <span>Tiêu để: </span>
+                                <input type="text" placeholder="Nhập dữ liệu"
+                                    value={this.state.filterTitle}
+                                    onChange={(event) => this.handleOnChangeInput(event, 'filterTitle')} />
+                            </div>
+                            <div className="col-4">
+                                <button className="refresh-search"
+                                    onClick={() => this.handleRefreshFilter()}>Làm lại
+                                </button>
+                                <button
+                                    onClick={() => this.handleSearch()}>Tìm kiếm
+                                </button>
 
+                            </div>
                         </div>
                         <div className="row table-handbook">
                             <div className="col-6">
@@ -202,6 +250,10 @@ class HandBook extends Component {
                                     </tbody>
                                 </table>
                             </div>
+                            <Pagination
+                                pageCount={pageCount}
+                                handlePageClick={this.handlePageClick} // Không cần arrow function
+                            />
                         </div>
                     </div>
                 </div >

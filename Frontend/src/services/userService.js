@@ -139,6 +139,12 @@ const deleteHandBook = (data) => {
 const putHandBook = (data) => {
     return axios.put(`/api/v1/handbooks`, data)
 }
+const getHandBookById = (data) => {
+    return axios.get(`/api/v1/handbook-by-id?id=${data.id}`)
+}
+const getHandBookBySpecialty = (data) => {
+    return axios.get(`/api/v1/handbook-by-specialty?id=${data.id}`)
+}
 export {
     handleLoginApi,
     getAllUsers,
@@ -177,5 +183,7 @@ export {
     getAllHandBook,
     postHandBook,
     deleteHandBook,
-    putHandBook
+    putHandBook,
+    getHandBookById,
+    getHandBookBySpecialty
 }
