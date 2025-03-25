@@ -148,7 +148,7 @@ class ManagePatient extends Component {
                                     <thead className="table-light">
                                         <tr>
                                             <th className="first">   <FormattedMessage id="manage-patient.no" /></th>
-                                            <th>   <FormattedMessage id="manage-patient.no" /></th>
+                                            <th>   <FormattedMessage id="manage-patient.time" /></th>
                                             <th>   <FormattedMessage id="manage-patient.name" /></th>
                                             <th>   <FormattedMessage id="manage-patient.address" /></th>
                                             <th>   <FormattedMessage id="manage-patient.gender" /></th>

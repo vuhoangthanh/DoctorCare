@@ -61,7 +61,6 @@ public class ClinicService {
 
     resultPaginationDTO.setResult(listResClinicDTOs);
 
-
         return resultPaginationDTO;
     }
 

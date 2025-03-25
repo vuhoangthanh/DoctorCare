@@ -43,7 +43,6 @@ class HandBook extends Component {
     }
     render() {
         let { handBook } = this.state;
-        console.log("hel", this.state.handBook)
         return (
             <>
                 <div className="curve-handbook">

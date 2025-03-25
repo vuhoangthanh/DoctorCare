@@ -61,7 +61,12 @@
         .handbook-relate {
             padding: 20px 0;
 
-            .title-relate {}
+            .title-relate {
+                font-size     : 18px;
+                font-weight   : 700;
+                font-family   : Mulish, sans-serif;
+                padding-bottom: 15px;
+            }
 
             .list-handbook-relate {
                 display       : flex;

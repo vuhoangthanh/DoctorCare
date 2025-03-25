@@ -40,6 +40,19 @@ public class EmailService {
         emailSender.send(message);
     }
 
+    public void sendCodeForgotPassword(String code, String email) throws Exception {
+        MimeMessage message = emailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+
+        String htmlContent = this.getBodyHTMLEmailCode(code);
+
+        helper.setFrom(userName);
+        helper.setTo(email);
+        helper.setSubject("Xác nhận quên mật khẩu");
+        helper.setText(htmlContent, true);
+        emailSender.send(message);
+    }
+
     public String getBodyHTMLEmail(String email, String name, String time, String doctorName, String address,
             String redirectLink, String language) {
         String result = "";
@@ -162,6 +175,11 @@ public class EmailService {
 
         }
 
+        return result;
+    }
+
+    public String getBodyHTMLEmailCode(String code) {
+        String   result = "<div>Mã xác nhận của bạn là "+code+"</div>";
         return result;
     }
 }

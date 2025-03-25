@@ -10,7 +10,6 @@ class About extends Component {
 
 
     render() {
-
         return (
             <div className="section-share section-about">
                 <div className="section-about-header">

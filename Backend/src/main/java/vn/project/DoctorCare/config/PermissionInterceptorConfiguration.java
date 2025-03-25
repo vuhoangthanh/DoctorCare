@@ -18,6 +18,10 @@ public class PermissionInterceptorConfiguration implements WebMvcConfigurer {
         String[] whiteList = {
                 "/", "/api/v1/auth/login", "/api/v1/auth/refresh", "api/v1/auth/logout",
 
+                //forgot password
+                "/api/v1/forgot-password",
+                "/api/v1/send-code-forgot-password",
+
                 // clinic
                 "/api/v1/clinics", "/api/v1/clinic-by-id",
 
@@ -59,7 +63,6 @@ public class PermissionInterceptorConfiguration implements WebMvcConfigurer {
                 "/api/v1/handbooks",
                 "/api/v1/handbook-by-id",
                 "/api/v1/handbook-by-specialty"
-
 
         };
         registry.addInterceptor(getPermissionInterceptor())

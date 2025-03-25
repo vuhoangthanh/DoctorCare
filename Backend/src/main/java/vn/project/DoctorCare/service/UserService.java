@@ -1,12 +1,15 @@
 package vn.project.DoctorCare.service;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import vn.project.DoctorCare.domain.User;
@@ -20,10 +23,16 @@ import vn.project.DoctorCare.util.constant.Constant;
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final EmailService emailService;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, EmailService emailService, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.emailService = emailService;
+        this.passwordEncoder = passwordEncoder;
     }
+
+    private String code = "";
 
     public ResultPaginationDTO fetchAllUser(Specification<User> spec, Pageable pageable) {
         Page<User> pageUser = this.userRepository.findAll(spec, pageable);
@@ -164,4 +173,42 @@ public class UserService {
         return this.userRepository.save(user);
     }
 
+    public boolean verifyCode(String codeEmail, String codeUser){
+        if(codeEmail.equals(codeUser)){
+            return true;
+        }
+        return false;
+    }
+
+    public User handleSavePassword(String email, String password) {
+        User user = this.handleGetUserByUsername(email);
+
+        user.setPassword(password);
+        this.userRepository.save(user);
+
+        return user;
+    }
+
+    public SecureRandom handleSendEmail(String email) throws Exception {
+        SecureRandom random = new SecureRandom();
+        byte[] bytes = new byte[4];
+        random.nextBytes(bytes);
+        String codeEmail=Base64.getUrlEncoder().withoutPadding().encodeToString(bytes).substring(0, 6);
+        code = codeEmail;
+        this.emailService.sendCodeForgotPassword(codeEmail, email);
+
+        return random;
+    }
+
+    public User handleForgotPassword(String email, String password, String codeUser) {
+
+        if(verifyCode(code, codeUser)){
+
+            String hashPassword = this.passwordEncoder.encode(password);
+            User user = this.handleSavePassword(email, hashPassword);
+
+            return user;
+        }
+        return null;
+    }
 }

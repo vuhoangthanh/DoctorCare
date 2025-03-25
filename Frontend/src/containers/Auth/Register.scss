@@ -1,107 +1,148 @@
 .register-background {
     height         : 100vh;
-    background     : linear-gradient(135deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
     display        : flex;
     justify-content: center;
     align-items    : center;
+    background     : #f5f5f5;
+    font-family    : 'Arial', sans-serif;
 
     .register-container {
-        width           : 600px;
-        border-radius   : 15px;
-        background-color: white;
-        padding-bottom  : 40px;
+        width        : 1000px;
+        background   : white;
+        border-radius: 20px;
+        box-shadow   : 0 10px 25px rgba(0, 0, 0, 0.1);
+        overflow     : hidden;
+        display      : flex;
 
         .register-content {
-            padding: 10px;
+            display: flex;
+            width  : 100%;
+            padding: 0;
 
-            &.account {
-                padding: 0 20px;
+            &.account,
+            &.info {
+                width      : 100%;
+                display    : flex;
+                align-items: center;
+            }
 
-                .next {
-                    display        : flex;
-                    justify-content: space-between;
-                    align-items    : center;
-                    margin-top     : 20px;
+            .login-left {
+                flex           : 1;
+                background     : linear-gradient(135deg, #6a5af9 0%, #8a75ff 100%);
+                color          : white;
+                padding        : 40px;
+                display        : flex;
+                flex-direction : column;
+                justify-content: center;
+                align-items    : center;
+                text-align     : center;
 
+                h2 {
+                    font-size    : 2rem;
+                    margin-bottom: 30px;
+                }
 
-                    .redirect-info {
-                        background-color: #06adef;
-                        border-radius   : 50%;
-                        width           : 60px;
-                        height          : 60px;
-                        display         : flex;
-                        justify-content : center;
-                        align-items     : center;
-                        cursor          : pointer;
-                        margin-right    : 20px;
+                .login-illustration {
+                    max-width: 400px;
 
-                        &:hover {
-                            opacity: 0.8;
-                        }
-
-
-
-                        i {
-                            font-size: 25px;
-                            color    : white;
-                        }
-                    }
-
-                    button {
-                        width           : 200px;
-                        height          : 60px;
-                        background-color: #06adef;
-                        border          : none;
-                        border-radius   : 50px;
-                        font-size       : 18px;
-                        font-weight     : 700;
-                        color           : white;
-
+                    img {
+                        width : 100%;
+                        height: auto;
                     }
                 }
             }
 
-            &.info {
+            .register-right {
+                flex           : 1;
+                padding        : 40px;
+                display        : flex;
+                flex-direction : column;
+                justify-content: center;
+
+                .text-register {
+                    text-align   : center;
+                    color        : #333;
+                    margin-bottom: 30px;
+                    font-size    : 1.5rem;
+                    font-weight  : bold;
+                }
+
+                .register-input {
+                    margin-bottom: 20px;
+
+                    label {
+                        display      : block;
+                        margin-bottom: 8px;
+                        color        : #666;
+                    }
+
+                    input,
+                    select {
+                        width        : 100%;
+                        padding      : 12px;
+                        border       : 1px solid #e0e0e0;
+                        border-radius: 8px;
+                        font-size    : 16px;
+                        transition   : border-color 0.3s ease;
+
+                        &:focus {
+                            outline     : none;
+                            border-color: #6a5af9;
+                        }
+                    }
+                }
+
                 .next {
                     display        : flex;
                     justify-content: space-between;
                     align-items    : center;
                     margin-top     : 20px;
 
-
+                    .redirect-info,
                     .redirect-account {
-                        background-color: #06adef;
+                        background-color: #6a5af9;
                         border-radius   : 50%;
-                        width           : 60px;
-                        height          : 60px;
+                        width           : 50px;
+                        height          : 50px;
                         display         : flex;
                         justify-content : center;
                         align-items     : center;
                         cursor          : pointer;
-                        margin-right    : 20px;
+                        transition      : background 0.3s ease;
 
                         &:hover {
-                            opacity: 0.8;
+                            background-color: darken(#6a5af9, 10%);
                         }
 
-
-
                         i {
-                            font-size: 25px;
                             color    : white;
+                            font-size: 20px;
                         }
                     }
 
+                    .btn-register {
+                        flex-grow    : 1;
+                        margin-left  : 15px;
+                        padding      : 12px;
+                        background   : linear-gradient(135deg, #6a5af9 0%, #8a75ff 100%);
+                        color        : white;
+                        border       : none;
+                        border-radius: 8px;
+                        font-size    : 16px;
+                        font-weight  : bold;
+                        cursor       : pointer;
+                        transition   : background 0.3s ease;
 
-
-
-
-
+                        &:hover {
+                            background: linear-gradient(135deg, #5a4ae0 0%, #7760ff 100%);
+                        }
+                    }
 
                     .text-login {
-                        color: #06adef;
-
-                        cursor: pointer;
+                        color          : #6a5af9;
+                        text-decoration: none;
+                        font-size      : 0.9rem;
+                        transition     : color 0.3s ease;
 
                         &:hover {
                             text-decoration: underline;
@@ -109,50 +150,6 @@
                     }
                 }
             }
-
-
-
-            .text-register {
-                text-align : center;
-                font-weight: 600;
-                font-size  : 24px;
-                padding-top: 10px;
-            }
-
-            .register-input {
-                margin: 7px 0;
-
-                .custom-input-password {
-                    position: relative;
-
-                    i {
-                        position: absolute;
-                        right   : 5px;
-                        top     : 10px;
-                        cursor  : pointer;
-                    }
-                }
-            }
-
-            .btn-register {
-                width        : 100%;
-                margin       : 10px 0;
-                height       : 35px;
-                border-radius: 15px;
-                outline      : none;
-                border       : none;
-                background   : linear-gradient(135deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
-                color        : white;
-                font-size    : 15px;
-            }
-
-            .forgot-password {
-                font-size: 12px;
-            }
-
-
         }
     }
-
-
 }

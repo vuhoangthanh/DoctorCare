@@ -145,6 +145,12 @@ const getHandBookById = (data) => {
 const getHandBookBySpecialty = (data) => {
     return axios.get(`/api/v1/handbook-by-specialty?id=${data.id}`)
 }
+const sendCodeForgotPassword = (data) => {
+    return axios.post(`/api/v1/send-code-forgot-password`, data)
+}
+const postForgotPassword = (data) => {
+    return axios.post(`/api/v1/forgot-password`, data)
+}
 export {
     handleLoginApi,
     getAllUsers,
@@ -185,5 +191,7 @@ export {
     deleteHandBook,
     putHandBook,
     getHandBookById,
-    getHandBookBySpecialty
+    getHandBookBySpecialty,
+    sendCodeForgotPassword,
+    postForgotPassword
 }

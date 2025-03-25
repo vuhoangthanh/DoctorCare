@@ -11,10 +11,30 @@ import * as actions from "../../store/actions";
 
 class HomeHeader extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            reloadKey: 0,
+        };
+    }
+
+    async componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log("before", this.props)
+        console.log("1", prevProps.isLoggedIn)
+        console.log("2", this.props.isLoggedIn)
+        if (prevProps.isLoggedIn !== this.props.isLoggedIn) {
+            console.log("after", this.props)
+            this.setState({
+                reloadKey: this.state.reloadKey + 1,
+            })
+        }
+    }
+
     changeLanguage = (language) => {
         //fire redux event: actions
         this.props.changeLanguageAppRedux(language)
     }
+
     returnToHome = () => {
         if (this.props.history) {
             this.props.history.push(`/home`)
@@ -40,13 +60,12 @@ class HomeHeader extends Component {
     }
     render() {
         let { processLogout, language } = this.props;
-        console.log("hmm", this.props.location.search)
+        console.log("fds1", this.props)
         return (
             <React.Fragment>
                 <div className="home-header-container">
                     <div className="home-header-content">
                         <div className="left-content">
-                            {/* <i className="fas fa-bars"></i> */}
                             <span className="header-logo" onClick={() => this.returnToHome()}>
                                 <svg width="200" height="70" viewBox="0 0 300 80" xmlns="http://www.w3.org/2000/svg">
                                     <text x="10" y="50" fontFamily="Arial, sans-serif" fontSize="40" fontWeight="bold" fill="#36A9E1">Doctors</text>
@@ -81,7 +100,7 @@ class HomeHeader extends Component {
                             </div>
                         </div>
                         <div className="right-content">
-                            <div className="support">{JSON.parse(localStorage.getItem("persist:user")) && JSON.parse(localStorage.getItem("persist:user")).isLoggedIn === "false" ?
+                            <div className="support">{this.props.isLoggedIn === "false" ?
                                 <> <Link to={`/login`} className="link-login-header" >Login </Link>  <button > <Link to={`/register`} className="link-register-header" >Đăng ký  </Link></button></>
                                 :
                                 <><button onClick={() => this.handleLogout()}>LogOut</button></>}

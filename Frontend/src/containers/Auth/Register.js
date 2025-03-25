@@ -1,19 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import Select from 'react-select';
-import moment from 'moment'
-import { FormattedMessage } from 'react-intl';
-import './Register.scss'
 import { Link, withRouter } from 'react-router-dom';
-import { register } from '../../services/userService'
 import { toast } from "react-toastify";
+import { register } from '../../services/userService'
+import './Register.scss'
 
 class Register extends Component {
     constructor(props) {
         super(props);
         this.state = {
             showAccount: false,
-
             firstName: '',
             lastName: '',
             phoneNumber: '',
@@ -23,20 +19,6 @@ class Register extends Component {
             password: ''
         }
     }
-    async componentDidMount() {
-
-    }
-
-
-    async componentDidUpdate(prevProps, prevState, snapshot) {
-
-
-    }
-    redirectAccount = (showAccount) => {
-        this.setState({
-            showAccount: !showAccount
-        })
-    };
 
     onChangeInput = (event, id) => {
         let copyState = { ...this.state }
@@ -44,13 +26,20 @@ class Register extends Component {
         this.setState({
             ...copyState
         })
-        console.log("state", this.state)
     }
+
     handleOnchangeSelect = (event) => {
         this.setState({
             gender: event.target.value
         })
     }
+
+    redirectAccount = (showAccount) => {
+        this.setState({
+            showAccount: !showAccount
+        })
+    };
+
     handleRegister = async () => {
         let response = await register({
             email: this.state.email,
@@ -72,92 +61,76 @@ class Register extends Component {
     }
 
     render() {
-        let { language } = this.props;
         let { password, email, address, phoneNumber, gender, firstName, lastName } = this.state
         return (
             <div className="register-background">
                 <div className="register-container">
-                    <div className="register-content row account" hidden={!this.state.showAccount}>
-                        <div className="col-12 text-register">Register</div>
-                        <div className="col-12 form-group register-input">
-                            <label>Nhập email</label>
-                            <input type="text"
-                                className="form-control"
-                                placeholder="Nhập email"
-                                value={email}
-                                onChange={(event) => { this.onChangeInput(event, 'email') }} />
+                    <div className="register-content">
+                        <div className="login-left">
+                            <h2>Doctores Care – Your Trusted Healthcare Companion.</h2>
+                            <div className="login-illustration">
+                                <img src="/api/placeholder/400/320" alt="Learning Illustration" />
+                            </div>
                         </div>
-                        <div className="col-12 form-group register-input">
-                            <label>Nhập password</label>
-                            <input type="password"
-                                className="form-control"
-                                placeholder="Nhập password"
-                                value={password}
-                                onChange={(event) => { this.onChangeInput(event, 'password') }} />
-                        </div>
-                        <div className="col-12 next">
-                            <span className="redirect-info" onClick={() => this.redirectAccount(this.state.showAccount)}><i class="fas fa-chevron-left"></i></span>
-                            <button className="btn-register" onClick={() => this.handleRegister()}>Đăng ký</button>
-                        </div>
+                        <div className="register-right">
+                            <div className="register-content row account" hidden={!this.state.showAccount}>
+                                <div className="col-12 text-register">Register</div>
+                                <div className="col-12 form-group register-input">
+                                    <label>Email</label>
+                                    <input type="text" placeholder="Enter your email" value={email} onChange={(event) => { this.onChangeInput(event, 'email') }} />
+                                </div>
+                                <div className="col-12 form-group register-input">
+                                    <label>Password</label>
+                                    <input type="password" placeholder="Enter your password" value={password} onChange={(event) => { this.onChangeInput(event, 'password') }} />
+                                </div>
+                                <div className="col-12 next">
+                                    <span className="redirect-info" onClick={() => this.redirectAccount(this.state.showAccount)}>
+                                        <i className="fas fa-chevron-left"></i>
+                                    </span>
+                                    <button className="btn-register" onClick={() => this.handleRegister()}>Register</button>
+                                </div>
+                            </div>
 
-                    </div>
-                    <div className="register-content row info" hidden={this.state.showAccount}>
-                        <div className="col-12 text-register">Register</div>
-                        <div className="col-6 form-group register-input">
-                            <label>Họ</label>
-                            <input type="text"
-                                className="form-control"
-                                placeholder="Nhập họ"
-                                value={lastName}
-                                onChange={(event) => { this.onChangeInput(event, 'lastName') }} />
-                        </div>
+                            <div className="register-content row info" hidden={this.state.showAccount}>
+                                <div className="col-12 text-register">Register</div>
+                                <div className="col-6 form-group register-input">
+                                    <label>Last Name</label>
+                                    <input type="text" placeholder="Enter last name" value={lastName} onChange={(event) => { this.onChangeInput(event, 'lastName') }} />
+                                </div>
 
-                        <div className="col-6 form-group register-input">
-                            <label>Tên</label>
-                            <input type="text"
-                                className="form-control"
-                                placeholder="Nhập tên"
-                                value={firstName}
-                                onChange={(event) => { this.onChangeInput(event, 'firstName') }} />
-                        </div>
-                        <div className="col-6 form-group register-input">
-                            <label>Số điện thoại</label>
-                            <input type="text"
-                                className="form-control"
-                                placeholder="Nhập số điện thoại"
-                                value={phoneNumber}
-                                onChange={(event) => { this.onChangeInput(event, 'phoneNumber') }} />
-                        </div>
+                                <div className="col-6 form-group register-input">
+                                    <label>First Name</label>
+                                    <input type="text" placeholder="Enter first name" value={firstName} onChange={(event) => { this.onChangeInput(event, 'firstName') }} />
+                                </div>
+                                <div className="col-6 form-group register-input">
+                                    <label>Phone Number</label>
+                                    <input type="text" placeholder="Enter phone number" value={phoneNumber} onChange={(event) => { this.onChangeInput(event, 'phoneNumber') }} />
+                                </div>
 
-                        <div className="col-6 form-group register-input">
-                            <label>Giới tính</label>
-                            <select className="form-control"
-                                onChange={(event) => this.handleOnchangeSelect(event)}>
-                                <option value="M">Nam</option>
-                                <option value="F">Nữ</option>
-                            </select>
+                                <div className="col-6 form-group register-input">
+                                    <label>Gender</label>
+                                    <select value={gender} onChange={(event) => this.handleOnchangeSelect(event)}>
+                                        <option value="M">Male</option>
+                                        <option value="F">Female</option>
+                                    </select>
+                                </div>
+                                <div className="col-12 form-group register-input">
+                                    <label>Address</label>
+                                    <input type="text" placeholder="Enter address" value={address} onChange={(event) => { this.onChangeInput(event, 'address') }} />
+                                </div>
+                                <div className="col-12 next">
+                                    <Link to={`/login`} className="text-login">
+                                        Login
+                                    </Link>
+                                    <span className="redirect-account" onClick={() => this.redirectAccount(this.state.showAccount)}>
+                                        <i className="fas fa-chevron-right"></i>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
-                        <div className="col-12 form-group register-input">
-                            <label>Địa chỉ</label>
-                            <input type="text"
-                                className="form-control"
-                                placeholder="Nhập địa chỉ"
-                                value={address}
-                                onChange={(event) => { this.onChangeInput(event, 'address') }} />
-                        </div>
-                        <div className="col-12 next">
-                            <Link to={`/login`} className="menu-link" >
-                                <span className="text-login">Đăng nhập</span>
-
-                            </Link>
-                            <span className="redirect-account" onClick={() => this.redirectAccount(this.state.showAccount)}>
-                                <i className="fas fa-chevron-right"></i>
-                            </span>
-                        </div>
-
                     </div>
                 </div>
-            </div >
+            </div>
         );
     }
 }
@@ -167,10 +140,4 @@ const mapStateToProps = state => {
         language: state.app.language,
     };
 };
-
-const mapDispatchToProps = dispatch => {
-    return {
-    };
-};
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Register));
+export default withRouter(connect(mapStateToProps)(Register));

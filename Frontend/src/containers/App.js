@@ -22,7 +22,7 @@ import Register from './Auth/Register';
 import AllDoctor from './Patient/Doctor/AllDoctor';
 import HandBook from './Patient/HandBook/HandBook';
 import DetailHandBook from './Patient/HandBook/DetailHandBook'
-
+import ForgotPassword from './Auth/ForgotPassword';
 
 import { CustomToastCloseButton } from '../components/CustomToast';
 import CustomScrollbars from '../components/CustomScrollbars';
@@ -63,6 +63,8 @@ class App extends Component {
                                     <Route path={path.HOME} exact component={(Home)} />
                                     <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
                                     <Route path={path.REGISTER} component={Register} />
+                                    <Route path={path.FORGOT} component={ForgotPassword} />
+
                                     <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
                                     <Route path={path.DOCTOR} component={userIsAuthenticated(Doctor)} />
 

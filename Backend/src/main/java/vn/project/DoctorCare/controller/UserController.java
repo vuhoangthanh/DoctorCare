@@ -9,10 +9,13 @@ import vn.project.DoctorCare.domain.User;
 import vn.project.DoctorCare.domain.response.ResCreateUserDTO;
 import vn.project.DoctorCare.domain.response.ResUpdateUserDTO;
 import vn.project.DoctorCare.domain.response.ResultPaginationDTO;
+import vn.project.DoctorCare.domain.response.user.ResForgotPassword;
+import vn.project.DoctorCare.service.EmailService;
 import vn.project.DoctorCare.service.UserService;
 import vn.project.DoctorCare.util.annotation.ApiMessage;
 import vn.project.DoctorCare.util.error.IdInvalidException;
 
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,17 +33,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
+import java.security.SecureRandom;
 @RestController
 @RequestMapping("/api/v1")
 public class UserController {
 
     private UserService userService;
     private PasswordEncoder passwordEncoder;
+    private EmailService emailService;
 
-    public UserController(UserService userService, PasswordEncoder passwordEncoder) {
+    public UserController(UserService userService, PasswordEncoder passwordEncoder, EmailService emailService) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
+        this.emailService = emailService;
     }
 
     @GetMapping("/users")
@@ -123,5 +128,23 @@ public class UserController {
 
         User user = this.userService.handleRegister(reqUser);
         return ResponseEntity.status(HttpStatus.CREATED).body(this.userService.convertToResCreateUserDTO(user));
+    }
+
+    @PostMapping("/forgot-password")
+    @ApiMessage("forgot password")
+    public ResponseEntity<User> forgotPassWord(@RequestBody ResForgotPassword resForgotPassword){
+
+    User user = this.userService.handleForgotPassword(resForgotPassword.getEmail(), resForgotPassword.getPassword(), resForgotPassword.getCode());
+
+    return ResponseEntity.status(HttpStatus.OK).body(user);
+    }
+
+    @PostMapping("/send-code-forgot-password")
+    @ApiMessage("send code forgot password")
+    public ResponseEntity<SecureRandom> sendCodeForgotPassword(@RequestBody ResForgotPassword resForgotPassword) throws Exception {
+
+        SecureRandom secureRandom = this.userService.handleSendEmail(resForgotPassword.getEmail());
+
+        return ResponseEntity.ok().body(secureRandom);
     }
 }

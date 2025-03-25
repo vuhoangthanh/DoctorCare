@@ -231,7 +231,7 @@ class HandBook extends Component {
                                                             </div>
                                                         </td>
                                                         <td className="col4">{item.specialtyData.name}</td>
-                                                        <td className="col5">{item.createdAt}</td>
+                                                        <td className="col5">{moment(item.createdAt).format('DD/MM/YYYY HH:mm:ss')}</td>
                                                         <td className="col6">{item.createdBy}</td>
                                                         <td className="col7">
                                                             <button
