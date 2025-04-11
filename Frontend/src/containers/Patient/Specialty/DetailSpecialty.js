@@ -12,6 +12,7 @@ import ProfileDoctor from '../Doctor/ProfileDoctor';
 import { getDetailSpecialty, getAllCodeService } from '../../../services/userService'
 import _ from 'lodash';
 import { LANGUAGES } from '../../../utils';
+import Footer from '../../HomePage/Footer';
 
 class DetailSpecialty extends Component {
     constructor(props) {
@@ -186,6 +187,7 @@ class DetailSpecialty extends Component {
                         })
                     }
                 </div>
+                <Footer />
             </div >
         );
     }

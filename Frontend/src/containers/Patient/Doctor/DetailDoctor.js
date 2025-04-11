@@ -8,6 +8,7 @@ import DoctorSchedule from './DoctorSchedule';
 import DoctorExtraInfo from './DoctorExtraInfo';
 import LikeAndShare from '../SocialPlugin/LikeAndShare'
 import Comment from '../SocialPlugin/Comment'
+import Footer from '../../HomePage/Footer';
 
 class DetailDoctor extends Component {
     constructor(props) {
@@ -105,6 +106,7 @@ class DetailDoctor extends Component {
                         />
                     </div>
                 </div >
+
             </>
         );
     }

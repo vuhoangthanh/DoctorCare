@@ -8,6 +8,8 @@ import { Link, withRouter } from 'react-router-dom';
 import { sendCodeForgotPassword, postForgotPassword } from '../../services/userService'
 import { toast } from "react-toastify";
 import LoadingOverlay from 'react-loading-overlay';
+import logo from '../../assets/images/login_image.png';
+import HomeHeader from '../HomePage/HomeHeader';
 
 class ForgotPassword extends Component {
     constructor(props) {
@@ -107,17 +109,18 @@ class ForgotPassword extends Component {
                 active={this.state.isShowLoading}
                 spinner
                 text='Loading...'>
+                <HomeHeader isShowBanner={false} />
                 <div className="login-background">
                     <div className="login-container">
                         <div className="login-content">
                             <div className="login-left">
-                                <h2>Doctores Care – Your Trusted Healthcare Companion.</h2>
+                                <h2>Doctors Care – Your Trusted Healthcare Companion.</h2>
                                 <div className="login-illustration">
-                                    <img src="/api/placeholder/400/320" alt="Learning Illustration" />
+                                    <img src={logo} alt="Learning Illustration" />
                                 </div>
                             </div>
                             <div className="login-right">
-                                <h3>Login</h3>
+                                <h3>Forgot password</h3>
                                 <div className="login-form">
                                     <div className="form-group">
                                         <label>UserName:</label>
@@ -129,7 +132,7 @@ class ForgotPassword extends Component {
                                         />
                                     </div>
                                     <div className="form-group">
-                                        <label>Password:</label>
+                                        <label>New Password:</label>
                                         <div className="password-input">
                                             <input
                                                 type={this.state.isShowPassword ? 'text' : 'password'}

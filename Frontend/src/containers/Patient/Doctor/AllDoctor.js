@@ -14,6 +14,7 @@ import _ from 'lodash';
 import { LANGUAGES } from '../../../utils';
 import Pagination from '../../System/Pagination/Pagination';
 import { injectIntl } from "react-intl";
+import Footer from '../../HomePage/Footer';
 
 class AllDoctor extends Component {
     constructor(props) {
@@ -206,6 +207,7 @@ class AllDoctor extends Component {
                         "Không tìm thấy bác sĩ nào"
                     }
                 </div>
+                <Footer />
             </div >
         );
     }

@@ -10,6 +10,9 @@ import _ from 'lodash';
 
 import { getAllSpecialty } from '../../../services/userService';
 import Pagination from '../../System/Pagination/Pagination';
+
+import Footer from '../../HomePage/Footer';
+
 class Specialty extends Component {
     constructor(props) {
         super(props);
@@ -161,6 +164,7 @@ class Specialty extends Component {
                     </div>
 
                 </div >
+                <Footer />
             </>
         );
     }

@@ -8,6 +8,7 @@ import { getAllStatistic } from '../../../services/userService'
 import { LANGUAGES } from '../../../utils';
 import NumberFormat from 'react-number-format';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, BarChart, Bar, ResponsiveContainer } from 'recharts';
+import Pagination from '../Pagination/Pagination';
 
 class Dashboard extends Component {
     constructor(props) {
@@ -23,7 +24,12 @@ class Dashboard extends Component {
             monthlyData: [],
             showChart: true,
             revenueData: [],
-            totalRevenueWeek: ''
+            totalRevenueWeek: '',
+
+            page_empty: '',
+            page: '',
+            size: 3,
+            pageCount: 0,
         }
     }
 
@@ -32,6 +38,7 @@ class Dashboard extends Component {
         this.handleBuildDataChart();
         this.handleBuildMonthlyDataChart();
         this.handleBuildRevenueChart();
+        this.handleCallForTable();
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
@@ -43,7 +50,10 @@ class Dashboard extends Component {
     }
 
     getAllStatistic = async () => {
-        let response = await getAllStatistic();
+        let response = await getAllStatistic({
+            page: this.state.page_empty,
+            size: this.state.page_empty
+        });
         // let { statistic } = this.state;
         let { language } = this.props;
         let totalRevenueVi = '', totalRevenueEn = '', totalBookings = '', totalComplete = '', totalCanceled = '';
@@ -70,7 +80,10 @@ class Dashboard extends Component {
         })
     }
     handleBuildDataChart = async () => {
-        let response = await getAllStatistic();
+        let response = await getAllStatistic({
+            page: this.state.page_empty,
+            size: this.state.page_empty
+        });
         let allData = [];
         let statistic = [];
         let data = {};
@@ -96,7 +109,10 @@ class Dashboard extends Component {
     }
 
     handleBuildMonthlyDataChart = async () => {
-        let response = await getAllStatistic();
+        let response = await getAllStatistic({
+            page: this.state.page_empty,
+            size: this.state.page_empty
+        });
         let monthlyData = {};
         let dataByMonth = [];
 
@@ -136,6 +152,7 @@ class Dashboard extends Component {
             showChart: false
         })
     }
+
 
     handleBuildRevenueChart = async () => {
         let { language } = this.props;
@@ -183,12 +200,34 @@ class Dashboard extends Component {
         }
     };
 
+    handleCallForTable = async () => {
+        let response = await getAllStatistic(
+            {
+                page: this.state.page,
+                size: this.state.size
+            }
+        );
+        if (response && response.error === null) {
+            this.setState({
+                statistic: response.data.result,
+                pageCount: response.data.meta.pages
+            })
+        }
+    }
+    handlePageClick = async (event) => {
+        this.setState({
+            page: +event.selected + 1
+        }, () => {
+            this.handleCallForTable();
+        }
+        )
 
+    };
     render() {
         let { language } = this.props;
-        let { totalRevenueVi, totalRevenueEn, totalBookings, totalComplete, totalCanceled, allData, revenueData, totalRevenueWeek } = this.state
+        let { totalRevenueVi, totalRevenueEn, totalBookings, totalComplete, totalCanceled, allData, revenueData, totalRevenueWeek, statistic, pageCount } = this.state
         let data = [{ name: 'Page A', uv: 400, pv: 2400, amt: 2400 }];
-        console.log("revenue", this.state.revenueData)
+        console.log("revenue", statistic)
         const CustomTooltip = ({ active, payload, label }) => {
             if (active && payload && payload.length >= 3) { // Đảm bảo có đủ phần tử trong payload
                 return (
@@ -291,7 +330,6 @@ class Dashboard extends Component {
 
                     </div>
                     <div className="row content-down">
-
                         <div className="col-12 charts">
                             <div className="out-side-left">
                                 <div className="line-btn">
@@ -391,12 +429,51 @@ class Dashboard extends Component {
                                         />
                                     </BarChart>
                                 </ResponsiveContainer>
-
                             </div>
                         </div>
                     </div>
+                    <div className="row content-table">
+                        <div className="col-12">
+                            <table className="table table-bordered table-hover  table-rounded">
+                                <thead className="table-light">
+                                    <tr>
+                                        <th className="first col1"><FormattedMessage id="admin.dashboard.no" /></th>
+                                        <th className="col2"><FormattedMessage id="admin.dashboard.date" /></th>
+                                        <th className="col3"><FormattedMessage id="admin.dashboard.total-bookings" /></th>
+                                        <th className="col4"><FormattedMessage id="admin.dashboard.complete-bookings" /></th>
+                                        <th className="col5"><FormattedMessage id="admin.dashboard.cancelled-bookings" /></th>
+                                        <th className="col6"><FormattedMessage id="admin.dashboard.total-revenue" /></th>
+                                        <th className="col7"><FormattedMessage id="admin.dashboard.created-at" /></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {statistic && statistic.length > 0 ?
+                                        statistic.map((item, index) => {
+                                            return (
+                                                <tr key={index}>
+                                                    <td>{item.id}</td>
+                                                    <td>{moment.unix(+item.date / 1000).format('DD/MM/YYYY')}</td>
+                                                    <td>{item.totalBookings}</td>
+                                                    <td>{item.completedBookings}</td>
+                                                    <td>{item.cancelledBookings}</td>
+                                                    <td>{language === LANGUAGES.VI ? item.revenueVi : item.revenueEn}</td>
+                                                    <td>{moment(item.createdAt).format('DD/MM/YYYY HH:mm:ss')}</td>
+                                                </tr>
+                                            )
+                                        })
+                                        :
+                                        "no data"
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <Pagination
+                            pageCount={pageCount}
+                            handlePageClick={this.handlePageClick} // Không cần arrow function
+                        />
+                    </div>
                 </div>
-            </div >
+            </div>
         );
     }
 }

@@ -8,7 +8,6 @@ import { changeLanguageApp } from '../../store/actions/appActions';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import * as actions from "../../store/actions";
-
 class HomeHeader extends Component {
 
     constructor(props) {
@@ -19,9 +18,6 @@ class HomeHeader extends Component {
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log("before", this.props)
-        console.log("1", prevProps.isLoggedIn)
-        console.log("2", this.props.isLoggedIn)
         if (prevProps.isLoggedIn !== this.props.isLoggedIn) {
             console.log("after", this.props)
             this.setState({
@@ -60,7 +56,7 @@ class HomeHeader extends Component {
     }
     render() {
         let { processLogout, language } = this.props;
-        console.log("fds1", this.props)
+        console.log("fds1", this.props.isLoggedIn)
         return (
             <React.Fragment>
                 <div className="home-header-container">
@@ -76,34 +72,44 @@ class HomeHeader extends Component {
                         <div className="center-content">
                             <div className="child-content">
                                 <div>
-                                    <div><b><FormattedMessage id="home-header.specialty" /></b></div>
-                                    <div className="subs-title"><FormattedMessage id="home-header.search-doctor" /></div>
+                                    <Link to="/specialty" className="url-header">
+                                        <div><b><FormattedMessage id="home-header.specialty" /></b></div>
+                                        <div className="subs-title"><FormattedMessage id="home-header.search-doctor" /></div>
+                                    </Link>
+
                                 </div>
                             </div>
                             <div className="child-content">
                                 <div>
-                                    <div><b><FormattedMessage id="home-header.health-facility" /></b></div>
-                                    <div className="subs-title"><FormattedMessage id="home-header.select-room" /></div>
+                                    <Link to="/clinic" className="url-header">
+                                        <div><b><FormattedMessage id="home-header.health-facility" /></b></div>
+                                        <div className="subs-title"><FormattedMessage id="home-header.select-room" /></div>
+                                    </Link>
                                 </div>
                             </div>
                             <div className="child-content">
                                 <div>
-                                    <div><b><FormattedMessage id="home-header.doctor" /></b></div>
-                                    <div className="subs-title"><FormattedMessage id="home-header.select-doctor" /></div>
+                                    <Link to="/all-doctor" className="url-header">
+                                        <div><b><FormattedMessage id="home-header.doctor" /></b></div>
+                                        <div className="subs-title"><FormattedMessage id="home-header.select-doctor" /></div>
+                                    </Link>
                                 </div>
                             </div>
                             <div className="child-content">
                                 <div>
-                                    <div><b><FormattedMessage id="home-header.fee" /></b></div>
-                                    <div className="subs-title"><FormattedMessage id="home-header.check-health" /></div>
+                                    <Link to="/handbook" className="url-header">
+                                        <div><b><FormattedMessage id="home-header.hand-book" /></b></div>
+                                        <div className="subs-title"><FormattedMessage id="home-header.detail-hand-book" /></div>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
                         <div className="right-content">
-                            <div className="support">{this.props.isLoggedIn === "false" ?
-                                <> <Link to={`/login`} className="link-login-header" >Login </Link>  <button > <Link to={`/register`} className="link-register-header" >Đăng ký  </Link></button></>
+                            <div className="support">{this.props.isLoggedIn ?
+                                <><button onClick={() => this.handleLogout()}>LogOut</button></>
                                 :
-                                <><button onClick={() => this.handleLogout()}>LogOut</button></>}
+                                <> <Link to={`/login`} className="link-login-header" >Login </Link>  <button > <Link to={`/register`} className="link-register-header" >Đăng ký  </Link></button></>
+                            }
                             </div>
                             <div className={language === LANGUAGES.VI ? 'language-vi active' : 'language-vi'}><span onClick={(event) => this.changeLanguage(LANGUAGES.VI)}>VN</span></div>
                             <div className={language === LANGUAGES.EN ? 'language-en active' : 'language-en'}><span onClick={(event) => this.changeLanguage(LANGUAGES.EN)}>EN</span></div>

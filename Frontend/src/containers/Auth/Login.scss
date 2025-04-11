@@ -1,18 +1,22 @@
 .login-background {
-    height         : 100vh;
-    display        : flex;
-    justify-content: center;
-    align-items    : center;
-    background     : #f5f5f5;
-    font-family    : 'Arial', sans-serif;
+    height            : 100vh;
+    display           : flex;
+    justify-content   : center;
+    align-items       : center;
+    // background     : #f5f5f5;
+    background        : white;
+    font-family       : 'Arial', sans-serif;
 
     .login-container {
-        width        : 1000px;
-        background   : white;
-        border-radius: 20px;
-        box-shadow   : 0 10px 25px rgba(0, 0, 0, 0.1);
-        overflow     : hidden;
-        display      : flex;
+        width                     : 1000px;
+        background                : white;
+        border-radius             : 20px;
+        box-shadow                : 0 10px 25px rgba(0, 0, 0, 0.1);
+        overflow                  : hidden;
+        display                   : flex;
+        background                : linear-gradient(135deg, #6a5af9 0%, #8a75ff 100%) !important;
+        border-top-right-radius   : 50px !important;
+        border-bottom-right-radius: 50px !important;
 
         .login-content {
             display: flex;
@@ -50,6 +54,8 @@
                 display        : flex;
                 flex-direction : column;
                 justify-content: center;
+                border-radius  : 50px;
+                background     : white;
 
                 h3 {
                     text-align   : center;

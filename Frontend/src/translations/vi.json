@@ -6,8 +6,8 @@
         "select-room": "Chọn bệnh viện phòng khám",
         "doctor": "Bác sĩ",
         "select-doctor": "Chọn bác sĩ giỏi",
-        "fee": "Gói khám",
-        "check-health": "Khám sức khỏe tổng quát",
+        "hand-book": "Cẩm nang",
+        "detail-hand-book": "Thông tin sức khỏe",
         "support": "Hỗ trợ",
         "welcome": "Xin chào ,"
     },
@@ -164,6 +164,15 @@
             "btn-edit": "Cập nhật",
             "actions": "Hành động",
             "btn-add-outside": "Thêm mới"
+        },
+        "dashboard": {
+            "date": "Ngày",
+            "total-bookings": "Tổng lịch",
+            "complete-bookings": "Tổng lịch hoàn thành",
+            "cancelled-bookings": "Tổng lịch hủy",
+            "total-revenue": "Doanh thu",
+            "created-at": "Ngày tạo",
+            "no": "Stt"
         }
     }
 }

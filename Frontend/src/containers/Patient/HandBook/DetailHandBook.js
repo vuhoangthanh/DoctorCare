@@ -9,6 +9,7 @@ import _ from 'lodash';
 import { getHandBookById, getHandBookBySpecialty } from '../../../services/userService'
 import './DetailHandBook.scss'
 import { withRouter } from 'react-router';
+import Footer from '../../HomePage/Footer';
 
 class DetailHandBook extends Component {
     constructor(props) {
@@ -148,6 +149,7 @@ class DetailHandBook extends Component {
                         </div>
                     </div>
                 </div >
+                <Footer />
             </>
         );
     }

@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import _ from 'lodash';
 import Pagination from '../../System/Pagination/Pagination';
 import { getAllClinic } from '../../../services/userService';
+import Footer from '../../HomePage/Footer';
 
 class Clinic extends Component {
     constructor(props) {
@@ -178,6 +179,7 @@ class Clinic extends Component {
                     </div>
 
                 </div >
+                <Footer />
             </>
         );
     }

@@ -123,8 +123,8 @@ const register = (data) => {
     return axios.post(`/api/v1/register`, data)
 }
 
-const getAllStatistic = () => {
-    return axios.get(`/api/v1/statistics`)
+const getAllStatistic = (data) => {
+    return axios.get(`/api/v1/statistics?page=${data.page}&size=${data.size}`)
 }
 
 const getAllHandBook = (data) => {

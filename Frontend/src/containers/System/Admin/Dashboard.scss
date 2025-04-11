@@ -152,5 +152,88 @@
                 }
             }
         }
+
+        .content-table {
+            padding-top: 30px;
+
+            .table {
+                // border-spacing   : 0;
+                border: 1px solid #dee2e6;
+
+                .col1 {
+                    width: 5%;
+                }
+
+                .col2 {
+                    width: 20%;
+                }
+
+                .col3 {
+                    width: 10%;
+                }
+
+                .col4 {
+                    width: 20%;
+                }
+
+                .col5 {
+                    width: 15%;
+                }
+
+                .col6 {
+                    width: 10%;
+                }
+
+                .col7 {
+                    width: 10%;
+                }
+
+                .first {
+                    text-align: center;
+                }
+
+                .bg-image {
+                    width              : 70px;
+                    height             : 70px;
+                    border             : none;
+                    border-radius      : 50%;
+                    background-position: center center;
+                    background-repeat  : no-repeat;
+                    background-size    : cover;
+                }
+
+                thead {
+
+                    th {
+                        border        : 1px solid #dee2e6 !important;
+                        text-align    : left;
+                        vertical-align: middle;
+                    }
+
+
+                }
+
+
+                tbody {
+                    tr {
+                        background-color: white;
+
+                        &:hover {
+                            background-color: #f0f0f0 !important;
+                        }
+                    }
+
+                    td {
+                        font-size     : 13px;
+                        border        : 1px solid #dee2e6 !important;
+                        text-align    : left;
+                        vertical-align: middle;
+                        padding       : 8px;
+                        font-family   : 'Roboto', sans-serif;
+                    }
+                }
+
+            }
+        }
     }
 }

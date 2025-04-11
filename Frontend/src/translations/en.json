@@ -6,8 +6,8 @@
         "select-room": "Choose hospital clinic",
         "doctor": "Doctor",
         "select-doctor": "Choose a good doctor",
-        "fee": "Checkup package",
-        "check-health": "General health check",
+        "hand-book": "Handbook",
+        "detail-hand-book": "Heath information",
         "support": "Support",
         "welcome": "Welcome ,"
     },
@@ -165,6 +165,15 @@
             "btn-edit": "Update",
             "actions": "Actions",
             "btn-add-outside": "Add new"
+        },
+        "dashboard": {
+            "date": "Date",
+            "total-bookings": "Total bookings",
+            "complete-bookings": "Complete bookings",
+            "cancelled-bookings": "Cancelled bookings",
+            "total-revenue": "Total revenue",
+            "created-at": "Created at",
+            "no": "No"
         }
     }
 }

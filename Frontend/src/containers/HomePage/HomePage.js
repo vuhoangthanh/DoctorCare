@@ -7,6 +7,7 @@ import OutStandingDoctor from './Section/OutStandingDoctor';
 import HandBook from './Section/HandBook';
 import About from './Section/About';
 import HomeFooter from './HomeFooter';
+import Footer from './Footer';
 import './HomePage.scss';
 import CardInfo from './Section/CardInfo';
 
@@ -49,7 +50,7 @@ class HomePage extends Component {
                 <OutStandingDoctor settings={settings} />
                 <HandBook settings={settings} />
                 <About />
-                <HomeFooter />
+                <Footer />
 
 
             </div>

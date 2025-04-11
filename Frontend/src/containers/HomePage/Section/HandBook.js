@@ -41,6 +41,7 @@ class HandBook extends Component {
             this.props.history.push(`/detail-handbook/${handbook.id}`)
         }
     }
+
     render() {
         let { handBook } = this.state;
         return (
@@ -94,9 +95,6 @@ class HandBook extends Component {
                                                 </div>
                                             ))}
                                         </div>
-
-
-
                                     </>
                                 )}
                             </div>

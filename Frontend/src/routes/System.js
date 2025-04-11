@@ -10,6 +10,7 @@ import ManageClinic from '../containers/System/Clinic/ManageClinic';
 import ManagePatient from '../containers/System/Admin/ManagePatient';
 import Dashboard from '../containers/System/Admin/Dashboard';
 import HandBook from '../containers/System/HandBook/HandBook';
+import Footer from '../containers/Header/Footer';
 
 class System extends Component {
     render() {
@@ -36,6 +37,7 @@ class System extends Component {
                         </Switch>
                     </div>
                 </div >
+                <Footer />
             </React.Fragment>
         );
     }

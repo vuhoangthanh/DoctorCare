@@ -11,7 +11,7 @@ import Pagination from '../../System/Pagination/Pagination';
 import Select from 'react-select';
 import * as actions from "../../../store/actions"
 import { withRouter } from 'react-router';
-
+import Footer from '../../HomePage/Footer';
 
 class HandBook extends Component {
     constructor(props) {
@@ -300,7 +300,7 @@ class HandBook extends Component {
                     />
                 </div >
 
-
+                <Footer />
             </>
         );
     }
