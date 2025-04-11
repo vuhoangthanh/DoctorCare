@@ -129,7 +129,7 @@ class HomeHeader extends Component {
                             </div>
                             <div className="btn-register-banner">
                                 <Link to={`/all-doctor`} className="menu-link" >
-                                    <button><i class="fas fa-calendar-alt"></i><span>Đặt lịch ngay</span></button>
+                                    <button><i className="fas fa-calendar-alt"></i><span>Đặt lịch ngay</span></button>
                                 </Link>
 
                             </div>

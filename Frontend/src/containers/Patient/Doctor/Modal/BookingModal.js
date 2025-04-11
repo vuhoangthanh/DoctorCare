@@ -16,6 +16,7 @@ import { LANGUAGES } from '../../../../utils';
 import { postPatientBookAppoint } from '../../../../services/userService'
 import { toast } from "react-toastify";
 import LoadingOverlay from 'react-loading-overlay';
+import { emitter } from '../../../../utils/emitter';
 
 class BookingModal extends Component {
     constructor(props) {
@@ -36,6 +37,7 @@ class BookingModal extends Component {
     }
     async componentDidMount() {
         this.props.fetchGender();
+        this.listenToEmitter();
     }
 
     buildDataGender = (data) => {
@@ -152,15 +154,7 @@ class BookingModal extends Component {
             timeString: timeString,
             doctorName: doctorName
         }, () => {
-            this.setState({
-                fullName: '',
-                phoneNumber: '',
-                email: '',
-                address: '',
-                reason: '',
-                birthday: '',
-
-            })
+            this.listenToEmitter();
         })
         this.setState({
             isShowLoading: false
@@ -172,7 +166,21 @@ class BookingModal extends Component {
             toast.error("Booking a new appointment error!");
         }
     }
-
+    toggle = () => {
+        this.props.toggleFormParent();
+    }
+    listenToEmitter() {
+        emitter.on('EVENT_CLEAR_MODAL_DATA', () => {
+            this.setState({
+                fullName: '',
+                phoneNumber: '',
+                email: '',
+                address: '',
+                reason: '',
+                birthday: '',
+            })
+        })
+    }
     render() {
         let { language, isOpenModal, closeBookingModal, dataTime } = this.props;
         let doctorId = dataTime && !_.isEmpty(dataTime) ? dataTime.doctorId : '';
@@ -215,7 +223,7 @@ class BookingModal extends Component {
                                     ></input>
                                 </div>
                                 <div className="col-6 form-group">
-                                    <label><FormattedMessage id="patient.booking-modal.title" /></label>
+                                    <label><FormattedMessage id="patient.booking-modal.phoneNumber" /></label>
                                     <input className="form-control"
                                         value={this.state.phoneNumber}
                                         onChange={(event) => this.handleOnchangeInput(event, 'phoneNumber')}

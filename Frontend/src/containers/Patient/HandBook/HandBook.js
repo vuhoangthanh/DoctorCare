@@ -257,7 +257,7 @@ class HandBook extends Component {
                                     {handBook.slice(1, 3).map((item) => (
                                         <div key={item.id} className="mb-3 parent-handbook">
                                             <div className="card shadow-sm handbook-right" onClick={() => this.handleOnClickHandBook(item)}>
-                                                <div className="card-body">
+                                                <div className="card-body second">
                                                     <span className="name-specialty">{item.specialtyData.name}</span>
                                                     <h5 className="card-title h6">{item.title}</h5>
                                                     <span className="author"><span>Ngày đăng:</span> {moment(item.createdAt).format('DD/MM/YYYY - HH:mm:ss')} <br /><span>Tác giả:</span> {item.createdBy}</span>
@@ -276,15 +276,15 @@ class HandBook extends Component {
 
                                 <div className="row mt-3">
                                     {handBook.slice(3).map((item) => (
-                                        <div key={item.id} className="col-md-3 mb-3">
-                                            <div className="card shadow-sm" onClick={() => this.handleOnClickHandBook(item)}>
+                                        <div key={item.id} className="col-md-3 mb-3 ">
+                                            <div className="card shadow-sm under" onClick={() => this.handleOnClickHandBook(item)}>
                                                 <div
                                                     className="card-img-top thirst"
                                                     style={{ backgroundImage: `url(${item.thumbnail})` }}
                                                 ></div>
                                                 <div className="card-body">
                                                     <span className="name-specialty">{item.specialtyData.name}</span>
-                                                    <h5 className="card-title">{item.title}</h5>
+                                                    <h5 className="card-title under">{item.title}</h5>
                                                     <span className="author"><span>Ngày đăng:</span> {moment(item.createdAt).format('DD/MM/YYYY - HH:mm:ss')} <br /><span>Tác giả:</span>  {item.createdBy}</span>
                                                 </div>
                                             </div>

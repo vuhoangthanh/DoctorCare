@@ -87,16 +87,29 @@
         &.handbook-right {
             display       : flex;
             flex-direction: row;
-            height        : 250px;
+            height        : 273px;
         }
 
         .card-body {
             font-family: Mulish, sans-serif;
+            width      : 100%;
+
+            &.second {
+                width: 65%;
+            }
+
 
             .card-title {
+                // width      : 100%;
                 font-size  : 21px;
                 font-weight: 700;
                 margin     : 10px 0 15px 0;
+
+                &.under {
+                    font-size    : 18px;
+                    overflow-wrap: break-word;
+                }
+
             }
 
             .name-specialty {
@@ -112,6 +125,10 @@
                 }
             }
         }
+
+        // .under {
+        //     height: 100px;
+        // }
     }
 
     // .parent-handbook {

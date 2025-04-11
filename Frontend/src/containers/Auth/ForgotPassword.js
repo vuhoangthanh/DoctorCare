@@ -114,16 +114,16 @@ class ForgotPassword extends Component {
                     <div className="login-container">
                         <div className="login-content">
                             <div className="login-left">
-                                <h2>Doctors Care – Your Trusted Healthcare Companion.</h2>
+                                <h2><FormattedMessage id={"auth.login.slogan"} /></h2>
                                 <div className="login-illustration">
                                     <img src={logo} alt="Learning Illustration" />
                                 </div>
                             </div>
                             <div className="login-right">
-                                <h3>Forgot password</h3>
+                                <h3><FormattedMessage id={"auth.forgot.forgot"} /></h3>
                                 <div className="login-form">
                                     <div className="form-group">
-                                        <label>UserName:</label>
+                                        <label><FormattedMessage id={"auth.login.email"} /></label>
                                         <input
                                             type="text"
                                             placeholder="Enter your username"
@@ -132,7 +132,7 @@ class ForgotPassword extends Component {
                                         />
                                     </div>
                                     <div className="form-group">
-                                        <label>New Password:</label>
+                                        <label><FormattedMessage id={"auth.forgot.new"} /></label>
                                         <div className="password-input">
                                             <input
                                                 type={this.state.isShowPassword ? 'text' : 'password'}
@@ -146,7 +146,7 @@ class ForgotPassword extends Component {
                                         </div>
                                     </div>
                                     <div className="form-group">
-                                        <label>Repeat Password:</label>
+                                        <label><FormattedMessage id={"auth.forgot.repeat"} /></label>
                                         <div className="password-input">
                                             <input
                                                 type={this.state.isShowPassword ? 'text' : 'password'}
@@ -181,7 +181,7 @@ class ForgotPassword extends Component {
                                                     {this.state.errMessage}
                                                 </div>
                                             )}
-                                            <button className="btn-login" onClick={() => { this.handleChangePassword() }}>Save change</button>
+                                            <button className="btn-login" onClick={() => { this.handleChangePassword() }}><FormattedMessage id={"auth.forgot.save"} /></button>
                                         </div>
                                         :
                                         <>
@@ -190,7 +190,7 @@ class ForgotPassword extends Component {
                                                     {this.state.errMessage}
                                                 </div>
                                             )}
-                                            <button className="btn-login" onClick={() => { this.handleSendEmail() }}>Confirm</button>
+                                            <button className="btn-login" onClick={() => { this.handleSendEmail() }}><FormattedMessage id={"auth.forgot.confirm"} /></button>
                                         </>
                                     }
 
@@ -208,8 +208,8 @@ class ForgotPassword extends Component {
                                 </div> */}
 
                                     <div className="register-link">
-                                        Don't have an account?
-                                        <Link to="/register"> Sign up</Link>
+                                        <FormattedMessage id={"auth.login.nothing"} />
+                                        <Link to="/register"> <FormattedMessage id={"auth.login.sign-up"} /></Link>
                                     </div>
                                 </div>
                             </div>

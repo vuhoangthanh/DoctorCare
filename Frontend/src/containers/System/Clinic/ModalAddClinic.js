@@ -40,7 +40,6 @@ class ModalAddClinic extends Component {
         this.setState({
             ...stateCopy
         })
-        console.log("input", this.state)
 
     }
 
@@ -49,7 +48,6 @@ class ModalAddClinic extends Component {
             descriptionMarkdown: text,
             descriptionHTML: html
         })
-        console.log("editot", this.state)
     }
 
     handleOnChangeImage = async (event) => {

@@ -7,7 +7,7 @@ import './Login.scss';
 import { handleLoginApi } from '../../services/userService';
 import logo from '../../assets/images/login_image.png'
 import HomeHeader from '../HomePage/HomeHeader';
-
+import { FormattedMessage } from 'react-intl';
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -78,16 +78,16 @@ class Login extends Component {
                     <div className="login-container">
                         <div className="login-content">
                             <div className="login-left">
-                                <h2>Doctors Care – Your Trusted Healthcare Companion.</h2>
+                                <h2>  <FormattedMessage id={"auth.login.slogan"} /></h2>
                                 <div className="login-illustration">
                                     <img src={logo} alt="Learning Illustration" />
                                 </div>
                             </div>
                             <div className="login-right">
-                                <h3>Login</h3>
+                                <h3><FormattedMessage id={"auth.login.login"} /></h3>
                                 <div className="login-form">
                                     <div className="form-group">
-                                        <label>UserName:</label>
+                                        <label><FormattedMessage id={"auth.login.email"} /></label>
                                         <input
                                             type="text"
                                             placeholder="Enter your username"
@@ -96,7 +96,7 @@ class Login extends Component {
                                         />
                                     </div>
                                     <div className="form-group">
-                                        <label>Password:</label>
+                                        <label><FormattedMessage id={"auth.login.password"} /></label>
                                         <div className="password-input">
                                             <input
                                                 type={this.state.isShowPassword ? 'text' : 'password'}
@@ -118,13 +118,13 @@ class Login extends Component {
                                     )}
 
                                     <div className="forgot-password">
-                                        <Link to="/forgot-password"><span>Forgot your password?</span></Link>
+                                        <Link to="/forgot-password"><span><FormattedMessage id={"auth.login.forgot"} /></span></Link>
                                     </div>
 
                                     <button className="btn-login" onClick={() => { this.handleLogin() }}>Login</button>
 
                                     <div className="social-login">
-                                        <span>Or Login with:</span>
+                                        <span><FormattedMessage id={"auth.login.or"} /></span>
                                         <div className="social-icons">
                                             <i className="fab fa-google"></i>
                                             <i className="fab fa-facebook-f"></i>
@@ -135,8 +135,8 @@ class Login extends Component {
                                     </div>
 
                                     <div className="register-link">
-                                        Don't have an account?
-                                        <Link to="/register"> Sign up</Link>
+                                        <FormattedMessage id={"auth.login.nothing"} />
+                                        <Link to="/register"> <FormattedMessage id={"auth.login.sign-up"} /></Link>
                                     </div>
                                 </div>
                             </div>

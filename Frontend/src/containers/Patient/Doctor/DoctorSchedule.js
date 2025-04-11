@@ -114,6 +114,11 @@ class DoctorSchedule extends Component {
             isOpenModalBooking: false
         })
     }
+    toggleFormParent = () => {
+        this.setState({
+            isOpenModalBooking: false
+        })
+    }
     render() {
         let { allDays, allAvailableTime, isOpenModalBooking, dataScheduleTimeModal } = this.state;
         let { language } = this.props;
@@ -123,6 +128,7 @@ class DoctorSchedule extends Component {
                     isOpenModal={isOpenModalBooking}
                     closeBookingModal={this.closeBookingModal}
                     dataTime={dataScheduleTimeModal}
+                    toggleFormParent={this.toggleFormParent}
                 />
                 <div className="doctor-schedule-container">
                     <div className="all-schedule">

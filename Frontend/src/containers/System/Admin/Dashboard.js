@@ -28,7 +28,7 @@ class Dashboard extends Component {
 
             page_empty: '',
             page: '',
-            size: 3,
+            size: 9,
             pageCount: 0,
         }
     }
@@ -90,6 +90,7 @@ class Dashboard extends Component {
 
         if (response && response.error === null) {
             statistic = response.data.result;
+            console.log("hello", statistic)
             if (statistic.length > 0) {
                 statistic.map(item => {
                     data = {
@@ -154,6 +155,52 @@ class Dashboard extends Component {
     }
 
 
+    // handleBuildRevenueChart = async () => {
+    //     let { language } = this.props;
+    //     let labelsEn = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
+    //     let labelsVi = ['Th2', 'Th3', 'Th4', 'Th5', 'Th6', 'Th7', 'Cn'];
+    //     let labels = language === LANGUAGES.VI ? labelsVi : labelsEn;
+
+    //     try {
+    //         let response = await getAllStatistic();
+    //         if (response && response.error === null) {
+    //             let today = new Date();
+    //             let startOfWeek = new Date(today.setDate(today.getDate() - today.getDay() + 1));
+    //             let endOfWeek = new Date(startOfWeek);
+    //             endOfWeek.setDate(startOfWeek.getDate() + 6);
+
+    //             let revenueByDay = labels.reduce((acc, day) => ({ ...acc, [day]: { revenueVi: 0, revenueEn: 0 } }), {});
+    //             let totalRevenueVi = 0;
+    //             let totalRevenueEn = 0;
+
+    //             response.data.result.forEach(item => {
+    //                 let itemDate = new Date(Number(item.date));
+    //                 if (itemDate >= startOfWeek && itemDate <= endOfWeek) {
+    //                     let dayName = labels[itemDate.getDay() === 0 ? 6 : itemDate.getDay() - 1];
+    //                     revenueByDay[dayName].revenueVi += item.revenueVi;
+    //                     revenueByDay[dayName].revenueEn += item.revenueEn;
+
+    //                     // Cộng vào tổng doanh thu tuần
+    //                     totalRevenueVi += item.revenueVi;
+    //                     totalRevenueEn += item.revenueEn;
+    //                 }
+    //             });
+
+    //             let formattedData = labels.map(day => ({
+    //                 name: day,
+    //                 revenue: language === LANGUAGES.VI ? revenueByDay[day].revenueVi : revenueByDay[day].revenueEn
+    //             }));
+
+    //             this.setState({
+    //                 revenueData: formattedData,
+    //                 totalRevenueWeek: language === LANGUAGES.VI ? totalRevenueVi : totalRevenueEn // Lưu tổng doanh thu tuần
+    //             });
+    //         }
+    //     } catch (error) {
+    //         console.error("Error fetching revenue data:", error);
+    //     }
+    // };
+
     handleBuildRevenueChart = async () => {
         let { language } = this.props;
         let labelsEn = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
@@ -161,42 +208,92 @@ class Dashboard extends Component {
         let labels = language === LANGUAGES.VI ? labelsVi : labelsEn;
 
         try {
-            let response = await getAllStatistic();
-            if (response && response.error === null) {
-                let today = new Date();
-                let startOfWeek = new Date(today.setDate(today.getDate() - today.getDay() + 1));
-                let endOfWeek = new Date(startOfWeek);
-                endOfWeek.setDate(startOfWeek.getDate() + 6);
+            // Lấy dữ liệu từ API
+            let response = await getAllStatistic({
+                page: this.state.page_empty,
+                size: this.state.page_empty
+            });
 
-                let revenueByDay = labels.reduce((acc, day) => ({ ...acc, [day]: { revenueVi: 0, revenueEn: 0 } }), {});
-                let totalRevenueVi = 0;
-                let totalRevenueEn = 0;
+            if (response && response.error === null && response.data && response.data.result) {
+                // Tính toán ngày bắt đầu và kết thúc của tuần hiện tại
+                const today = new Date();
+                const currentDay = today.getDay(); // 0 = CN, 1 = T2, ... 6 = T7
 
+                // Điều chỉnh để tuần bắt đầu từ thứ 2
+                const mondayOffset = currentDay === 0 ? -6 : 1 - currentDay;
+
+                const monday = new Date(today);
+                monday.setDate(today.getDate() + mondayOffset);
+                monday.setHours(0, 0, 0, 0);
+
+                const sunday = new Date(monday);
+                sunday.setDate(monday.getDate() + 6);
+                sunday.setHours(23, 59, 59, 999);
+
+                console.log("Tuần hiện tại:", monday.toLocaleDateString(), "đến", sunday.toLocaleDateString());
+
+                // Khởi tạo dữ liệu cho từng ngày trong tuần
+                const weekData = {};
+
+                // Khởi tạo dữ liệu 0 cho mỗi ngày trong tuần
+                for (let i = 0; i < 7; i++) {
+                    const day = new Date(monday);
+                    day.setDate(monday.getDate() + i);
+                    const dayIndex = day.getDay() === 0 ? 6 : day.getDay() - 1;
+                    const dayLabel = labels[dayIndex];
+                    weekData[moment(day).format('YYYY-MM-DD')] = {
+                        dayLabel,
+                        revenueVi: 0,
+                        revenueEn: 0
+                    };
+                }
+
+                let totalRevenueWeek = 0;
+
+                // Lọc và tổng hợp dữ liệu cho tuần hiện tại
                 response.data.result.forEach(item => {
-                    let itemDate = new Date(Number(item.date));
-                    if (itemDate >= startOfWeek && itemDate <= endOfWeek) {
-                        let dayName = labels[itemDate.getDay() === 0 ? 6 : itemDate.getDay() - 1];
-                        revenueByDay[dayName].revenueVi += item.revenueVi;
-                        revenueByDay[dayName].revenueEn += item.revenueEn;
+                    const itemDate = new Date(Number(item.date));
 
-                        // Cộng vào tổng doanh thu tuần
-                        totalRevenueVi += item.revenueVi;
-                        totalRevenueEn += item.revenueEn;
+                    // Chuyển về định dạng YYYY-MM-DD để so sánh
+                    const itemDateStr = moment(itemDate).format('YYYY-MM-DD');
+
+                    // Kiểm tra xem ngày này có trong tuần hiện tại không
+                    if (itemDate >= monday && itemDate <= sunday) {
+                        if (weekData[itemDateStr]) {
+                            weekData[itemDateStr].revenueVi += parseFloat(item.revenueVi) || 0;
+                            weekData[itemDateStr].revenueEn += parseFloat(item.revenueEn) || 0;
+
+                            // Cộng vào tổng doanh thu tuần
+                            if (language === LANGUAGES.VI) {
+                                totalRevenueWeek += parseFloat(item.revenueVi) || 0;
+                            } else {
+                                totalRevenueWeek += parseFloat(item.revenueEn) || 0;
+                            }
+                        }
                     }
                 });
 
-                let formattedData = labels.map(day => ({
-                    name: day,
-                    revenue: language === LANGUAGES.VI ? revenueByDay[day].revenueVi : revenueByDay[day].revenueEn
+                console.log("Dữ liệu tuần:", weekData);
+
+                // Chuyển đổi thành mảng dữ liệu cho biểu đồ
+                const formattedData = Object.values(weekData).map(day => ({
+                    name: day.dayLabel,
+                    revenue: language === LANGUAGES.VI ? day.revenueVi : day.revenueEn
                 }));
 
+                console.log("Dữ liệu biểu đồ:", formattedData);
+                console.log("Tổng doanh thu tuần:", totalRevenueWeek);
+
+                // Cập nhật state
                 this.setState({
                     revenueData: formattedData,
-                    totalRevenueWeek: language === LANGUAGES.VI ? totalRevenueVi : totalRevenueEn // Lưu tổng doanh thu tuần
+                    totalRevenueWeek: totalRevenueWeek
                 });
+            } else {
+                console.error("Không nhận được dữ liệu từ API:", response);
             }
         } catch (error) {
-            console.error("Error fetching revenue data:", error);
+            console.error("Lỗi khi lấy dữ liệu doanh thu:", error);
         }
     };
 
@@ -226,6 +323,7 @@ class Dashboard extends Component {
     render() {
         let { language } = this.props;
         let { totalRevenueVi, totalRevenueEn, totalBookings, totalComplete, totalCanceled, allData, revenueData, totalRevenueWeek, statistic, pageCount } = this.state
+        console.log("alldata", allData)
         let data = [{ name: 'Page A', uv: 400, pv: 2400, amt: 2400 }];
         console.log("revenue", statistic)
         const CustomTooltip = ({ active, payload, label }) => {
@@ -299,6 +397,7 @@ class Dashboard extends Component {
 
 
         return (
+
             <div className="dashboard-container">
                 <div className="dashboard-body container">
                     <div className="content-up row">
@@ -408,7 +507,6 @@ class Dashboard extends Component {
                                             thousandSeparator={true}
                                             suffix={language === LANGUAGES.VI ? ' VND' : ' $'}
                                         />
-
                                     </span>
                                 </div>
                                 <ResponsiveContainer width="100%" height={400}>

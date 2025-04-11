@@ -175,5 +175,37 @@
             "created-at": "Created at",
             "no": "No"
         }
+    },
+    "auth": {
+        "login": {
+            "slogan": "Doctors Care – Your Trusted Healthcare Companion.",
+            "email": "Email",
+            "password": "Password",
+            "login": "Login",
+            "forgot": "Forgot your password",
+            "or": "Or Login with:",
+            "nothing": "Don't have an account?",
+            "sign-up": "Sign up"
+        },
+        "forgot": {
+            "forgot": "Forgot password",
+            "new": "New password",
+            "repeat": "Repeat password",
+            "confirm": "Confirm",
+            "save": "Save changes"
+        },
+        "new": {
+            "last-name": "Last Name",
+            "first-name": "First Name",
+            "phone": "Phone Number",
+            "email": "Email",
+            "password": "Password",
+            "gender": "Gender",
+            "address": "Address",
+            "login": "Login",
+            "register": "Register",
+            "input-email": "Nhập email",
+            "input-password": "Nhập password"
+        }
     }
 }

@@ -174,5 +174,37 @@
             "created-at": "Ngày tạo",
             "no": "Stt"
         }
+    },
+    "auth": {
+        "login": {
+            "slogan": "Doctors Care – Người bạn đồng hành chăm sóc sức khỏe đáng tin cậy của bạn",
+            "email": "Email",
+            "password": "Mật khẩu",
+            "login": "Đăng nhập",
+            "forgot": "Quên mật khẩu",
+            "or": "hoặc đăng nhập với:",
+            "nothing": "Chưa có tài khoản?",
+            "sign-up": "Đăng ký"
+        },
+        "forgot": {
+            "forgot": "Quên mật khẩu",
+            "new": "Mật khẩu mới",
+            "repeat": "Nhập lại mật khẩu",
+            "confirm": "Xác nhận",
+            "save": "Lưu thay đổi"
+        },
+        "new": {
+            "last-name": "Họ",
+            "first-name": "Tên",
+            "phone": "Số điện thoại",
+            "email": "Email",
+            "password": "Mật khẩu",
+            "gender": "Giới tính",
+            "address": "Địa chỉ",
+            "login": "Đăng nhập",
+            "register": "Đăng ký",
+            "input-email": "Nhập email",
+            "input-password": "Nhập password"
+        }
     }
 }

@@ -39,10 +39,14 @@
         padding: 30px 100px;
 
         .handbook-main {
-            display        : flex;
-            flex-direction : column;
-            justify-content: flex-start;
-            align-items    : flex-start;
+            display               : flex;
+            flex-direction        : column;
+            justify-content       : flex-start;
+            align-items           : flex-start;
+            // background-color   : red;
+            // padding-right   : 20px;
+            overflow-wrap         : break-word;
+            overflow              : hidden;
 
             .title {
                 display        : flex;
@@ -56,10 +60,18 @@
                 font-size: 12px;
                 margin   : 10px 0 20px 0;
             }
+
+            .content-handbook {
+                width        : 100%;
+                overflow     : hidden;
+                overflow-wrap: break-word;
+
+            }
         }
 
         .handbook-relate {
-            padding: 20px 0;
+            padding            : 20px 0;
+            // background-color: green;
 
             .title-relate {
                 font-size     : 18px;

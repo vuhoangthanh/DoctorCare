@@ -82,7 +82,7 @@ class DetailClinic extends Component {
                         {dataDetailClinic && !_.isEmpty(dataDetailClinic)
                             &&
                             <>
-                                <div>{dataDetailClinic.name}</div>
+                                <div className="clinic-name">{dataDetailClinic.name}</div>
                                 < div className={`content ${this.state.expanded ? "expanded" : ""}`} dangerouslySetInnerHTML={{ __html: dataDetailClinic.descriptionHtml }}>
                                 </div>
                             </>
